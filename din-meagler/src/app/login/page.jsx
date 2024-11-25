@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import Header from '@/components/layout/Header'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const { login } = useAuth()
@@ -17,8 +17,8 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    
-    const success = await login(email, password)
+
+    const success = await login(username, password)
     if (success) {
       router.push('/')
     } else {
@@ -48,12 +48,12 @@ export default function LoginPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Brugernavn</label>
                   <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded-md focus:ring-[#162A41] focus:border-[#162A41]"
                     required
                   />
@@ -77,36 +77,6 @@ export default function LoginPage() {
                 >
                   Log ind
                 </button>
-
-                <div className="relative my-6">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300"></div>
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">Eller log ind med</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-3">
-                  <button
-                    type="button"
-                    className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50"
-                  >
-                    <img src="/google.svg" alt="Google" className="h-5 w-5" />
-                  </button>
-                  <button
-                    type="button"
-                    className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50"
-                  >
-                    <img src="/facebook.svg" alt="Facebook" className="h-5 w-5" />
-                  </button>
-                  <button
-                    type="button"
-                    className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50"
-                  >
-                    <img src="/twitter.svg" alt="Twitter" className="h-5 w-5" />
-                  </button>
-                </div>
 
                 <p className="text-center text-sm text-gray-600 mt-4">
                   Har du ikke en konto?{' '}
