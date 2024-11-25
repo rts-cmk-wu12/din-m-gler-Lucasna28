@@ -9,7 +9,8 @@ export default function Hero() {
     <section 
       className="relative bg-cover bg-center h-[600px]" 
       style={{ 
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'url(/fallback-hero-image.jpg)',
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundColor: !backgroundImage ? '#162A41' : 'transparent',
         backgroundPosition: 'center',
         backgroundSize: 'cover'
       }} 

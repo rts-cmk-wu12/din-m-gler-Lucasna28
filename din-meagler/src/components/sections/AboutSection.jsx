@@ -19,7 +19,7 @@ export default function AboutSection() {
               <div className="absolute inset-0 border-[12px] border-white shadow-lg transform translate-x-4 translate-y-4 z-0" />
               <div className="relative z-10 bg-white p-3 shadow-lg">
                 <Image
-                  src="/placeholder.svg"
+                  src="/images/groupimg.png"
                   alt="Familie med Din Mægler"
                   width={420}
                   height={320}

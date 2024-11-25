@@ -5,7 +5,7 @@ import { Mail, Phone, User } from 'lucide-react'
 
 export default function Header() {
   return (
-    <header className="w-full">
+    <header className="w-full sticky top-0 z-50">
       {/* Top bar */}
       <div className="bg-primary-color01 text-white py-2">
         <div className="container mx-auto px-4 flex justify-between items-center">
