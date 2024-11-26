@@ -3,91 +3,82 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Footer() {
+  const quickLinks = [
+    { href: "/boliger-til-salg", text: "Boliger til salg" },
+    { href: "/maeglere", text: "Mæglere" },
+    { href: "/kontakt", text: "Kontakt os" },
+    { href: "/login", text: "Log ind / bliv bruger" },
+  ];
+
+  const contactInfo = [
+    {
+      icon: "/svg/call.svg",
+      alt: "Ring til os",
+      title: "Ring til os",
+      content: "+45 7070 4000"
+    },
+    {
+      icon: "/svg/paper-plane.svg",
+      alt: "Send en mail",
+      title: "Send en mail",
+      content: "4000@dinmaegler.com"
+    },
+    {
+      icon: "/svg/vector.svg",
+      alt: "Besøg os",
+      title: "Besøg os",
+      content: "Stændertorvet 78, 4000 Roskilde"
+    }
+  ];
+
   return (
-    <footer className="bg-white pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="max-w-sm">
-            <Image 
-              src="/din-maegler-logo.png" 
-              alt="Din Mægler Logo" 
-              width={150} 
-              height={50}
-              className="mb-4"
-            />
-            <p className="text-gray-600 text-sm leading-relaxed">
-              There are many variations of passages of Lorem ipsum available, but the majority have 
-              suffered alteration in some form, by injected humour, or randomised words.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-[#162A41] mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-600 hover:text-[#162A41]">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-600 hover:text-[#162A41]">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-600 hover:text-[#162A41]">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-600 hover:text-[#162A41]">
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-[#162A41] mb-4">Kontakt</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2 text-gray-600">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                <span>info@dinmaegler.com</span>
-              </li>
-              <li className="flex items-center gap-2 text-gray-600">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                </svg>
-                <span>+45 7070 4000</span>
-              </li>
-              <li className="flex items-center gap-2 text-gray-600">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-                <span>Strandvejen 60, 2900 Hellerup</span>
-              </li>
-            </ul>
-          </div>
+    <footer className="gap-4 min-h-[50vh] grid grid-cols-2 grid-rows-3 bg-gray-300">
+  <section className="col-span-2">
+    <Image src="/dinmeagler.svg" alt="Din Mægler" width={500} height={300} />
+    <p className='text-ellipsis w-1/3'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+  </section>
+  <section class="col-start-2 flex flex-col gap-4">
+    <h3 className='text-2xl font-bold'>Quick Links</h3>
+    <ul className='flex flex-col gap-2'>
+      <li><Link href={quickLinks[0].href}>{quickLinks[0].text}</Link></li>
+      <li><Link href={quickLinks[1].href}>{quickLinks[1].text}</Link></li>
+      <li><Link href={quickLinks[2].href}>{quickLinks[2].text}</Link></li>
+      <li><Link href={quickLinks[3].href}>{quickLinks[3].text}</Link></li>
+    </ul>
+  </section>
+  <section className="grid grid-cols-2 bg-white row-start-3 bg-red-500 row-end-4 col-start-1 col-end-3">
+    <div className="col-start-2">
+      <Image src="/svg/dms.svg" alt="DMS" width={200} height={200} className='w-1/2 h-1/2'/>
+    </div>
+  </section>
+  <section className="ml-4 mr-4 mb-4 bg-white row-start-2 row-end-4 col-start-1 col-end-2 shadow-lg">
+    <ul className='flex flex-col justify-between h-full gap-4 container p-8'>
+      <li className='flex'>
+        <Image src="/svg/call.svg" alt="Ring til os" width={24} height={24} className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' />
+        <div className='flex flex-col'>
+          <h4>Ring til os</h4>
+          <p>+45 7070 4000</p>
         </div>
-
-        <div className="pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              Medlem af DMS - Dansk Mægler Sammenslutning
-            </p>
-            <Image 
-              src="/dms-logo.png" 
-              alt="DMS Logo" 
-              width={100} 
-              height={30}
-            />
-          </div>
+      </li>
+      <li className='flex'>
+        <Image src="/svg/paper-plane.svg" alt="Send en mail" width={24} height={24} className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' />
+        <div className='flex flex-col'>
+          <h4>Send en mail</h4>
+          <p>4000@dinmaegler.com</p>
         </div>
-      </div>
-    </footer>
-  )
+      </li>
+      <li className='flex'>
+        <Image src="/svg/vector.svg" alt="Besøg os" width={24} height={24} className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' />
+        <div className='flex flex-col'>
+          <h4>Besøg os</h4>
+          <p>Stændertorvet 78, 4000 Roskilde</p>
+        </div>
+      </li>
+      <p>Din Mægler Roskilde er the shit</p>
+    </ul>
+  </section>
+</footer>
+  );
 }
+
 
