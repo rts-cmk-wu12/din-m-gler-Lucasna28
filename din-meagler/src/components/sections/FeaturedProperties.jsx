@@ -42,7 +42,7 @@ export default function FeaturedProperties() {
         </div>
       </div>
       <Link 
-        href="/properties" 
+        href="/boliger"
         className="flex bg-primary-color01 justify-center mt-8 text-white rounded-md w-28 text-nowrap text-center p-4 mx-auto"
       >
         Se alle boliger

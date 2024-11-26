@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import { motion } from "framer-motion"
 import PropertyCard from "@/components/cards/PropertyCard"
 import { useProperties } from "@/hooks/useProperties"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
@@ -15,12 +16,27 @@ export default function PropertiesPage() {
 
   return (
     <>
-      {/* Hero sektion med titel */}
-      <div className="bg-primary-color01 text-white py-16">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-center">Boliger til salg</h1>
+      <section 
+        className="relative bg-cover  h-[10rem]" 
+        style={{ 
+          backgroundImage: `url('/images/boliger-hero.png')`,
+          backgroundPosition: 'right',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/65 w-full" />
+        <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white">
+          <motion.h1 
+            className="text-4xl md:text-5xl font-bold text-center mb-4 md:mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Boliger til salg
+          </motion.h1>
         </div>
-      </div>
+      </section>
 
       {/* Filtreringssektion */}
       <div className="bg-white py-8">
