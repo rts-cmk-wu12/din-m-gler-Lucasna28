@@ -7,7 +7,7 @@ export default function Hero() {
 
   return (
     <section 
-      className="relative bg-cover bg-center h-[600px]" 
+      className="relative bg-cover bg-center h-[60rem]" 
       style={{ 
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
         backgroundColor: !backgroundImage ? '#162A41' : 'transparent',
@@ -16,10 +16,10 @@ export default function Hero() {
       }} 
       aria-labelledby="hero-heading"
     >
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/65 w-full" />
       <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white">
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-900/65 w-full">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
           </div>
         )}
