@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   const quickLinks = [
-    { href: "/boliger-til-salg", text: "Boliger til salg" },
+    { href: "/boliger", text: "Boliger til salg" },
     { href: "/maeglere", text: "Mæglere" },
     { href: "/kontakt", text: "Kontakt os" },
     { href: "/login", text: "Log ind / bliv bruger" },
@@ -37,7 +37,7 @@ export default function Footer() {
     <Image src="/dinmeagler.svg" alt="Din Mægler" width={500} height={300} />
     <p className='text-ellipsis w-1/3'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
   </section>
-  <section class="col-start-2 flex flex-col gap-4">
+  <section className="col-start-2 flex flex-col gap-4">
     <h3 className='text-2xl font-bold'>Quick Links</h3>
     <ul className='flex flex-col gap-2'>
       <li><Link href={quickLinks[0].href}>{quickLinks[0].text}</Link></li>

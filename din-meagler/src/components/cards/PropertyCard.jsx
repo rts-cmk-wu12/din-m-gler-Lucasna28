@@ -66,7 +66,7 @@ export default function PropertyCard({ property, index }) {
               <span>{property.gross} m²</span>
             </div>
             <div className="font-bold text-primary-color01">
-              Kr. {property.payment.toLocaleString()}
+              Kr. {property.payment}
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchFeaturedProperties } from "@/services/propertyService";
+import { fetchAllProperties } from "@/services/propertyService";
 
 export function useProperties() {
   const [properties, setProperties] = useState([]);
@@ -9,7 +9,7 @@ export function useProperties() {
   useEffect(() => {
     const getProperties = async () => {
       try {
-        const data = await fetchFeaturedProperties();
+        const data = await fetchAllProperties();
         setProperties(data);
       } catch (err) {
         setError("Der skete en fejl ved indlæsning af boliger");
