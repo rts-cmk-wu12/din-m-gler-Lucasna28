@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import PropertyCard from "@/components/cards/PropertyCard"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
 import { fetchFilteredProperties } from "@/services/propertyService"
+import PageHero from '@/components/ui/PageHero'
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState([])
@@ -44,26 +45,11 @@ export default function PropertiesPage() {
 
   return (
     <>
-      <section className="relative bg-cover w-full h-[10rem]" 
-        style={{ 
-          backgroundImage: `url('/images/boliger-hero.png')`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="absolute inset-0 bg-black/65 w-full" />
-        <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white">
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-center mb-4 md:mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Boliger til salg
-          </motion.h1>
-        </div>
-      </section>
+      <PageHero 
+        title="Boliger til salg"
+        backgroundImage="/images/boliger-hero.png"
+      />
+
 
       <div className="bg-white py-8">
         <div className="container mx-auto px-4">

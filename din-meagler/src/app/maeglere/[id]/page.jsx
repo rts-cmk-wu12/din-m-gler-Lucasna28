@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { Instagram, Linkedin, Phone, Mail, MapPin, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
+import PageHero from '@/components/ui/PageHero'
 
 export default function AgentDetailsPage() {
   const { id } = useParams()
@@ -57,21 +58,11 @@ export default function AgentDetailsPage() {
 
   return (
     <>
-      <section className="relative bg-cover w-full h-[10rem]" 
-        style={{ 
-          backgroundImage: `url('/images/boliger-hero.png')`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="absolute inset-0 bg-black/65 w-full" />
-        <div className="relative container mx-auto px-4 h-full flex items-center justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
-            Kontakt en medarbejder
-          </h1>
-        </div>
-      </section>
+      <PageHero 
+        title="Kontakt en medarbejder"
+        backgroundImage="/images/boliger-hero.png"
+      />
+
 
       <section className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col border-r border-gray-200">

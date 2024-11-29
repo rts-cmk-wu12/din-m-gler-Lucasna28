@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { Toast } from '@/components/ui/Toast'
 import dynamic from 'next/dynamic'
+import PageHero from '@/components/ui/PageHero'
 
 const ContactMap = dynamic(() => import('@/components/ui/ContactMap'), {
   ssr: false,
@@ -137,20 +138,11 @@ export default function KontaktPage() {
   }
 
   return (
-    <motion.section initial="initial" animate="animate" exit="exit">
-      <section className="relative bg-cover w-full h-[10rem]" 
-        style={{ 
-          backgroundImage: `url('/images/boliger-hero.png')`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="absolute inset-0 bg-black/65 w-full" />
-        <div className="relative container mx-auto px-4 h-full flex items-center">
-          <h1 className="text-4xl font-bold text-white">Kontakt os</h1>
-        </div>
-      </section>
+    <motion.section initial="initial" animate="animate" exit="exit">  
+      <PageHero
+        title="Kontakt os"
+        backgroundImage="/images/boliger-hero.png"
+      />      
 
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12">

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import TeamCardSkeleton from '@/components/skeletons/TeamCardSkeleton'
+import PageHero from '@/components/ui/PageHero'
 
 export default function AgentsPage() {
   const [agents, setAgents] = useState([])
@@ -29,20 +30,10 @@ export default function AgentsPage() {
 
   if (isLoading) return (
     <>
-      <section className="relative bg-cover w-full h-[20rem]" 
-        style={{ backgroundImage: `url('/images/agents-hero.jpg')` }}
-      >
-        <div className="absolute inset-0 bg-black/65" />
-        <div className="relative container mx-auto px-4 h-full flex items-center justify-center">
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-center text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            Medarbejdere i Roskilde
-          </motion.h1>
-        </div>
-      </section>
+      <PageHero 
+        title="Medarbejdere i Roskilde"
+        backgroundImage="/images/boliger-hero.png"
+      />
 
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
