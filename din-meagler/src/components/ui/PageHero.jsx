@@ -53,7 +53,7 @@ export default function PageHero({
           </Link>
         )}
         <motion.h1 
-          className="text-4xl md:text-5xl font-bold text-white"
+          className="text-4xl md:text-5xl font-bold text-white text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
