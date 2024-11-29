@@ -53,7 +53,7 @@ export function Toast({ message, isVisible, onClose, type = 'success' }) {
     if (isVisible) {
       const timer = setTimeout(() => {
         onClose()
-      }, 5000)
+      }, 2000)
       return () => clearTimeout(timer)
     }
   }, [isVisible, onClose])
@@ -61,13 +61,13 @@ export function Toast({ message, isVisible, onClose, type = 'success' }) {
   const getBackgroundColor = () => {
     switch (type) {
       case 'success':
-        return 'bg-[#162A41]'
+        return 'bg-primary-color01' // #162A41
       case 'error':
-        return 'bg-red-500'
+        return 'bg-primary-red' // #F21515
       case 'info':
-        return 'bg-blue-500'
+        return 'bg-background-bg03' // #25517A
       default:
-        return 'bg-[#162A41]'
+        return 'bg-primary-color01'
     }
   }
 

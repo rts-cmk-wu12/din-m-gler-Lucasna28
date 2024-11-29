@@ -15,6 +15,7 @@ module.exports = {
           color03: "#162A41",
           color04: "#162A41",
           color05: "#FA983A",
+          red: "#F21515",
         },
         heading: {
           head01: "263048",
