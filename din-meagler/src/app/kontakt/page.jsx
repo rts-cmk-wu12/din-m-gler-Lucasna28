@@ -137,123 +137,83 @@ export default function KontaktPage() {
   }
 
   return (
-    <motion.div initial="initial" animate="animate" exit="exit">
-      <section className="relative bg-[#162A41] w-full h-[200px] flex items-center">
-        <div className="container mx-auto px-4">
+    <motion.section initial="initial" animate="animate" exit="exit">
+      <section className="relative bg-cover w-full h-[10rem]" 
+        style={{ 
+          backgroundImage: `url('/images/boliger-hero.png')`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/65 w-full" />
+        <div className="relative container mx-auto px-4 h-full flex items-center">
           <h1 className="text-4xl font-bold text-white">Kontakt os</h1>
         </div>
       </section>
 
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-[#2A2C30] mb-2">
+          <h2 className="text-2xl text-heading-head02 font-bold mb-4">
             Vi sidder klar til at besvare dine spørgsmål
           </h2>
-          <p className="text-[#7C7C7C]">
+          <hr className="border-b-4 border-primary-color01 w-14" />
+          <p className="text-paragraph-para01 w-1/2 mt-6">
             Der kan opstå tvivl om mange ting når man skal i gang med at sælge sin bolig.
             Vores medarbejdere sidder klar alle ugens dage til at svare på dine spørgsmål.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          <motion.div variants={fadeInUp}>
-            <form onSubmit={handleSubmit} noValidate className="space-y-6">
-              <div className="space-y-4">
+        <div className="flex align-middle justify-center gap-12">
+          <motion.form variants={fadeInUp} onSubmit={handleSubmit} className="space-y-4 border-2 w-1/2 border-gray-200 p-8 rounded-lg ">
+
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Navn
-                  </label>
+                  <label className="block text-sm mb-1">Navn</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#162A41] transition-colors"
+                    className="w-full p-2 border rounded"
                     placeholder="Indtast dit navn"
                   />
-                  {touched.name && validateField('name', formData.name) && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-1"
-                    >
-                      {validateField('name', formData.name)}
-                    </motion.p>
-                  )}
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
+                  <label className="block text-sm mb-1">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#162A41] transition-colors"
+                    className="w-full p-2 border rounded"
                     placeholder="Indtast din email"
                   />
-                  {touched.email && validateField('email', formData.email) && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-1"
-                    >
-                      {validateField('email', formData.email)}
-                    </motion.p>
-                  )}
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Emne
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#162A41] transition-colors"
-                    placeholder="Indtast emne"
-                  />
-                  {touched.subject && validateField('subject', formData.subject) && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-1"
-                    >
-                      {validateField('subject', formData.subject)}
-                    </motion.p>
-                  )}
-                </div>
+              <div>
+                <label className="block text-sm mb-1">Emne</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full p-2 border rounded"
+                  placeholder="Indtast emne"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Besked
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    rows={4}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#162A41] transition-colors"
-                    placeholder="Skriv din besked her"
-                  />
-                  {touched.message && validateField('message', formData.message) && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-1"
-                    >
-                      {validateField('message', formData.message)}
-                    </motion.p>
-                  )}
-                </div>
+              <div>
+                <label className="block text-sm mb-1">Besked</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={6}
+                  className="w-full p-2 border rounded"
+                  placeholder="Indtast din besked..."
+                />
               </div>
 
               <div className="flex items-center">
@@ -262,44 +222,60 @@ export default function KontaktPage() {
                   id="newsletter"
                   checked={newsletter}
                   onChange={(e) => setNewsletter(e.target.checked)}
-                  className="h-4 w-4 text-[#162A41] focus:ring-[#162A41] border-gray-300 rounded"
+                  className="h-4 w-4 border-gray-300 rounded"
                 />
                 <label htmlFor="newsletter" className="ml-2 text-sm text-gray-600">
                   Ja tak, jeg vil gerne modtage Din Mæglers nyhedsbrev.
                 </label>
               </div>
 
-              <motion.button
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-[#162A41] text-white py-3 rounded-md font-medium 
-                  ${isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-[#2A4B6F]'} 
-                  transition-colors relative overflow-hidden`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="bg-primary-color01 text-white px-6 py-2 rounded font-medium w-32"
               >
-                {isSubmitting && (
-                  <motion.div
-                    className="absolute inset-0 bg-[#2A4B6F]"
-                    initial={{ width: '0%' }}
-                    animate={{ width: '100%' }}
-                    transition={{ duration: 1.5 }}
-                  />
-                )}
-                <span className="relative z-10">
-                  {isSubmitting ? 'Sender...' : 'Send besked'}
-                </span>
-              </motion.button>
-            </form>
+                {isSubmitting ? 'Sender...' : 'Send besked'}
+              </button>
+          </motion.form>
+
+          <motion.div variants={fadeInUp} className="space-y-8 border-2 w-1/3 border-gray-200 p-4 rounded-lg">
+            <div className="flex flex-col items-center text-center justify-between">
+              <div className="bg-primary-color01 p-3 rounded-full">
+                <Phone className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Ring til os</h3>
+                <p className="text-gray-600">+45 7070 4000</p>
+              </div>
+            </div>
+            <hr className="border-t-2 border-shape-shape01" />
+            <div className="flex flex-col items-center text-center justify-between">
+              <div className="bg-primary-color01 p-3 rounded-full">
+                <Mail className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Send en mail</h3>
+                <p className="text-gray-600">4000@dinmaegler.dk</p>
+              </div>
+            </div>
+            <hr className="border-t-2 border-shape-shape01" />
+
+            <div className="flex flex-col items-center text-center justify-between">
+              <div className="bg-primary-color01 p-3 rounded-full">
+                <MapPin className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Besøg butikken</h3>
+                <p className="text-gray-600">
+                  Stændertorvet 78,<br />
+                  4000 Roskilde
+                </p>
+              </div>
+            </div>
           </motion.div>
-
-
         </div>
 
-        <motion.div 
-          variants={fadeInUp}
-          className="mt-12 h-[40rem] rounded-lg overflow-hidden"
-        >
+        <motion.div variants={fadeInUp} className="mt-12">
           <ContactMap />
         </motion.div>
       </div>
@@ -315,6 +291,6 @@ export default function KontaktPage() {
           />
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
