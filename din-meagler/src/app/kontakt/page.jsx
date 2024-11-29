@@ -17,6 +17,12 @@ const fadeInUp = {
   exit: { opacity: 0, y: 20 }
 }
 
+// Hjælpefunktion til at generere et tilfældigt ID
+const generateUniqueId = () => {
+  return Math.random().toString(36).substring(2, 15) + 
+         Math.random().toString(36).substring(2, 15);
+}
+
 export default function KontaktPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -27,11 +33,16 @@ export default function KontaktPage() {
   const [touched, setTouched] = useState({})
   const [newsletter, setNewsletter] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [toast, setToast] = useState({
-    visible: false,
-    message: '',
-    type: 'success'
-  })
+  const [toasts, setToasts] = useState([])
+
+  const addToast = (message, type = 'success') => {
+    const id = generateUniqueId()
+    setToasts(prev => [...prev, { id, message, type }])
+  }
+
+  const removeToast = (id) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
 
   const validateField = (name, value) => {
     switch (name) {
@@ -73,7 +84,6 @@ export default function KontaktPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    // Valider alle felter
     const errors = Object.keys(formData).map(key => ({
       field: key,
       error: validateField(key, formData[key])
@@ -83,11 +93,7 @@ export default function KontaktPage() {
 
     if (hasErrors) {
       setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
-      setToast({
-        visible: true,
-        message: 'Udfyld venligst alle felter korrekt',
-        type: 'error'
-      })
+      addToast('Udfyld venligst alle felter korrekt', 'error')
       return
     }
 
@@ -97,29 +103,34 @@ export default function KontaktPage() {
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       if (newsletter) {
-        await fetch('https://dinmaegler.onrender.com/subscribers', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: formData.email })
-        })
+        try {
+          const response = await fetch('https://dinmaegler.onrender.com/subscribers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: formData.email })
+          })
+
+          if (!response.ok) {
+            if (response.status === 500) {
+              addToast('Du er allerede tilmeldt vores nyhedsbrev', 'info')
+              setNewsletter(false)
+            } else {
+              throw new Error('Der opstod en fejl ved tilmelding til nyhedsbrev')
+            }
+          }
+        } catch (newsletterError) {
+          console.error('Nyhedsbrev fejl:', newsletterError)
+        }
       }
       
-      setToast({
-        visible: true,
-        message: 'Tak for din henvendelse! Vi vender tilbage hurtigst muligt.',
-        type: 'success'
-      })
+      addToast('Tak for din henvendelse! Vi vender tilbage hurtigst muligt.', 'success')
       
       setFormData({ name: '', email: '', subject: '', message: '' })
       setNewsletter(false)
       setTouched({})
       
     } catch (error) {
-      setToast({
-        visible: true,
-        message: 'Der opstod en fejl. Prøv venligst igen senere.',
-        type: 'error'
-      })
+      addToast('Der opstod en fejl. Prøv venligst igen senere.', 'error')
     } finally {
       setIsSubmitting(false)
     }
@@ -293,12 +304,17 @@ export default function KontaktPage() {
         </motion.div>
       </div>
 
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.visible}
-        onClose={() => setToast(prev => ({ ...prev, visible: false }))}
-      />
+      <div className="fixed bottom-4 right-4 z-50 space-y-2">
+        {toasts.map(toast => (
+          <Toast
+            key={toast.id}
+            message={toast.message}
+            type={toast.type}
+            isVisible={true}
+            onClose={() => removeToast(toast.id)}
+          />
+        ))}
+      </div>
     </motion.div>
   )
 }

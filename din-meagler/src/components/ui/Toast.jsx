@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import { CheckCircle, XCircle, X } from 'lucide-react'
+import { CheckCircle, XCircle, X, Info } from 'lucide-react'
 
 const toastVariants = {
   initial: { 
@@ -58,39 +58,54 @@ export function Toast({ message, isVisible, onClose, type = 'success' }) {
     }
   }, [isVisible, onClose])
 
+  const getBackgroundColor = () => {
+    switch (type) {
+      case 'success':
+        return 'bg-[#162A41]'
+      case 'error':
+        return 'bg-red-500'
+      case 'info':
+        return 'bg-blue-500'
+      default:
+        return 'bg-[#162A41]'
+    }
+  }
+
+  const getIcon = () => {
+    switch (type) {
+      case 'success':
+        return <CheckCircle className="h-5 w-5 flex-shrink-0" />
+      case 'error':
+        return <XCircle className="h-5 w-5 flex-shrink-0" />
+      case 'info':
+        return <Info className="h-5 w-5 flex-shrink-0" />
+      default:
+        return <CheckCircle className="h-5 w-5 flex-shrink-0" />
+    }
+  }
+
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          variants={toastVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="fixed bottom-4 right-4 z-50"
-        >
-          <div className={`rounded-lg px-6 py-4 shadow-lg flex items-center space-x-3 ${
-            type === 'success' ? 'bg-[#162A41]' : 'bg-red-500'
-          } text-white min-w-[300px]`}>
-            <motion.div variants={iconVariants}>
-              {type === 'success' ? (
-                <CheckCircle className="h-5 w-5 flex-shrink-0" />
-              ) : (
-                <XCircle className="h-5 w-5 flex-shrink-0" />
-              )}
-            </motion.div>
-            <span className="flex-1">{message}</span>
-            <motion.button 
-              onClick={onClose}
-              className="p-1 hover:bg-white/20 rounded-full transition-colors"
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <X className="h-4 w-4" />
-            </motion.button>
-          </div>
+    <motion.div
+      variants={toastVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <div className={`rounded-lg px-6 py-4 shadow-lg flex items-center space-x-3 ${getBackgroundColor()} text-white min-w-[300px]`}>
+        <motion.div variants={iconVariants}>
+          {getIcon()}
         </motion.div>
-      )}
-    </AnimatePresence>
+        <span className="flex-1">{message}</span>
+        <motion.button 
+          onClick={onClose}
+          className="p-1 hover:bg-white/20 rounded-full transition-colors"
+          whileHover={{ scale: 1.1, rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <X className="h-4 w-4" />
+        </motion.button>
+      </div>
+    </motion.div>
   )
 }
 
