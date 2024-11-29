@@ -43,7 +43,7 @@ const iconVariants = {
     transition: {
       type: "spring",
       stiffness: 500,
-      delay: 0.2
+      delay: 0.4
     }
   }
 }

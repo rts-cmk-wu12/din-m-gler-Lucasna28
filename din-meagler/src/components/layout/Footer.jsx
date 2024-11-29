@@ -8,6 +8,7 @@ export default function Footer() {
     { href: "/maeglere", text: "Mæglere" },
     { href: "/kontakt", text: "Kontakt os" },
     { href: "/login", text: "Log ind / bliv bruger" },
+    { href: "/afmeld-nyhedsbrev", text: "Afmeld nyhedsbrev" },
   ];
 
   const contactInfo = [
