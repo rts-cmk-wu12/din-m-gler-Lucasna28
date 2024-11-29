@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Loader2 } from 'lucide-react'
-import Toast from '@/components/ui/Toast'
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('')
@@ -165,14 +164,6 @@ export default function NewsletterSection() {
           </motion.form>
         </div>
       </motion.div>
-
-      {showToast && (
-        <Toast 
-          type={toastMessage.type}
-          message={toastMessage.message}
-          onClose={() => setShowToast(false)}
-        />
-      )}
     </section>
   )
 } 
