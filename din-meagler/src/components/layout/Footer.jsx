@@ -52,7 +52,7 @@ export default function Footer() {
         </ul>
       </section>
 
-      <section className="grid grid-cols-2 row-start-3 bg-red-500 row-end-4 col-start-1 col-end-3 w-full">
+      <section className="grid grid-cols-2 row-start-3 row-end-4 col-start-1 col-end-3 w-full">
         <div className="col-start-2">
           <Image src="/svg/dms.svg" alt="DMS" width={200} height={200} className='w-full h-full'/>
         </div>

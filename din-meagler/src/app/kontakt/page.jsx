@@ -165,7 +165,7 @@ export default function KontaktPage() {
         </div>
 
         <div className="flex align-middle justify-center gap-12">
-          <motion.form variants={fadeInUp} onSubmit={handleSubmit} className="space-y-4 border-2 w-1/2 border-gray-200 p-8 rounded-lg ">
+          <motion.form variants={fadeInUp} onSubmit={handleSubmit} className="space-y-4 border-2 w-1/2 border-shape-shape01 p-8 rounded-lg" noValidate>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -175,9 +175,19 @@ export default function KontaktPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full p-2 border rounded"
+                    onBlur={handleBlur}
+                    className={`w-full p-2 border rounded ${
+                      touched.name 
+                        ? validateField('name', formData.name) 
+                          ? 'border-red-500' 
+                          : 'border-green-500'
+                        : 'border-gray-300'
+                    }`}
                     placeholder="Indtast dit navn"
                   />
+                  {touched.name && validateField('name', formData.name) && (
+                    <p className="text-red-500 text-sm mt-1">{validateField('name', formData.name)}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm mb-1">Email</label>
@@ -186,9 +196,19 @@ export default function KontaktPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full p-2 border rounded"
+                    onBlur={handleBlur}
+                    className={`w-full p-2 border rounded ${
+                      touched.email 
+                        ? validateField('email', formData.email) 
+                          ? 'border-red-500' 
+                          : 'border-green-500'
+                        : 'border-gray-300'
+                    }`}
                     placeholder="Indtast din email"
                   />
+                  {touched.email && validateField('email', formData.email) && (
+                    <p className="text-red-500 text-sm mt-1">{validateField('email', formData.email)}</p>
+                  )}
                 </div>
               </div>
 
@@ -199,9 +219,19 @@ export default function KontaktPage() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full p-2 border rounded"
+                  onBlur={handleBlur}
+                  className={`w-full p-2 border rounded ${
+                    touched.subject 
+                      ? validateField('subject', formData.subject) 
+                        ? 'border-red-500' 
+                        : 'border-green-500'
+                      : 'border-gray-300'
+                  }`}
                   placeholder="Indtast emne"
                 />
+                {touched.subject && validateField('subject', formData.subject) && (
+                  <p className="text-red-500 text-sm mt-1">{validateField('subject', formData.subject)}</p>
+                )}
               </div>
 
               <div>
@@ -210,10 +240,20 @@ export default function KontaktPage() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   rows={6}
-                  className="w-full p-2 border rounded"
+                  className={`w-full p-2 border rounded ${
+                    touched.message 
+                      ? validateField('message', formData.message) 
+                        ? 'border-red-500' 
+                        : 'border-green-500'
+                      : 'border-gray-300'
+                  }`}
                   placeholder="Indtast din besked..."
                 />
+                {touched.message && validateField('message', formData.message) && (
+                  <p className="text-red-500 text-sm mt-1">{validateField('message', formData.message)}</p>
+                )}
               </div>
 
               <div className="flex items-center">
