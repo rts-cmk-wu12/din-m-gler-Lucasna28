@@ -2,217 +2,179 @@
 
 import { useProperty } from '@/hooks/useProperties'
 import { useParams } from 'next/navigation'
-import Image from "next/image"
-import { ImageIcon, LayersIcon, MapPinIcon, HeartIcon, Phone, Mail, Instagram, Linkedin, Globe, Loader2 } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image'
+import { Loader2 } from 'lucide-react'
+import dynamic from 'next/dynamic'
+import ImageGallery from '@/components/ImageGallery'
 
-// Tilføj PlaceholderImage komponent
-function PlaceholderImage({ className }) {
-  return (
-    <div className={`bg-gray-200 flex items-center justify-center ${className}`}>
-      <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
-    </div>
-  )
-}
+// Dynamisk import af MapComponent for at undgå SSR problemer
+const MapComponent = dynamic(() => import('@/components/MapComponent'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[500px] bg-gray-100 animate-pulse rounded-lg" />
+})
 
 export default function PropertyListing() {
   const { id } = useParams()
   const { property, isLoading, error } = useProperty(id)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const [activeCategory, setActiveCategory] = useState('exterior') // 'exterior' | 'floorplan'
+  const [activeView, setActiveView] = useState('exterior') // 'exterior', 'floorplan', eller 'map'
   
-  // Opdel billeder i kategorier
-  const exteriorImages = property?.images?.filter(img => !img.url.includes('floorplan')) || []
-  const floorplanImages = property?.images?.filter(img => img.url.includes('floorplan')) || []
+  const exteriorImages = property?.images?.map(img => ({
+    url: img.url,
+    alt: 'Boligbillede'
+  })) || []
   
-  console.log('Eksteriør billeder:', exteriorImages)
-  console.log('Plantegninger:', floorplanImages)
+  const floorplanImages = property?.floorplan ? [{
+    url: property.floorplan.url,
+    alt: 'Plantegning'
+  }] : []
+  
+  if (isLoading) return <Loader2 className="w-5 h-5 animate-spin" />
+  if (error) return <div className="container mx-auto px-4 py-8">Fejl: {error}</div>
+  if (!property) return <div className="container mx-auto px-4 py-8">Boligen blev ikke fundet.</div>
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8 flex justify-center items-center min-h-screen">
-        <PlaceholderImage className="w-20 h-20" />
-      </div>
-    )
-  }
-
-  if (error) {
-    return <div className="container mx-auto px-4 py-8">Fejl: {error}</div>
-  }
-
-  if (!property) {
-    return <div className="container mx-auto px-4 py-8">Boligen blev ikke fundet.</div>
-  }
-
-  // Vælg den aktive billedsamling baseret på kategori
-  const activeImages = activeCategory === 'exterior' ? exteriorImages : floorplanImages
+  const activeImages = activeView === 'exterior' ? exteriorImages : floorplanImages
+  const currentImage = activeImages[activeImageIndex]
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Hero Image Slideshow */}
-      <div className="relative w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden mb-8">
-        {activeImages[activeImageIndex]?.url ? (
-          <Image
-            src={activeImages[activeImageIndex].url}
-            alt={`${property.type} ${activeCategory === 'exterior' ? 'billede' : 'plantegning'} ${activeImageIndex + 1}`}
-            fill
-            className="object-cover"
+    <section className="container mx-auto px-4 py-8">
+      {/* Hero Section - Viser enten billede, plantegning eller kort */}
+      <div className="relative w-full h-[500px] mb-6 rounded-lg overflow-hidden">
+        {activeView === 'map' ? (
+          <MapComponent 
+            position={[property.lat, property.long]}
           />
         ) : (
-          <PlaceholderImage className="w-full h-full" />
-        )}
-        
-        {/* Slideshow Navigation */}
-        {activeImages.length > 1 && (
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-            {activeImages.map((_, index) => (
-              <button
-                key={index}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === activeImageIndex ? 'bg-white' : 'bg-white/50'
-                }`}
-                onClick={() => setActiveImageIndex(index)}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Previous/Next Buttons */}
-        {activeImages.length > 1 && (
-          <>
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/75 transition-colors"
-              onClick={() => setActiveImageIndex((prev) => (prev === 0 ? activeImages.length - 1 : prev - 1))}
-            >
-              ←
-            </button>
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/75 transition-colors"
-              onClick={() => setActiveImageIndex((prev) => (prev === activeImages.length - 1 ? 0 : prev + 1))}
-            >
-              →
-            </button>
-          </>
+          <ImageGallery property={property} />
         )}
       </div>
 
       {/* Property Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div className="flex justify-between items-start mb-6">
         <div>
+          
           <h1 className="text-2xl font-semibold">{property.adress1}</h1>
-          <p className="text-muted-foreground">{property.zipcode} {property.city}</p>
+          <p className="text-lg">{property.city}</p>
         </div>
-        <div className="text-3xl font-bold mt-4 md:mt-0">Kr. {property.price?.toLocaleString()}</div>
-      </div>
-
-      {/* Category Selection Icons */}
-      <div className="flex justify-center gap-8 mb-8">
-        <button
-          className={`p-2 hover:bg-accent rounded-full transition-colors flex flex-col items-center gap-2 ${
-            activeCategory === 'exterior' ? 'bg-accent' : ''
-          }`}
+              {/* Image Controls */}
+      <div className="flex gap-4 justify-end mb-8">
+        <button 
           onClick={() => {
-            setActiveCategory('exterior')
+            setActiveView('exterior')
             setActiveImageIndex(0)
           }}
+          aria-label="Vis billeder"
         >
-          <ImageIcon className="w-6 h-6" />
-          <span className="text-sm">Billeder ({exteriorImages.length})</span>
+          <Image src="/svg/images.svg" alt="" width={24} height={24} />
+          <span>Billeder ({exteriorImages.length})</span>
         </button>
-        <button
-          className={`p-2 hover:bg-accent rounded-full transition-colors flex flex-col items-center gap-2 ${
-            activeCategory === 'floorplan' ? 'bg-accent' : ''
-          }`}
+        <button 
           onClick={() => {
-            setActiveCategory('floorplan')
+            setActiveView('floorplan')
             setActiveImageIndex(0)
           }}
+          aria-label="Vis plantegninger"
         >
-          <LayersIcon className="w-6 h-6" />
-          <span className="text-sm">Plantegninger ({floorplanImages.length})</span>
+          <Image src="/svg/plan.svg" alt="" width={24} height={24} />
+          <span>Plantegning {floorplanImages.length ? '(1)' : '(0)'}</span>
+        </button>
+        <button 
+          onClick={() => setActiveView('map')}
+
+          aria-label="Vis på kort"
+        >
+          <Image src="/svg/location.svg" alt="" width={24} height={24} />
+        </button>
+        <button aria-label="Tilføj til favoritter">
+          <Image src="/svg/heart.svg" alt="" width={24} height={24} />
         </button>
       </div>
+        <div className="text-right">
+          <p className="text-2xl font-semibold">Kr. {property.price?.toLocaleString()}</p>
+        </div>
 
-      {/* Property Details Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <DetailItem label="Sagsnummer" value={property.id?.toString() || '-'} />
+      </div>
+
+
+
+      {/* Property Details */}
+      <div className="grid grid-cols-3 gap-x-16 gap-y-4 mb-12">
+        <DetailItem label="Sagsnummer" value={property.id} />
         <DetailItem label="Kælder" value={property.basement ? `${property.basement} m²` : '-'} />
-        <DetailItem label="Udbetaling" value={`Kr. ${Math.round((property.price || 0) * 0.05).toLocaleString()}`} />
-        <DetailItem label="Boligareal" value={property.gross ? `${property.gross} m²` : '-'} />
-        <DetailItem label="Byggeår" value={property.built?.toString() || '-'} />
-        <DetailItem label="Brutto ex ejerudgift" value={property.payment ? `Kr. ${property.payment.toLocaleString()}` : '-'} />
-        <DetailItem label="Grundareal" value={property.ground ? `${property.ground} m²` : '-'} />
+        <DetailItem label="Udbetaling" value={`Kr. ${Math.round(property.price * 0.05).toLocaleString()}`} />
+        <DetailItem label="Boligareal" value={`${property.livingspace} m²`} />
+        <DetailItem label="Byggeår" value={property.built || '-'} />
+        <DetailItem label="Brutto ex. ejerudgift" value={`Kr. ${property.payment?.toLocaleString()}`} />
+        <DetailItem label="Grundareal" value={`${property.lotsize} m²`} />
         <DetailItem label="Ombygget" value={property.remodel || '-'} />
-        <DetailItem label="Netto ex ejerudgift" value={property.net ? `Kr. ${property.net.toLocaleString()}` : '-'} />
-        <DetailItem label="Rum/værelser" value={property.rooms?.toString() || '-'} />
-        <DetailItem label="Energimærke" value={property.energylabel || '-'} />
-        <DetailItem label="Ejerudgifter" value={property.cost ? `Kr. ${property.cost.toLocaleString()}` : '-'} />
-        <DetailItem label="Antal Plan" value={property.floors?.toString() || '-'} />
+        <DetailItem label="Netto ex. ejerudgift" value={`Kr. ${property.net?.toLocaleString()}`} />
+        <DetailItem label="Rum/værelser" value={property.rooms} />
+        <DetailItem label="Energimærke" value={property.energylabel} />
+        <DetailItem label="Ejerudgifter" value={`Kr. ${property.cost?.toLocaleString()}`} />
+        <DetailItem label="Antal plan" value={property.floors} />
       </div>
 
       {/* Description Section */}
-      <div className="mb-8">
+      <section className="mb-12">
         <h2 className="text-xl font-semibold mb-4">Beskrivelse</h2>
-        <p className="text-muted-foreground">{property.description}</p>
-      </div>
+        <div className="prose max-w-none">
+          {property.description}
+        </div>
+      </section>
 
       {/* Agent Section */}
-      <div className="bg-white rounded-lg shadow-md">
-        <div className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Ansvarig mægler</h2>
-          <div className="flex flex-col md:flex-row gap-6 items-start">
-            <div className="relative w-48 h-48 rounded-lg overflow-hidden">
-              {property.agent?.image ? (
-                <Image
-                  src={property.agent.image}
-                  alt={property.agent?.name || 'Ejendomsmægler'}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <PlaceholderImage className="w-full h-full" />
-              )}
-            </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold">{property.agent?.name || 'Ejendomsmægler'}</h3>
-              <p className="text-muted-foreground mb-4">{property.agent?.title || 'Ejendomsmægler'}</p>
-              
-              <div className="space-y-2">
-                <button className="w-full flex items-center justify-start gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors">
-                  <Phone className="w-4 h-4" />
-                  {property.agent?.phone || '-'}
-                </button>
-                <button className="w-full flex items-center justify-start gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors">
-                  <Mail className="w-4 h-4" />
-                  {property.agent?.email || '-'}
-                </button>
-              </div>
-
-              <div className="flex gap-2 mt-4">
-                <button className="p-2 border rounded-md hover:bg-gray-50 transition-colors">
-                  <Instagram className="w-4 h-4" />
-                </button>
-                <button className="p-2 border rounded-md hover:bg-gray-50 transition-colors">
-                  <Linkedin className="w-4 h-4" />
-                </button>
-                <button className="p-2 border rounded-md hover:bg-gray-50 transition-colors">
-                  <Globe className="w-4 h-4" />
-                </button>
-              </div>
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Ansvarlig mægler</h2>
+        <div className="flex gap-6">
+          <div className="relative w-48 h-48">
+            <Image
+              src={property.agent?.image.url || '/placeholder-agent.jpg'}
+              alt={property.agent?.name || 'Ejendomsmægler'}
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold">{property.agent?.name}</h3>
+            <p className="text-gray-600 mb-4">{property.agent?.title}</p>
+            <p className="mb-2">
+              <a href={`tel:${property.agent?.phone}`} className="text-blue-600">
+                {property.agent?.phone}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${property.agent?.email}`} className="text-blue-600">
+                {property.agent?.email}
+              </a>
+            </p>
+            <div className="flex gap-4 mt-4">
+              <SocialLink href={property.agent?.instagram} icon="instagram" />
+              <SocialLink href={property.agent?.linkedin} icon="linkedin" />
+              <SocialLink href={property.agent?.skype} icon="skype" />
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }
 
 function DetailItem({ label, value }) {
   return (
-    <div className="space-y-1">
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="font-medium">{value}</p>
+    <div className="flex justify-between">
+      <span className="text-gray-600">{label}:</span>
+      <span>{value}</span>
     </div>
+  )
+}
+
+function SocialLink({ href, icon }) {
+  if (!href) return null
+  return (
+    <a href={href} aria-label={`Besøg ${icon}`}>
+      <Image src={`/icons/${icon}.svg`} alt="" width={24} height={24} />
+    </a>
   )
 }
 

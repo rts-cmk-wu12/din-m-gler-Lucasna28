@@ -1,7 +1,22 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
-  }
+    },
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "moduleResolution": "node",
+    "target": "es2015",
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "eslint",
+      "json-schema",
+      "estree"
+    ]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

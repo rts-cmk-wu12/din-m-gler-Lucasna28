@@ -13,11 +13,11 @@ export default function RootLayout({ children }) {
     <html lang="da">
       <body>
         <AuthProvider>
-            <Header />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
+          <Header />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
         </AuthProvider>
       </body>
     </html>

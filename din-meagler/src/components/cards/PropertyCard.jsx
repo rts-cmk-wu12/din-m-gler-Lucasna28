@@ -78,12 +78,12 @@ export default function PropertyCard({ property, index }) {
           <div className="flex items-center gap-2 mb-2">
             <span className="font-semibold">{property.adress1}</span>
             <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-            <span className="text-gray-600">{property.city}</span>
+            <span className="text-gray-600"> {property.city}</span>
           </div>
           
           {/* Postnummer og by */}
           <p className="text-gray-600 mb-4">
-            {property.zipcode} {property.city}
+            {property.postalcode} {property.city}
           </p>
           
           {/* Boligtype og ejerudgift */}
