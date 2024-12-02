@@ -10,15 +10,11 @@ export default function PageHero({
   height = 'h-[10rem]'
 }) {
   const getPageTitle = () => {
-    // Fjern eventuelle query parametre og split på '/'
+    if (typeof window === 'undefined') return title || 'Din Mægler'
+
     const path = window.location.pathname.split('?')[0].split('/')
-    // Få sidste segment af URL'en
     const lastSegment = path[path.length - 1]
     
-    // Hvis der er givet en titel, brug den
-    if (title) return title
-    
-    // Ellers map URL segmentet til en titel
     const titleMap = {
       'kontakt': 'Kontakt os',
       'maeglere': 'Mæglere',
@@ -27,8 +23,8 @@ export default function PageHero({
       'register': 'Opret bruger',
       'afmeld-nyhedsbrev': 'Afmeld nyhedsbrev'
     }
-    
-    return titleMap[lastSegment] || 'Din Mægler'
+
+    return title || titleMap[lastSegment] || 'Din Mægler'
   }
 
   return (
@@ -63,4 +59,4 @@ export default function PageHero({
       </div>
     </section>
   )
-} 
+}

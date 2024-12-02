@@ -5,7 +5,6 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { motion } from 'framer-motion'
 
-// Custom icon configuration
 const customIcon = L.icon({
   iconUrl: '/images/marker-icon.png',
   iconRetinaUrl: '/images/marker-icon-2x.png',
@@ -105,4 +104,4 @@ export default function ContactMap() {
       }}
     />
   )
-} 
+}
