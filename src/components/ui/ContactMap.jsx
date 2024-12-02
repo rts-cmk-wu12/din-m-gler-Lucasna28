@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { motion } from 'framer-motion';
 
 const customIcon = L.icon({
   iconUrl: '/images/marker-icon.png',
@@ -14,16 +14,21 @@ const customIcon = L.icon({
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
   shadowAnchor: [12, 41]
-})
+});
 
 export default function ContactMap() {
-  const mapRef = useRef(null)
-  const markerRef = useRef(null)
+  const [isMounted, setIsMounted] = useState(false);
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !mapRef.current) {
-      const center = [55.641732180526754, 12.075974316097844]
-      
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      const center = [55.641732180526754, 12.075974316097844];
+
       mapRef.current = L.map('contact-map', {
         center: center,
         zoom: 13,
@@ -34,12 +39,12 @@ export default function ContactMap() {
         zoomAnimation: true,
         zoomAnimationThreshold: 1.5,
         zoomAnimationEasing: L.Util.EASE_IN_OUT
-      })
+      });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
-      }).addTo(mapRef.current)
+      }).addTo(mapRef.current);
 
       markerRef.current = L.marker(center, { icon: customIcon })
         .addTo(mapRef.current)
@@ -57,40 +62,42 @@ export default function ContactMap() {
           autoPan: false,
           closeOnClick: false
         })
-        .openPopup()
+        .openPopup();
 
       L.control.zoom({
         position: 'bottomright',
         zoomInText: '+',
         zoomOutText: '-'
-      }).addTo(mapRef.current)
+      }).addTo(mapRef.current);
 
       L.control.scale({
         imperial: false,
         position: 'bottomright',
         maxWidth: 100
-      }).addTo(mapRef.current)
+      }).addTo(mapRef.current);
 
-      const markerElement = markerRef.current.getElement()
-      const markerIcon = markerElement.querySelector('img')
+      const markerElement = markerRef.current.getElement();
+      const markerIcon = markerElement.querySelector('img');
       if (markerIcon) {
-        markerIcon.style.transition = 'transform 0.2s'
+        markerIcon.style.transition = 'transform 0.2s';
         markerElement.addEventListener('mouseenter', () => {
-          markerIcon.style.transform = 'scale(1.2)'
-        })
+          markerIcon.style.transform = 'scale(1.2)';
+        });
         markerElement.addEventListener('mouseleave', () => {
-          markerIcon.style.transform = 'scale(1)'
-        })
+          markerIcon.style.transform = 'scale(1)';
+        });
       }
     }
 
     return () => {
       if (mapRef.current) {
-        mapRef.current.remove()
-        mapRef.current = null
+        mapRef.current.remove();
+        mapRef.current = null;
       }
-    }
-  }, [])
+    };
+  }, [isMounted]);
+
+  if (!isMounted) return null; // Return null before client-side mounting
 
   return (
     <motion.div 
@@ -103,5 +110,5 @@ export default function ContactMap() {
         ease: "easeOut"
       }}
     />
-  )
+  );
 }

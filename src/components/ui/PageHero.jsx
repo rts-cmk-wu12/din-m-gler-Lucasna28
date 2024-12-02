@@ -14,6 +14,7 @@ export default function PageHero({
   const [pageTitle, setPageTitle] = useState(title || 'Din Mægler')
 
   useEffect(() => {
+    // Denne kode køres kun på client-side
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.split('?')[0].split('/')
       const lastSegment = path[path.length - 1]
