@@ -40,12 +40,12 @@ export default function AboutSection() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <h2 className="text-3xl font-bold text-heading-head01">
+            <h2 className="text-3xl font-bold text-primary-color01">
               Vi har fulgt danskerne hjem<br />i snart 4 artier
             </h2>
             
-            <p className="text-paragraph-para02">
-              Det synes vi siger noget om os!
+            <p className="text-primary-color01 font-medium text-xl">
+            Det synes vi siger noget om os!
             </p>
             
             <p className="text-paragraph-para02">
@@ -77,32 +77,36 @@ export default function AboutSection() {
           </motion.div>
       </div>            
       <hr className="my-8" />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-            <div className="flex">
-                <img src="/property1.svg" className="bg-shape-shape02 p-4"/>
-                <div className="flex-col space-x-4">
-                <h3 className="font-semibold text-heading-head02">Bestil et salgstjek</h3>
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            <li className="space-y-2 flex">
+                <img src="/property1.svg" className="bg-shape-shape02 p-4 size-16 mr-4"/>
+                <div className="flex flex-col w-48 h-full">
 
-                <p className="text-sm text-paragraph-para02">
+                <h3 className="font-semibold text-lg text-heading-head02">Bestil et salgstjek</h3>
+                <p className="text-base text-paragraph-para02 my-4">
                   Med et Din Mægler Salgstjek bliver du opdateret på værdien af din bolig.
                 </p>
                 </div>
-            </div>
-            <div className="space-y-2">
-                <img src="/maps-and-flags1.svg" className="bg-shape-shape02 p-4"/> 
-                <h3 className="font-semibold text-heading-head02">74 butikker</h3>
-                <p className="text-sm text-paragraph-para02">
-                  Hos Din Mægler er din bolig til salg i alle vores 74 butikker, som er fordelt rundt om i Danmark.
-                </p>
-            </div>
-            <div className="space-y-2">
-                <img src="/customer1.svg" className="bg-shape-shape02 p-4"/> 
-                <h3 className="font-semibold text-heading-head02">Tilmeld køberkartotek</h3>
-                <p className="text-sm text-paragraph-para02">
-                  Når du er tilmeldt vores køberkartotek, bliver du kontaktet inden en ny bolig bliver annonceret.
-                </p>
-              </div>
-            </div>
+            </li>
+            <li className="space-y-2 flex">
+                <img src="/maps-and-flags1.svg" className="bg-shape-shape02 p-4 size-16 mr-4"/>
+                <div className="flex flex-col w-48 h-full"> 
+                  <h3 className="font-semibold text-lg text-heading-head02">74 butikker</h3>
+                  <p className="text-base text-paragraph-para02 my-4">
+                    Hos Din Mægler er din bolig til salg i alle vores 74 butikker, som er fordelt rundt om i Danmark.
+                  </p>
+                </div>
+            </li>
+            <li className="space-y-2 flex">
+                <img src="/customer1.svg" className="bg-shape-shape02 p-4 size-16 mr-4"/> 
+                <div className="flex flex-col w-48 h-full">
+                  <h3 className="font-semibold text-heading-head02">Tilmeld køberkartotek</h3>
+                  <p className="text-base text-paragraph-para02 my-4">
+                    Når du er tilmeldt vores køberkartotek, bliver du kontaktet inden en ny bolig bliver annonceret.
+                  </p>
+                </div>
+              </li>
+            </ul>
         </div>
     </section>
   )
