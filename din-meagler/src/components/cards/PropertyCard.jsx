@@ -1,67 +1,52 @@
-import Image from "next/image"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { useHeroImage } from "@/hooks/useHeroImage"
-
-const getEnergyLabelColor = (label) => {
-  const colors = {
-    'A': 'bg-energylabel-A text-white',
-    'B': 'bg-energylabel-B text-white',
-    'C': 'bg-energylabel-C text-white',
-    'D': 'bg-energylabel-D text-gray-800',
-    'E': 'bg-energylabel-E text-gray-800',
-    'F': 'bg-energylabel-F text-white',
-    'G': 'bg-energylabel-G text-white',
-  }
-  return colors[label] || 'bg-gray-200 text-gray-800'
-}
-
-export function BoligerHero() {
-  const { backgroundImage, isLoading, error } = useHeroImage()
-
-  return (
-    <section 
-      className="relative bg-cover bg-center h-[40rem]" 
-      style={{ 
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
-        backgroundColor: !backgroundImage ? '#162A41' : 'transparent',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover'
-      }} 
-      aria-labelledby="boliger-hero-heading"
-    >
-      <div className="absolute inset-0 bg-black/65 w-full" />
-      <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white">
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900/65 w-full">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
-          </div>
-        )}
-        
-        <motion.h1 
-          id="boliger-hero-heading"
-          className="text-4xl md:text-5xl font-bold text-center mb-4 md:mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Boliger til salg
-        </motion.h1>
-        
-        {error && <p className="text-red-500">{error}</p>}
-      </div>
-    </section>
-  )
-}
+import { useState } from "react";
+import { Heart } from "lucide-react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function PropertyCard({ property, index }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const getEnergyLabelColor = (label) => {
+    const colors = {
+      'A': 'bg-energylabel-A text-white',
+      'B': 'bg-energylabel-B text-white',
+      'C': 'bg-energylabel-C text-white',
+      'D': 'bg-energylabel-D text-gray-800',
+      'E': 'bg-energylabel-E text-gray-800',
+      'F': 'bg-energylabel-F text-white',
+      'G': 'bg-energylabel-G text-white',
+    }
+    return colors[label] || 'bg-gray-200 text-gray-800'
+  }
+
+  const toggleFavorite = () => {
+    setIsFavorite((prev) => !prev);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 relative"
     >
+      {/* Hjertet */}
+      <button
+  onClick={toggleFavorite}
+  className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
+  aria-label="Toggle favorite"
+>
+  <Heart
+    className={`w-6 h-6 ${
+      isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800"
+    }`}
+  />
+</button>
+
+
+
+
       <Link href={`/bolig/${property.id}`}>
         <div className="relative h-[300px] overflow-hidden group">
           <Image
@@ -111,5 +96,5 @@ export default function PropertyCard({ property, index }) {
         </div>
       </Link>
     </motion.div>
-  )
-} 
+  );
+}
