@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+  .text-border {
+    -webkit-text-stroke: 2px black; /* Sætter en sort kant med tykkelsen 2px */
+  }
+}
