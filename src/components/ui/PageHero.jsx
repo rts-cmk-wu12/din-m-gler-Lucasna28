@@ -1,7 +1,9 @@
 'use client'
+
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export default function PageHero({ 
   title, 
@@ -9,23 +11,25 @@ export default function PageHero({
   backgroundImage = '/images/boliger-hero.png',
   height = 'h-[10rem]'
 }) {
-  const getPageTitle = () => {
-    if (typeof window === 'undefined') return title || 'Din Mægler'
+  const [pageTitle, setPageTitle] = useState(title || 'Din Mægler')
 
-    const path = window.location.pathname.split('?')[0].split('/')
-    const lastSegment = path[path.length - 1]
-    
-    const titleMap = {
-      'kontakt': 'Kontakt os',
-      'maeglere': 'Mæglere',
-      'boliger': 'Boliger til salg',
-      'login': 'Log ind',
-      'register': 'Opret bruger',
-      'afmeld-nyhedsbrev': 'Afmeld nyhedsbrev'
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.split('?')[0].split('/')
+      const lastSegment = path[path.length - 1]
+      
+      const titleMap = {
+        'kontakt': 'Kontakt os',
+        'maeglere': 'Mæglere',
+        'boliger': 'Boliger til salg',
+        'login': 'Log ind',
+        'register': 'Opret bruger',
+        'afmeld-nyhedsbrev': 'Afmeld nyhedsbrev'
+      }
+
+      setPageTitle(titleMap[lastSegment] || title || 'Din Mægler')
     }
-
-    return title || titleMap[lastSegment] || 'Din Mægler'
-  }
+  }, [title])
 
   return (
     <section 
@@ -54,7 +58,7 @@ export default function PageHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {getPageTitle()}
+          {pageTitle}
         </motion.h1>
       </div>
     </section>

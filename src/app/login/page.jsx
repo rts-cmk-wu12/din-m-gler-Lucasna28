@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import { useAuth } from '@/contexts/AuthContext'
-import Header from '@/components/layout/Header'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+import Header from '@/components/layout/Header';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
