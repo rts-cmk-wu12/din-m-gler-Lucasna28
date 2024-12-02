@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function NotFound() {
   return (
-    <section className="min-h-[calc(100vh-200px)] flex flex-col items-center justify-center p-4 bg-shape-shape02 -z-[2]">
+    <section className="min-h-dvh flex flex-col items-center justify-center p-4 bg-shape-shape02 -z-[2]">
       <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg text-center">
         {/* "Hov!" text with overlay */}
         <motion.div
