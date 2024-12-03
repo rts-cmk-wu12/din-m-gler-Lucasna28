@@ -1,17 +1,21 @@
 "use client"
-import { useState, useEffect } from 'react'
-import { motion } from "framer-motion"
-import PropertyCard from "@/components/cards/PropertyCard"
-import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
-import { fetchFilteredProperties } from "@/services/propertyService"
-import PageHero from '@/components/ui/PageHero'
+
+import { useState, useEffect } from 'react';
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import PageHero from '@/components/ui/PageHero';
+
+// Dynamisk import for at deaktivere SSR for komponenter
+const PropertyCard = dynamic(() => import('@/components/cards/PropertyCard'), { ssr: false });
+const PropertySkeleton = dynamic(() => import('@/components/skeletons/PropertySkeleton'), { ssr: false });
+const fetchFilteredProperties = dynamic(() => import('@/services/propertyService').then(mod => mod.fetchFilteredProperties), { ssr: false });
 
 export default function PropertiesPage() {
-  const [properties, setProperties] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [propertyType, setPropertyType] = useState('Alle')
-  const [priceRange, setPriceRange] = useState([0, 12000000])
+  const [properties, setProperties] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [propertyType, setPropertyType] = useState('Alle');
+  const [priceRange, setPriceRange] = useState([0, 12000000]);
 
   const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -23,25 +27,26 @@ export default function PropertiesPage() {
     { value: 'Landejendom', label: 'Landejendom' },
     { value: 'Ejerlejlighed', label: 'Ejerlejlighed' },
     { value: 'Byhus', label: 'Byhus' }
-  ]
+  ];
 
   // Hent filtrerede boliger
   useEffect(() => {
     const getProperties = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        
-        const data = await fetchFilteredProperties({ priceRange, propertyType })
-        setProperties(data)
+        if (typeof window !== "undefined") { // Sikrer at koden kun kører i browseren
+          const data = await fetchFilteredProperties({ priceRange, propertyType });
+          setProperties(data);
+        }
       } catch (err) {
-        setError(err.message)
+        setError(err.message);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    getProperties()
-  }, [priceRange, propertyType])
+    getProperties();
+  }, [priceRange, propertyType]);
 
   return (
     <>
@@ -49,7 +54,6 @@ export default function PropertiesPage() {
         title="Boliger til salg"
         backgroundImage="/images/boliger-hero.png"
       />
-
 
       <div className="bg-white py-8">
         <div className="container mx-auto px-4">
@@ -147,5 +151,5 @@ export default function PropertiesPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
