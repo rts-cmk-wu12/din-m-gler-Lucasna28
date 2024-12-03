@@ -1,9 +1,18 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+
+// Dynamically import motion
+const Motion = dynamic(
+  () => import('framer-motion').then((mod) => ({ 
+    motion: mod.motion 
+  })),
+  { ssr: false }
+);
 
 export default function PageHero({ 
   title, 
@@ -12,25 +21,23 @@ export default function PageHero({
   height = 'h-[10rem]'
 }) {
   const [pageTitle, setPageTitle] = useState(title || 'Din Mægler')
+  const pathname = usePathname()
 
   useEffect(() => {
-    // Denne kode køres kun på client-side
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname.split('?')[0].split('/')
-      const lastSegment = path[path.length - 1]
-      
-      const titleMap = {
-        'kontakt': 'Kontakt os',
-        'maeglere': 'Mæglere',
-        'boliger': 'Boliger til salg',
-        'login': 'Log ind',
-        'register': 'Opret bruger',
-        'afmeld-nyhedsbrev': 'Afmeld nyhedsbrev'
-      }
-
-      setPageTitle(titleMap[lastSegment] || title || 'Din Mægler')
+    const path = pathname.split('?')[0].split('/')
+    const lastSegment = path[path.length - 1]
+    
+    const titleMap = {
+      'kontakt': 'Kontakt os',
+      'maeglere': 'Mæglere',
+      'boliger': 'Boliger til salg',
+      'login': 'Log ind',
+      'register': 'Opret bruger',
+      'afmeld-nyhedsbrev': 'Afmeld nyhedsbrev'
     }
-  }, [title])
+
+    setPageTitle(titleMap[lastSegment] || title || 'Din Mægler')
+  }, [title, pathname])
 
   return (
     <section 
@@ -53,14 +60,20 @@ export default function PageHero({
             Tilbage til forsiden
           </Link>
         )}
-        <motion.h1 
-          className="text-4xl md:text-5xl font-bold text-white text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {pageTitle}
-        </motion.h1>
+        {Motion ? (
+          <Motion.motion.h1 
+            className="text-4xl md:text-5xl font-bold text-white text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {pageTitle}
+          </Motion.motion.h1>
+        ) : (
+          <h1 className="text-4xl md:text-5xl font-bold text-white text-center">
+            {pageTitle}
+          </h1>
+        )}
       </div>
     </section>
   )

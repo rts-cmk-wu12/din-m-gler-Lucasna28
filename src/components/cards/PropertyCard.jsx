@@ -47,7 +47,7 @@ export default function PropertyCard({ property, index }) {
 
 
 
-      <Link href={`/bolig/${property.id}`}>
+      <Link href={`/boliger/${property.id}`}>
         <div className="relative h-[300px] overflow-hidden group">
           <Image
             src={property.images[0].url}

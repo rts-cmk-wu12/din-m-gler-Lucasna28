@@ -153,7 +153,7 @@ export default function Hero() {
                     {limitedResults.map((result) => (
                       <Link
                         key={`${result.type}-${result.id}`}
-                        href={result.type === 'property' ? `/bolig/${result.id}` : `/maeglere/${result.id}`}
+                        href={result.type === 'property' ? `/boliger/${result.id}` : `/maeglere/${result.id}`}
                         className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors border-t first:border-t-0"
                         onClick={() => setShowDropdown(false)}
                         role="option"
