@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {
   fetchPropertyById,
   fetchAllProperties,
-} from "@/services/propertyService";
+} from "@/utils/fetch/propertyService";
 
 // Hook til at hente en enkelt bolig
 export function useProperty(id) {

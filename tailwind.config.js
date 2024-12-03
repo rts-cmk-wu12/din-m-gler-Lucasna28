@@ -14,7 +14,9 @@ module.exports = {
           color04: "#162A41",
           color05: "#FA983A",
           red: "#F21515",
-          green: "15F26E",
+          green: "#15F26E",
+          orange: "#dd4b39",
+          facebook: "#3B5999",
         },
         heading: {
           head01: "263048",

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchHeroImage } from "@/services/homeService";
+import { fetchHeroImage } from "@/utils/fetch/homeService";
 
 export function useHeroImage() {
   const [backgroundImage, setBackgroundImage] = useState("");

@@ -1,61 +1,48 @@
-"use client"
-import { useEffect, useState } from 'react'
-import { useAuth } from '@/contexts/AuthContext'
-import Link from 'next/link'
+import { Suspense } from 'react'
+import PageHero from '@/components/ui/PageHero'
+import { PropertyCard } from '@/components/cards/FavoritsCard'
+import { getFavorites } from '@/utils/fetch/getFavorites';
 
-export default function FavoritterPage() {
-  const [favorites, setFavorites] = useState([])
-  const { isLoggedIn } = useAuth()
+async function FavoritesList() {
+  const favorites = await getFavorites();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      // Hent favoritter fra API'et
-      fetchFavorites()
-    }
-  }, [isLoggedIn])
-
-  const fetchFavorites = async () => {
-    try {
-      const token = localStorage.getItem('token')
-      const response = await fetch('https://din-api-url/favorites', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
-      setFavorites(data)
-    } catch (error) {
-      console.error('Fejl ved hentning af favoritter:', error)
-    }
-  }
-
-  if (!isLoggedIn) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <p>Du skal være logget ind for at se dine favoritter.</p>
-        <Link href="/login" className="text-primary-color01 hover:underline">
-          Log ind her
-        </Link>
-      </div>
-    )
-  }
+  const handleRemove = async (id) => {
+    const updatedFavorites = favorites.filter((property) => property.id !== id);
+    await updateFavorites(updatedFavorites);
+    // Optionelt: opdatér UI'et lokalt efter fjernelsen
+  };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Mine favoritter</h1>
-      
-      {favorites.length === 0 ? (
-        <div>
-          <p>Du har ingen favoritter endnu.</p>
-          <Link href="/boliger" className="text-primary-color01 hover:underline">
-            Se alle boliger
-          </Link>
+    <ul className="max-w-4xl mx-auto px-4">
+      {favorites.map((property) => (
+        <PropertyCard
+          key={property.id}
+          property={property}
+          onRemove={() => handleRemove(property.id)}
+        />
+      ))}
+    </ul>
+  );
+}
+
+export default async function Favoritter() {
+  return (
+    <>
+      <PageHero title="Mine favoritboliger" />
+      <section className='max-w-4xl mx-auto mt-8 space-y-4'>
+        <div className="px-4">
+          <input 
+            type="search" 
+            className='w-full border border-shape-shape01 p-2 rounded' 
+            placeholder='Søg i favoritter' 
+          />
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Vis favorit boliger her */}
-        </div>
-      )}
-    </div>
+        <hr className='h-0.5 bg-shape-shape01'/>
+        <Suspense fallback={<div>Loading...</div>}>
+          <FavoritesList />
+        </Suspense>
+      </section>
+    </>
   )
-} 
+}
+

@@ -1,5 +1,4 @@
 import "./globals.css";
-import { AuthProvider } from '@/contexts/AuthContext'
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import { ToastProvider } from "@/contexts/ToastContext";
@@ -13,7 +12,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="da">
       <body>
-        <AuthProvider>
         <ToastProvider>
           <Header />
           <main className="flex-grow">
@@ -21,7 +19,6 @@ export default function RootLayout({ children }) {
           </main>
           <Footer />
           </ToastProvider>
-        </AuthProvider>
       </body>
     </html>
   );
