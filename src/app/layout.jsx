@@ -2,6 +2,7 @@ import "./globals.css";
 import { AuthProvider } from '@/contexts/AuthContext'
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
+import { ToastProvider } from "@/contexts/ToastContext";
 
 export const metadata = {
   title: "Din Mægler",
@@ -13,11 +14,13 @@ export default function RootLayout({ children }) {
     <html lang="da">
       <body>
         <AuthProvider>
+        <ToastProvider>
           <Header />
           <main className="flex-grow">
             {children}
           </main>
           <Footer />
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

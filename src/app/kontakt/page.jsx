@@ -3,10 +3,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin } from 'lucide-react'
-import { Toast } from '@/components/ui/Toast'
 import dynamic from 'next/dynamic'
 import PageHero from '@/components/ui/PageHero'
-
+import { useToast } from '@/hooks/useToast'
 const ContactMap = dynamic(() => import('@/components/ui/ContactMap'), {
   ssr: false,
   loading: () => <div className="w-full h-[400px] bg-gray-100 animate-pulse rounded-lg" />
@@ -18,13 +17,35 @@ const fadeInUp = {
   exit: { opacity: 0, y: 20 }
 }
 
-// Hjælpefunktion til at generere et tilfældigt ID
-const generateUniqueId = () => {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
+const validateField = (name, value) => {
+  const validations = {
+    name: value.trim().length < 2 ? 'Navn skal være mindst 2 tegn' : '',
+    email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'Indtast venligst en gyldig email' : '',
+    subject: value.trim().length < 3 ? 'Emne skal være mindst 3 tegn' : '',
+    message: value.trim().length < 10 ? 'Beskeden skal være mindst 10 tegn' : ''
+  }
+  return validations[name] || '';
 }
 
+const InputField = ({ label, name, value, onChange, touched, error }) => (
+  <div>
+    <label className="block text-sm mb-1">{label}</label>
+    <input
+      type={name === 'email' ? 'email' : 'text'}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className={`w-full p-2 border rounded ${
+        touched ? (error ? 'border-red-500' : 'border-green-500') : 'border-gray-300'
+      }`}
+      placeholder={`Indtast ${label.toLowerCase()}`}
+    />
+    {touched && error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+  </div>
+)
+
 export default function KontaktPage() {
+  const { addToast, ToastContainer } = useToast()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,104 +55,62 @@ export default function KontaktPage() {
   const [touched, setTouched] = useState({})
   const [newsletter, setNewsletter] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [toasts, setToasts] = useState([])
-
-  const addToast = (message, type = 'success') => {
-    const id = generateUniqueId()
-    setToasts(prev => [...prev, { id, message, type }])
-  }
-
-  const removeToast = (id) => {
-    setToasts(prev => prev.filter(toast => toast.id !== id))
-  }
-
-  const validateField = (name, value) => {
-    switch (name) {
-      case 'name':
-        return value.trim().length < 2 ? 'Navn skal være mindst 2 tegn' : ''
-      case 'email':
-        return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) 
-          ? 'Indtast venligst en gyldig email' 
-          : ''
-      case 'subject':
-        return value.trim().length < 3 ? 'Emne skal være mindst 3 tegn' : ''
-      case 'message':
-        return value.trim().length < 10 ? 'Beskeden skal være mindst 10 tegn' : ''
-      default:
-        return ''
-    }
-  }
-
-  const handleBlur = (e) => {
-    const { name } = e.target
-    setTouched(prev => ({ ...prev, [name]: true }))
-  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
     if (touched[name]) {
       const error = validateField(name, value)
-      if (error) {
-        e.target.classList.add('border-red-500')
-        e.target.classList.remove('border-green-500')
-      } else {
-        e.target.classList.add('border-green-500')
-        e.target.classList.remove('border-red-500')
-      }
+      e.target.classList.toggle('border-red-500', !!error)
+      e.target.classList.toggle('border-green-500', !error)
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    const errors = Object.keys(formData).map(key => ({
+
+    const errors = Object.keys(formData).map((key) => ({
       field: key,
-      error: validateField(key, formData[key])
+      error: validateField(key, formData[key]),
     }))
 
-    const hasErrors = errors.some(({ error }) => error !== '')
-
+    const hasErrors = errors.some(({ error }) => error !== "")
     if (hasErrors) {
       setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
-      addToast('Udfyld venligst alle felter korrekt', 'error')
+      addToast("Udfyld venligst alle felter korrekt", "error")
       return
     }
 
     setIsSubmitting(true)
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      if (newsletter) {
-        try {
-          const response = await fetch('https://dinmaegler.onrender.com/subscribers', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: formData.email })
-          })
+      await new Promise((resolve) => setTimeout(resolve, 1500)) // Simuler API-kald
 
-          if (!response.ok) {
-            if (response.status === 500) {
-              addToast('Du er allerede tilmeldt vores nyhedsbrev', 'info')
-              setNewsletter(false)
-            } else {
-              throw new Error('Der opstod en fejl ved tilmelding til nyhedsbrev')
-            }
-          }
-        } catch (newsletterError) {
-          console.error('Nyhedsbrev fejl:', newsletterError)
+      if (newsletter) {
+        const response = await fetch("https://dinmaegler.onrender.com/subscribers", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.email }),
+        })
+
+        if (!response.ok) {
+          const errorMessage = response.status === 500
+            ? "Du er allerede tilmeldt vores nyhedsbrev"
+            : "Der opstod en fejl ved tilmelding til nyhedsbrev"
+          addToast(errorMessage, response.status === 500 ? "info" : "error")
+          setNewsletter(false)
+          return
         }
       }
-      
-      addToast('Tak for din henvendelse! Vi vender tilbage hurtigst muligt.', 'success')
-      
-      setFormData({ name: '', email: '', subject: '', message: '' })
+
+      addToast("Tak for din henvendelse! Vi vender tilbage hurtigst muligt.", "success")
+      if (newsletter) addToast("Du er nu tilmeldt nyhedsbrevet. Tak!", "success")
+
+      setFormData({ name: "", email: "", subject: "", message: "" })
       setNewsletter(false)
       setTouched({})
-      
     } catch (error) {
-      addToast('Der opstod en fejl. Prøv venligst igen senere.', 'error')
+      addToast("Der opstod en fejl. Prøv venligst igen senere.", "error")
     } finally {
       setIsSubmitting(false)
     }
@@ -143,7 +122,6 @@ export default function KontaktPage() {
         title="Kontakt os"
         backgroundImage="/images/boliger-hero.png"
       />      
-
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12">
           <h2 className="text-2xl text-heading-head02 font-bold mb-4">
@@ -155,10 +133,8 @@ export default function KontaktPage() {
             Vores medarbejdere sidder klar alle ugens dage til at svare på dine spørgsmål.
           </p>
         </div>
-
         <div className="flex align-middle justify-center gap-12">
           <motion.form variants={fadeInUp} onSubmit={handleSubmit} className="space-y-4 border-2 w-1/2 border-shape-shape01 p-8 rounded-lg" noValidate>
-
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-1">Navn</label>
@@ -167,7 +143,6 @@ export default function KontaktPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     className={`w-full p-2 border rounded ${
                       touched.name 
                         ? validateField('name', formData.name) 
@@ -188,7 +163,6 @@ export default function KontaktPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     className={`w-full p-2 border rounded ${
                       touched.email 
                         ? validateField('email', formData.email) 
@@ -203,7 +177,6 @@ export default function KontaktPage() {
                   )}
                 </div>
               </div>
-
               <div>
                 <label className="block text-sm mb-1">Emne</label>
                 <input
@@ -211,7 +184,6 @@ export default function KontaktPage() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   className={`w-full p-2 border rounded ${
                     touched.subject 
                       ? validateField('subject', formData.subject) 
@@ -225,14 +197,12 @@ export default function KontaktPage() {
                   <p className="text-red-500 text-sm mt-1">{validateField('subject', formData.subject)}</p>
                 )}
               </div>
-
               <div>
                 <label className="block text-sm mb-1">Besked</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   rows={6}
                   className={`w-full p-2 border rounded ${
                     touched.message 
@@ -247,7 +217,6 @@ export default function KontaktPage() {
                   <p className="text-red-500 text-sm mt-1">{validateField('message', formData.message)}</p>
                 )}
               </div>
-
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -260,7 +229,6 @@ export default function KontaktPage() {
                   Ja tak, jeg vil gerne modtage Din Mæglers nyhedsbrev.
                 </label>
               </div>
-
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -269,7 +237,6 @@ export default function KontaktPage() {
                 {isSubmitting ? 'Sender...' : 'Send besked'}
               </button>
           </motion.form>
-
           <motion.div variants={fadeInUp} className="space-y-8 border-2 w-1/3 border-gray-200 p-4 rounded-lg">
             <div className="flex flex-col items-center text-center justify-between">
               <div className="bg-primary-color01 p-3 rounded-full">
@@ -291,7 +258,6 @@ export default function KontaktPage() {
               </div>
             </div>
             <hr className="border-t-2 border-shape-shape01" />
-
             <div className="flex flex-col items-center text-center justify-between">
               <div className="bg-primary-color01 p-3 rounded-full">
                 <MapPin className="h-6 w-6 text-white" />
@@ -306,23 +272,11 @@ export default function KontaktPage() {
             </div>
           </motion.div>
         </div>
-
         <motion.div variants={fadeInUp} className="mt-12">
           <ContactMap />
         </motion.div>
       </div>
-
-      <div className="fixed bottom-4 right-4 z-50 space-y-2">
-        {toasts.map(toast => (
-          <Toast
-            key={toast.id}
-            message={toast.message}
-            type={toast.type}
-            isVisible={true}
-            onClose={() => removeToast(toast.id)}
-          />
-        ))}
-      </div>
+      <ToastContainer />
     </motion.section>
   )
 }

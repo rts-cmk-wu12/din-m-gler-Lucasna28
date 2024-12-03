@@ -2,15 +2,15 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Loader2 } from 'lucide-react'
+import { Toast } from '../ui/Toast'
+import { useToast } from '@/hooks/useToast'
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('')
   const [touched, setTouched] = useState(false)
-  const [showToast, setShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState({ type: '', message: '' })
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-
+  const { addToast, ToastContainer } = useToast()
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -33,18 +33,6 @@ export default function NewsletterSection() {
     }
   }
 
-  const iconVariants = {
-    hidden: { scale: 0, rotate: -180 },
-    visible: { 
-      scale: 1, 
-      rotate: 0,
-      transition: {
-        type: "spring",
-        stiffness: 260,
-        damping: 20
-      }
-    }
-  }
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -59,35 +47,26 @@ export default function NewsletterSection() {
     
     const error = validateEmail(email)
     if (error) {
-      setToastMessage({ type: 'error', message: error })
-      setShowToast(true)
+      addToast(error, 'error')
       return
     }
-
+  
     setIsLoading(true)
     
     try {
-      // Simuler API kald
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       setIsSuccess(true)
-      setToastMessage({ 
-        type: 'success', 
-        message: 'Tak for din tilmelding! Du vil modtage en bekræftelse på mail.' 
-      })
-      setShowToast(true)
+      addToast('Tak for din tilmelding! Du vil modtage en bekræftelse på mail.', 'success')
       setEmail('')
       setTouched(false)
     } catch (error) {
-      setToastMessage({ 
-        type: 'error', 
-        message: 'Der opstod en fejl. Prøv venligst igen.' 
-      })
-      setShowToast(true)
+      addToast('Der opstod en fejl. Prøv venligst igen.', 'error')
     } finally {
       setIsLoading(false)
     }
   }
+
 
   return (
     <section className="py-16 bg-cover bg-center h-[14rem] w-full relative"
@@ -164,6 +143,7 @@ export default function NewsletterSection() {
           </motion.form>
         </div>
       </motion.div>
+      <ToastContainer />
     </section>
   )
 } 

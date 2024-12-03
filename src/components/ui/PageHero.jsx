@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import {motion} from "framer-motion"
 
 // Dynamically import motion
 const Motion = dynamic(
@@ -61,14 +62,14 @@ export default function PageHero({
           </Link>
         )}
         {Motion ? (
-          <Motion.motion.h1 
+          <motion.h1 
             className="text-4xl md:text-5xl font-bold text-white text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             {pageTitle}
-          </Motion.motion.h1>
+          </motion.h1>
         ) : (
           <h1 className="text-4xl md:text-5xl font-bold text-white text-center">
             {pageTitle}
