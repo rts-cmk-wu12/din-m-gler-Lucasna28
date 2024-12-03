@@ -1,21 +1,17 @@
 "use client"
-
-import { useState, useEffect } from 'react';
-import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
-import PageHero from '@/components/ui/PageHero';
-
-// Dynamisk import for at deaktivere SSR for komponenter
-const PropertyCard = dynamic(() => import('@/components/cards/PropertyCard'), { ssr: false });
-const PropertySkeleton = dynamic(() => import('@/components/skeletons/PropertySkeleton'), { ssr: false });
-const fetchFilteredProperties = dynamic(() => import('@/services/propertyService').then(mod => mod.fetchFilteredProperties), { ssr: false });
+import { useState, useEffect } from 'react'
+import { motion } from "framer-motion"
+import PropertyCard from "@/components/cards/PropertyCard"
+import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
+import { fetchFilteredProperties } from "@/services/propertyService"
+import PageHero from '@/components/ui/PageHero'
 
 export default function PropertiesPage() {
-  const [properties, setProperties] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [propertyType, setPropertyType] = useState('Alle');
-  const [priceRange, setPriceRange] = useState([0, 12000000]);
+  const [properties, setProperties] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [propertyType, setPropertyType] = useState('Alle')
+  const [maxPrice, setMaxPrice] = useState(12000000)
 
   const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -27,26 +23,26 @@ export default function PropertiesPage() {
     { value: 'Landejendom', label: 'Landejendom' },
     { value: 'Ejerlejlighed', label: 'Ejerlejlighed' },
     { value: 'Byhus', label: 'Byhus' }
-  ];
+  ]
 
-  // Hent filtrerede boliger
   useEffect(() => {
     const getProperties = async () => {
-      setIsLoading(true);
+      setIsLoading(true)
       try {
-        if (typeof window !== "undefined") { // Sikrer at koden kun kører i browseren
-          const data = await fetchFilteredProperties({ priceRange, propertyType });
-          setProperties(data);
-        }
+        const data = await fetchFilteredProperties({ 
+          priceRange: [0, maxPrice], 
+          propertyType 
+        })
+        setProperties(data)
       } catch (err) {
-        setError(err.message);
+        setError(err.message)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    };
+    }
 
-    getProperties();
-  }, [priceRange, propertyType]);
+    getProperties()
+  }, [maxPrice, propertyType])
 
   return (
     <>
@@ -78,43 +74,23 @@ export default function PropertiesPage() {
             </div>
 
             <div className="w-full md:w-2/3">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Pris interval
+              <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+                Maksimal pris
               </label>
               <div className="space-y-4">
-                <div className="flex gap-4">
-                  <div className="w-1/2">
-                    <label htmlFor="minPrice" className="sr-only">Minimum pris</label>
-                    <input
-                      id="minPrice"
-                      type="range"
-                      min="0"
-                      max="12000000"
-                      step="100000"
-                      value={priceRange[0]}
-                      onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
-                      className="w-full"
-                      aria-label="Minimum pris"
-                    />
-                  </div>
-                  <div className="w-1/2">
-                    <label htmlFor="maxPrice" className="sr-only">Maksimum pris</label>
-                    <input
-                      id="maxPrice"
-                      type="range"
-                      min="0"
-                      max="12000000"
-                      step="100000"
-                      value={priceRange[1]}
-                      onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                      className="w-full"
-                      aria-label="Maksimum pris"
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Min: {formatPrice(priceRange[0])} kr.</span>
-                  <span>Max: {formatPrice(priceRange[1])} kr.</span>
+                <input
+                  id="maxPrice"
+                  type="range"
+                  min="0"
+                  max="12000000"
+                  step="100000"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                  className="w-full"
+                  aria-label="Maksimal pris"
+                />
+                <div className="flex justify-end text-sm text-gray-600">
+                  <span>Maksimalpris: {formatPrice(maxPrice)} kr.</span>
                 </div>
               </div>
             </div>
@@ -151,5 +127,5 @@ export default function PropertiesPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
