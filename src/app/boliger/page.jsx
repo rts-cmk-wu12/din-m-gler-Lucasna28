@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import { motion } from "framer-motion"
 import PropertyCard from "@/components/cards/PropertyCard"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
-import { fetchFilteredProperties } from "@/services/propertyService"
 import PageHero from '@/components/ui/PageHero'
+import { fetchFilteredProperties } from '@/utils/fetch/propertyService'
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState([])

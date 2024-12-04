@@ -6,10 +6,8 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import PageHero from '@/components/ui/PageHero'
 import { useToast } from '@/hooks/useToast'
-const ContactMap = dynamic(() => import('@/components/ui/ContactMap'), {
-  ssr: false,
-  loading: () => <div className="w-full h-[400px] bg-gray-100 animate-pulse rounded-lg" />
-})
+import ContactMap from '@/components/map/ContactMap'
+
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

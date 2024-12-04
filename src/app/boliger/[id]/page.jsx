@@ -5,14 +5,10 @@ import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
-import dynamic from 'next/dynamic'
+import MapComponent from '@/components/map/MapComponent'
 import ImageGallery from '@/components/ImageGallery'
 
-// Dynamisk import af MapComponent for at undgå SSR problemer
-const MapComponent = dynamic(() => import('@/components/MapComponent'), {
-  ssr: false,
-  loading: () => <div className="w-full h-[500px] bg-gray-100 animate-pulse rounded-lg" />
-})
+
 
 export default function PropertyListing() {
   const { id } = useParams()
@@ -41,57 +37,56 @@ export default function PropertyListing() {
     <section className="container mx-auto px-4 py-8">
       {/* Hero Section - Viser enten billede, plantegning eller kort */}
       <div className="relative w-full h-[500px] mb-6 rounded-lg overflow-hidden">
-        {activeView === 'map' ? (
-          <MapComponent 
-            position={[property.lat, property.long]}
-          />
-        ) : (
-          <ImageGallery property={property} />
-        )}
+        <ImageGallery 
+          property={property} 
+          activeView={activeView}
+          setActiveView={setActiveView}
+        />
       </div>
 
       {/* Property Header */}
       <div className="flex justify-between items-start mb-6">
-        <div>
-          
+      <div>
           <h1 className="text-2xl font-semibold">{property.adress1}</h1>
-          <p className="text-lg">{property.city}</p>
+          <p className="text-lg text-gray-600">{property.postalcode} {property.city}</p>
         </div>
               {/* Image Controls */}
       <div className="flex gap-4 justify-end mb-8">
-        <button 
-          onClick={() => {
-            setActiveView('exterior')
-            setActiveImageIndex(0)
-          }}
-          aria-label="Vis billeder"
-        >
-          <Image src="/svg/images.svg" alt="" width={24} height={24} />
-          <span>Billeder ({exteriorImages.length})</span>
-        </button>
-        <button 
-          onClick={() => {
-            setActiveView('floorplan')
-            setActiveImageIndex(0)
-          }}
-          aria-label="Vis plantegninger"
-        >
-          <Image src="/svg/plan.svg" alt="" width={24} height={24} />
-          <span>Plantegning {floorplanImages.length ? '(1)' : '(0)'}</span>
-        </button>
-        <button 
-          onClick={() => setActiveView('map')}
+      <button 
+            onClick={() => setActiveView('exterior')}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
+              ${activeView === 'exterior' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+            aria-label="Vis billeder"
+          >
+            <Image src="/svg/images.svg" alt="" width={24} height={24} />
+          </button>
+          <button 
+            onClick={() => setActiveView('floorplan')}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
+              ${activeView === 'floorplan' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+            aria-label="Vis plantegninger"
+          >
+            <Image src="/svg/plan.svg" alt="" width={24} height={24} />
+          </button>
+          <button 
+            onClick={() => setActiveView('map')}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
+              ${activeView === 'map' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+            aria-label="Vis på kort"
+          >
+            <Image src="/svg/location.svg" alt="" width={24} height={24} />
+          </button>
+          <button 
+            aria-label="Tilføj til favoritter"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <Image src="/svg/heart.svg" alt="" width={24} height={24} />
+          </button>
+        </div>
 
-          aria-label="Vis på kort"
-        >
-          <Image src="/svg/location.svg" alt="" width={24} height={24} />
-        </button>
-        <button aria-label="Tilføj til favoritter">
-          <Image src="/svg/heart.svg" alt="" width={24} height={24} />
-        </button>
-      </div>
         <div className="text-right">
           <p className="text-2xl font-semibold">Kr. {property.price?.toLocaleString()}</p>
+          <p className="text-gray-600">Udbetaling kr. {Math.round(property.price * 0.05).toLocaleString()}</p>
         </div>
 
       </div>
@@ -101,18 +96,18 @@ export default function PropertyListing() {
       {/* Property Details */}
       <div className="grid grid-cols-3 gap-x-16 gap-y-4 mb-12">
         <DetailItem label="Sagsnummer" value={property.id} />
-        <DetailItem label="Kælder" value={property.basement ? `${property.basement} m²` : '-'} />
+        <DetailItem label="Kælder" value={property.basementsize ? `${property.basementsize} ` : '-'} />
         <DetailItem label="Udbetaling" value={`Kr. ${Math.round(property.price * 0.05).toLocaleString()}`} />
         <DetailItem label="Boligareal" value={`${property.livingspace} m²`} />
         <DetailItem label="Byggeår" value={property.built || '-'} />
         <DetailItem label="Brutto ex. ejerudgift" value={`Kr. ${property.payment?.toLocaleString()}`} />
         <DetailItem label="Grundareal" value={`${property.lotsize} m²`} />
         <DetailItem label="Ombygget" value={property.remodel || '-'} />
-        <DetailItem label="Netto ex. ejerudgift" value={`Kr. ${property.net?.toLocaleString()}`} />
+        <DetailItem label="Netto ex. ejerudgift" value={`Kr. ${property.netto?.toLocaleString()}`} />
         <DetailItem label="Rum/værelser" value={property.rooms} />
         <DetailItem label="Energimærke" value={property.energylabel} />
         <DetailItem label="Ejerudgifter" value={`Kr. ${property.cost?.toLocaleString()}`} />
-        <DetailItem label="Antal plan" value={property.floors} />
+        <DetailItem label="Antal plan" value={property.numberOfFloors} />
       </div>
 
       {/* Description Section */}
