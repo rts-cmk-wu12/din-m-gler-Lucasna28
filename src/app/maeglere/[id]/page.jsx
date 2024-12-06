@@ -40,7 +40,7 @@ export default function AgentDetailsPage() {
     // Implementer kontaktformular logik her
     console.log('Form submitted:', formData)
   }
-
+  
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -65,9 +65,9 @@ export default function AgentDetailsPage() {
 
 
       <section className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col border-r border-gray-200">
+        <div className="flex flex-col border-2 border-gray-200">
           {/* Venstre kolonne med mæglerinfo */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2" >
             <div className="bg-white p-8 rounded-lg">
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="relative w-full md:w-64 h-64">

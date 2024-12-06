@@ -48,7 +48,7 @@ module.exports = {
           A: "#00A650",
           B: "#4CB848",
           C: "#BFD630",
-          D: "#FFF100",
+          D: "#FFF108",
           E: "#FDB913",
           F: "#F37021",
           G: "#ED1C24",

@@ -1,9 +1,9 @@
 export default function DetailItem({ label, value }) {
     return (
-      <div className="flex justify-between">
-        <span className="text-gray-600">{label}:</span>
-        <span>{value}</span>
-      </div>
+      <li className="flex justify-between">
+        <h3 className="text-gray-600">{label}:</h3>
+        <p>{value}</p>
+      </li>
     )
   }
-  
+ 

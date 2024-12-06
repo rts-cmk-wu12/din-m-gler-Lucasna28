@@ -5,10 +5,10 @@ import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
-import MapComponent from '@/components/map/MapComponent'
 import ImageGallery from '@/components/ImageGallery'
-
-
+import DetailItem from '@/components/ui/DetailItem' 
+import { motion } from 'framer-motion'
+import TeamCardSkeleton from '@/components/skeletons/TeamCardSkeleton'
 
 export default function PropertyListing() {
   const { id } = useParams()
@@ -26,7 +26,7 @@ export default function PropertyListing() {
     alt: 'Plantegning'
   }] : []
   
-  if (isLoading) return <Loader2 className="w-5 h-5 animate-spin" />
+  if (isLoading) return <TeamCardSkeleton />
   if (error) return <div className="container mx-auto px-4 py-8">Fejl: {error}</div>
   if (!property) return <div className="container mx-auto px-4 py-8">Boligen blev ikke fundet.</div>
 
@@ -36,65 +36,73 @@ export default function PropertyListing() {
   return (
     <section className="container mx-auto px-4 py-8">
       {/* Hero Section - Viser enten billede, plantegning eller kort */}
-      <div className="relative w-full h-[500px] mb-6 rounded-lg overflow-hidden">
+      <motion.div 
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{duration: 0.7 }}
+        className="relative w-full h-[500px] mb-6 rounded-lg overflow-hidden">
         <ImageGallery 
           property={property} 
           activeView={activeView}
           setActiveView={setActiveView}
         />
-      </div>
-
+      </motion.div>
       {/* Property Header */}
-      <div className="flex justify-between items-start mb-6">
-      <div>
+      <motion.div 
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{duration: 0.7 }}
+        className="flex justify-between items-start mb-6"
+      >
+        <div>
           <h1 className="text-2xl font-semibold">{property.adress1}</h1>
           <p className="text-lg text-gray-600">{property.postalcode} {property.city}</p>
         </div>
-              {/* Image Controls */}
+      {/* Image Controls */}
       <div className="flex gap-4 justify-end mb-8">
-      <button 
-            onClick={() => setActiveView('exterior')}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
-              ${activeView === 'exterior' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
-            aria-label="Vis billeder"
-          >
-            <Image src="/svg/images.svg" alt="" width={24} height={24} />
-          </button>
-          <button 
-            onClick={() => setActiveView('floorplan')}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
-              ${activeView === 'floorplan' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
-            aria-label="Vis plantegninger"
-          >
-            <Image src="/svg/plan.svg" alt="" width={24} height={24} />
-          </button>
-          <button 
-            onClick={() => setActiveView('map')}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
-              ${activeView === 'map' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
-            aria-label="Vis på kort"
-          >
-            <Image src="/svg/location.svg" alt="" width={24} height={24} />
-          </button>
-          <button 
-            aria-label="Tilføj til favoritter"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <Image src="/svg/heart.svg" alt="" width={24} height={24} />
-          </button>
-        </div>
-
-        <div className="text-right">
-          <p className="text-2xl font-semibold">Kr. {property.price?.toLocaleString()}</p>
-          <p className="text-gray-600">Udbetaling kr. {Math.round(property.price * 0.05).toLocaleString()}</p>
-        </div>
-
+        <button 
+          onClick={() => setActiveView('exterior')}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
+          ${activeView === 'exterior' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+          aria-label="Vis billeder"
+        >
+          <Image src="/svg/images.svg" alt="" width={24} height={24} />
+        </button>
+        <button 
+          onClick={() => setActiveView('floorplan')}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
+          ${activeView === 'floorplan' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+          aria-label="Vis plantegninger"
+        >
+          <Image src="/svg/plan.svg" alt="" width={24} height={24} />
+        </button>
+        <button 
+          onClick={() => setActiveView('map')}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
+          ${activeView === 'map' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+          aria-label="Vis på kort"
+        >
+          <Image src="/svg/location.svg" alt="" width={24} height={24} />
+        </button>
+        <button 
+          aria-label="Tilføj til favoritter"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+        >
+          <Image src="/svg/heart.svg" alt="" width={24} height={24} />
+        </button>
       </div>
-
-
-
+      <div className="text-right">
+        <h2 className="text-2xl font-semibold">Kr. {property.price?.toLocaleString()}</h2>
+        <p className="text-gray-600">Udbetaling kr. {Math.round(property.price * 0.05).toLocaleString()}</p>
+      </div>
+      </motion.div>
       {/* Property Details */}
-      <div className="grid grid-cols-3 gap-x-16 gap-y-4 mb-12">
+      <motion.ul 
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{duration: 0.4 }}
+        className="grid grid-cols-3 gap-x-16 gap-y-4 mb-12"
+      >
         <DetailItem label="Sagsnummer" value={property.id} />
         <DetailItem label="Kælder" value={property.basementsize ? `${property.basementsize} ` : '-'} />
         <DetailItem label="Udbetaling" value={`Kr. ${Math.round(property.price * 0.05).toLocaleString()}`} />
@@ -108,68 +116,57 @@ export default function PropertyListing() {
         <DetailItem label="Energimærke" value={property.energylabel} />
         <DetailItem label="Ejerudgifter" value={`Kr. ${property.cost?.toLocaleString()}`} />
         <DetailItem label="Antal plan" value={property.numberOfFloors} />
-      </div>
-
+      </motion.ul>
+      <motion.section 
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{duration: 0.7 }}
+        className='w-full flex justify-between'>
       {/* Description Section */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">Beskrivelse</h2>
-        <div className="prose max-w-none">
+      <div className="flex flex-col w-1/2">
+        <h3 className="text-xl font-semibold mb-4">Beskrivelse</h3>
+        <p className="w-11/12 text-pretty whitespace-break-spaces">
           {property.description}
-        </div>
-      </section>
-
+        </p>
+      </div>
       {/* Agent Section */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Ansvarlig mægler</h2>
-        <div className="flex gap-6">
-          <div className="relative w-48 h-48">
+      <div className='flex flex-col w-1/2'>
+        <h3 className="text-xl font-semibold mb-4">Ansvarlig mægler</h3>
+        <div className="flex gap-6 border-2 border-shape-shape01 p-8 h-[80%]">
+          <div className="relative w-64 h-64 mb-[2.35rem]">
             <Image
               src={property.agent?.image.url || '/placeholder-agent.jpg'}
               alt={property.agent?.name || 'Ejendomsmægler'}
               fill
               className="object-cover"
             />
+          <ul className='bg-primary-color01 p-2 w-2/4 relative top-48 flex text-white justify-evenly align-middle'>
+              <li> <Image src="/svg/instagram.svg" alt="instagram image" width={24} height={24} /></li>
+              <li><Image src="/svg/linkedIn.svg" alt="linkedin image" width={24} height={24} /></li>
+              <li><Image src="/svg/skype.svg" alt="skype image" width={24} height={24} /></li>
+          </ul>
           </div>
-          <div>
-            <h3 className="text-xl font-semibold">{property.agent?.name}</h3>
+          <div className='flex flex-col justify-around h-2/3'>
+            <h4 className="text-xl font-semibold">{property.agent?.name}</h4>
             <p className="text-gray-600 mb-4">{property.agent?.title}</p>
-            <p className="mb-2">
-              <a href={`tel:${property.agent?.phone}`} className="text-blue-600">
+            <hr className='w-1/3 h-0.5 bg-shape-shape01'/>
+            <p className="flex">
+              <Image src="/svg/phone.svg" alt="" width={18} height={18} className='mr-4' />
+              <a href={`tel:${property.agent?.phone}`} className="text-primary-color01">
                 {property.agent?.phone}
               </a>
             </p>
-            <p>
-              <a href={`mailto:${property.agent?.email}`} className="text-blue-600">
+            <p className='flex'>
+            <Image src="/svg/paperplane.svg" alt="" width={18} height={18} className='mr-4' />
+              <a href={`mailto:${property.agent?.email}`} className="text-primary-color01 capitalize">
                 {property.agent?.email}
               </a>
             </p>
-            <div className="flex gap-4 mt-4">
-              <SocialLink href={property.agent?.instagram} icon="instagram" />
-              <SocialLink href={property.agent?.linkedin} icon="linkedin" />
-              <SocialLink href={property.agent?.skype} icon="skype" />
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+      </motion.section>
     </section>
-  )
-}
-
-function DetailItem({ label, value }) {
-  return (
-    <div className="flex justify-between">
-      <span className="text-gray-600">{label}:</span>
-      <span>{value}</span>
-    </div>
-  )
-}
-
-function SocialLink({ href, icon }) {
-  if (!href) return null
-  return (
-    <a href={href} aria-label={`Besøg ${icon}`}>
-      <Image src={`/icons/${icon}.svg`} alt="" width={24} height={24} />
-    </a>
   )
 }
 

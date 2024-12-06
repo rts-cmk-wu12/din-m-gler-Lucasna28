@@ -48,8 +48,7 @@ export default function ImageGallery({ property, activeView, setActiveView }) {
               src={property.images[activeImageIndex].url}
               alt={`Boligbillede ${activeImageIndex + 1}`}
               fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+              className=" aspect-auto object-contain"
               priority={activeImageIndex === 0}
             />
           </div>

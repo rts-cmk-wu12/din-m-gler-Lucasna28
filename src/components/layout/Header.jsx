@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { Mail, Phone, User } from "lucide-react";
 
 async function getUser() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const jwt = cookieStore.get("dm_token")?.value;
 
   if (!jwt) return null;

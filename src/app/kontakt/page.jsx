@@ -3,11 +3,18 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin } from 'lucide-react'
-import dynamic from 'next/dynamic'
 import PageHero from '@/components/ui/PageHero'
 import { useToast } from '@/hooks/useToast'
 import ContactMap from '@/components/map/ContactMap'
+import { z } from 'zod'
 
+// Zod schema til validering
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Navn skal være mindst 2 tegn"),
+  email: z.string().email("Indtast venligst en gyldig email"),
+  subject: z.string().min(3, "Emne skal være mindst 3 tegn"),
+  message: z.string().min(10, "Beskeden skal være mindst 10 tegn")
+})
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -15,32 +22,6 @@ const fadeInUp = {
   exit: { opacity: 0, y: 20 }
 }
 
-const validateField = (name, value) => {
-  const validations = {
-    name: value.trim().length < 2 ? 'Navn skal være mindst 2 tegn' : '',
-    email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'Indtast venligst en gyldig email' : '',
-    subject: value.trim().length < 3 ? 'Emne skal være mindst 3 tegn' : '',
-    message: value.trim().length < 10 ? 'Beskeden skal være mindst 10 tegn' : ''
-  }
-  return validations[name] || '';
-}
-
-const InputField = ({ label, name, value, onChange, touched, error }) => (
-  <div>
-    <label className="block text-sm mb-1">{label}</label>
-    <input
-      type={name === 'email' ? 'email' : 'text'}
-      name={name}
-      value={value}
-      onChange={onChange}
-      className={`w-full p-2 border rounded ${
-        touched ? (error ? 'border-red-500' : 'border-green-500') : 'border-gray-300'
-      }`}
-      placeholder={`Indtast ${label.toLowerCase()}`}
-    />
-    {touched && error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-  </div>
-)
 
 export default function KontaktPage() {
   const { addToast, ToastContainer } = useToast()
@@ -57,23 +38,20 @@ export default function KontaktPage() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    if (touched[name]) {
-      const error = validateField(name, value)
-      e.target.classList.toggle('border-red-500', !!error)
-      e.target.classList.toggle('border-green-500', !error)
-    }
+    setTouched(prev => ({ ...prev, [name]: true }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const errors = Object.keys(formData).map((key) => ({
-      field: key,
-      error: validateField(key, formData[key]),
-    }))
-
-    const hasErrors = errors.some(({ error }) => error !== "")
-    if (hasErrors) {
+    // Valider formdata med zod
+    const result = contactFormSchema.safeParse(formData)
+    if (!result.success) {
+      // Håndter fejl fra zod
+      const errors = result.error.errors.reduce((acc, err) => {
+        acc[err.path[0]] = err.message
+        return acc
+      }, {})
       setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
       addToast("Udfyld venligst alle felter korrekt", "error")
       return
@@ -93,8 +71,8 @@ export default function KontaktPage() {
 
         if (!response.ok) {
           const errorMessage = response.status === 500
-            ? "Du er allerede tilmeldt vores nyhedsbrev"
-            : "Der opstod en fejl ved tilmelding til nyhedsbrev"
+            ? "Der opstod en fejl ved tilmelding til nyhedsbrev, prøv igen senere"
+            : "Fejl: Nyhedsbrev kunne ikke tilmeldes"
           addToast(errorMessage, response.status === 500 ? "info" : "error")
           setNewsletter(false)
           return
@@ -113,7 +91,6 @@ export default function KontaktPage() {
       setIsSubmitting(false)
     }
   }
-
   return (
     <motion.section initial="initial" animate="animate" exit="exit">  
       <PageHero
@@ -230,7 +207,7 @@ export default function KontaktPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-primary-color01 text-white px-6 py-2 rounded font-medium w-32"
+                className="bg-primary-color01 text-white p-4 rounded font-medium w-32 text-nowrap hover:bg-background-bg03"
               >
                 {isSubmitting ? 'Sender...' : 'Send besked'}
               </button>
@@ -270,7 +247,7 @@ export default function KontaktPage() {
             </div>
           </motion.div>
         </div>
-        <motion.div variants={fadeInUp} className="mt-12">
+        <motion.div variants={fadeInUp} className="mt-12 w-full">
           <ContactMap />
         </motion.div>
       </div>
