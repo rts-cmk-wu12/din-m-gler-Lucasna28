@@ -3,24 +3,36 @@ import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function PropertyCard({ property, index }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const router = typeof window !== "undefined" ? useRouter() : null;
 
   const getEnergyLabelColor = (label) => {
     const colors = {
-      'A': 'bg-energylabel-A text-white',
-      'B': 'bg-energylabel-B text-white',
-      'C': 'bg-energylabel-C text-white',
-      'D': 'bg-energylabel-D text-gray-800',
-      'E': 'bg-energylabel-E text-gray-800',
-      'F': 'bg-energylabel-F text-white',
-      'G': 'bg-energylabel-G text-white',
-    }
-    return colors[label] || 'bg-gray-200 text-gray-800'
-  }
+      A: "bg-energylabel-A text-white",
+      B: "bg-energylabel-B text-white",
+      C: "bg-energylabel-C text-white",
+      D: "bg-energylabel-D text-gray-800",
+      E: "bg-energylabel-E text-gray-800",
+      F: "bg-energylabel-F text-white",
+      G: "bg-energylabel-G text-white",
+    };
+    return colors[label] || "bg-gray-200 text-gray-800";
+  };
 
   const toggleFavorite = () => {
+    // Tjek om brugeren er logget ind via cookies
+    const isUserLoggedIn =
+      document.cookie.includes("dm_token") &&
+      document.cookie.includes("dm_userid");
+
+      if (!isUserLoggedIn && router) {
+        router.push("/login");
+        return;
+    }
+
     setIsFavorite((prev) => !prev);
   };
 
@@ -33,16 +45,16 @@ export default function PropertyCard({ property, index }) {
     >
       {/* Hjertet */}
       <button
-      onClick={toggleFavorite}
-      className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
-      aria-label="Toggle favorite"
-    >
-      <Heart
-        className={`w-6 h-6 ${
-          isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800"
-        }`}
-      />
-    </button>
+        onClick={toggleFavorite}
+        className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
+        aria-label="Toggle favorite"
+      >
+        <Heart
+          className={`w-6 h-6 ${
+            isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800"
+          }`}
+        />
+      </button>
       <Link href={`/boliger/${property.id}`}>
         <div className="relative h-[300px] overflow-hidden group">
           <Image
@@ -61,25 +73,29 @@ export default function PropertyCard({ property, index }) {
             <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
             <span className="text-gray-600"> {property.city}</span>
           </div>
-          
+
           {/* Postnummer og by */}
           <p className="text-gray-600 mb-4">
             {property.postalcode} {property.city}
           </p>
-          
+
           {/* Boligtype og ejerudgift */}
           <div className="flex items-center gap-2 mb-4">
             <span>{property.type}</span>
             <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
             <span>Ejerudgift: {property.cost.toLocaleString()} kr.</span>
           </div>
-          
+
           <div className="h-0.5 bg-gray-200 my-4"></div>
-          
+
           {/* Bottom info */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <span className={`px-2 py-1 rounded text-sm font-medium ${getEnergyLabelColor(property.energylabel)}`}>
+              <span
+                className={`px-2 py-1 rounded text-sm font-medium ${getEnergyLabelColor(
+                  property.energylabel
+                )}`}
+              >
                 {property.energylabel}
               </span>
               <span>{property.rooms} vær</span>

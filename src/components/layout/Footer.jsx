@@ -25,7 +25,7 @@ export default function Footer() {
       content: "4000@dinmaegler.com"
     },
     {
-      icon: "/svg/vector.svg",
+      icon: "/svg/Vector.svg",
       alt: "Besøg os",
       title: "Besøg os",
       content: "Stændertorvet 78, 4000 Roskilde"
@@ -63,13 +63,13 @@ export default function Footer() {
         <ul className='flex flex-col justify-evenly h-full gap-6 container p-6'>
           {contactInfo.map((info, index) => (
             <li key={index} className='flex items-start gap-4'>
-<Image 
-  src={info.icon} 
-  alt={info.alt} 
-  width={24} 
-  height={24} 
-  className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' 
-/>
+              <Image 
+                src={info.icon} 
+                alt={info.alt} 
+                width={24} 
+                height={24} 
+                className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' 
+              />
               <div className='flex flex-col'>
                 <h3 className='font-semibold'>{info.title}</h3>
                 <p className='text-gray-600'>{info.content}</p>

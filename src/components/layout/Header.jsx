@@ -1,29 +1,8 @@
 "use server"
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { Mail, Phone, User } from "lucide-react";
 import LogoutButton from "../ui/LogoutButton";
-
-async function getUser() {
-  const cookieStore = await cookies();
-  const jwt = cookieStore.get("dm_token")?.value;
-
-  if (!jwt) return null;
-
-  try {
-    const response = await fetch("https://dinmaegler.onrender.com/users/me", {
-      headers: { Authorization: `Bearer ${jwt}` },
-      cache: "no-store", // Sørg for at hente friske data
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch user");
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return null;
-  }
-}
+import getUser from "@/utils/getUser";
 
 
 export default async function Header() {
