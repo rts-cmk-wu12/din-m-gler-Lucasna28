@@ -1,3 +1,4 @@
+"use server"
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { Mail, Phone, User } from "lucide-react";
