@@ -33,16 +33,16 @@ export default function PropertyCard({ property, index }) {
     >
       {/* Hjertet */}
       <button
-        onClick={toggleFavorite}
-        className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
-        aria-label="Toggle favorite"
-      >
-        <Heart
-          className={`w-6 h-6 ${
-            isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800"
-          }`}
-        />
-      </button>
+      onClick={toggleFavorite}
+      className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
+      aria-label="Toggle favorite"
+    >
+      <Heart
+        className={`w-6 h-6 ${
+          isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800"
+        }`}
+      />
+    </button>
       <Link href={`/boliger/${property.id}`}>
         <div className="relative h-[300px] overflow-hidden group">
           <Image

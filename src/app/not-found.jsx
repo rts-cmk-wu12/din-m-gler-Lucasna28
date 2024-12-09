@@ -50,7 +50,7 @@ export default function NotFound() {
         </motion.p>
 
         {/* Back button */}
-        <motion.div
+        <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -62,7 +62,7 @@ export default function NotFound() {
           >
             Tilbage til forsiden
           </Link>
-        </motion.div>
+        </motion.button>
       </div>
     </section>
   )

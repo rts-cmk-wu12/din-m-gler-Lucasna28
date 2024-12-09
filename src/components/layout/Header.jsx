@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { Mail, Phone, User } from "lucide-react";
+import LogoutButton from "../ui/LogoutButton";
 
 async function getUser() {
   const cookieStore = await cookies();
@@ -23,8 +24,10 @@ async function getUser() {
   }
 }
 
+
 export default async function Header() {
   const user = await getUser();
+
 
   return (
     <header className="w-full sticky top-0 z-50">
@@ -50,12 +53,7 @@ export default async function Header() {
           {user ? (
             <div className="flex items-center space-x-4">
               <span>{user.username}</span>
-              <Link
-                href="/logout"
-                className="text-gray-300 hover:text-white transition-colors"
-              >
-                Log ud
-              </Link>
+              <LogoutButton/>
             </div>
           ) : (
             <Link

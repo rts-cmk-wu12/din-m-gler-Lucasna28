@@ -2,6 +2,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import { ToastProvider } from "@/contexts/ToastContext";
+import PageTransition from "../components/ui/PageTransition"
+import { AnimatePresence } from "framer-motion";
 
 export const metadata = {
   title: "Din Mægler",
@@ -15,7 +17,9 @@ export default function RootLayout({ children }) {
         <ToastProvider>
           <Header />
           <main className="flex-grow">
-            {children}
+          <AnimatePresence mode="wait">
+    <PageTransition>{children}</PageTransition>
+  </AnimatePresence>
           </main>
           <Footer />
           </ToastProvider>

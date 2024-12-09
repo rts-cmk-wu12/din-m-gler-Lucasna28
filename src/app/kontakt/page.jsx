@@ -3,23 +3,26 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import PageHero from '@/components/ui/PageHero'
 import { useToast } from '@/hooks/useToast'
 import ContactMap from '@/components/map/ContactMap'
-import { z } from 'zod'
 
-// Zod schema til validering
-const contactFormSchema = z.object({
-  name: z.string().min(2, "Navn skal være mindst 2 tegn"),
-  email: z.string().email("Indtast venligst en gyldig email"),
-  subject: z.string().min(3, "Emne skal være mindst 3 tegn"),
-  message: z.string().min(10, "Beskeden skal være mindst 10 tegn")
-})
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 20 }
+}
+
+const validateField = (name, value) => {
+  const validations = {
+    name: value.trim().length < 2 ? 'Navn skal være mindst 2 tegn' : '',
+    email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'Indtast venligst en gyldig email' : '',
+    subject: value.trim().length < 3 ? 'Emne skal være mindst 3 tegn' : '',
+    message: value.trim().length < 10 ? 'Beskeden skal være mindst 10 tegn' : ''
+  }
+  return validations[name] || '';
 }
 
 
@@ -38,20 +41,23 @@ export default function KontaktPage() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    setTouched(prev => ({ ...prev, [name]: true }))
+    if (touched[name]) {
+      const error = validateField(name, value)
+      e.target.classList.toggle('border-red-500', !!error)
+      e.target.classList.toggle('border-green-500', !error)
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Valider formdata med zod
-    const result = contactFormSchema.safeParse(formData)
-    if (!result.success) {
-      // Håndter fejl fra zod
-      const errors = result.error.errors.reduce((acc, err) => {
-        acc[err.path[0]] = err.message
-        return acc
-      }, {})
+    const errors = Object.keys(formData).map((key) => ({
+      field: key,
+      error: validateField(key, formData[key]),
+    }))
+
+    const hasErrors = errors.some(({ error }) => error !== "")
+    if (hasErrors) {
       setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
       addToast("Udfyld venligst alle felter korrekt", "error")
       return
@@ -71,8 +77,7 @@ export default function KontaktPage() {
 
         if (!response.ok) {
           const errorMessage = response.status === 500
-            ? "Der opstod en fejl ved tilmelding til nyhedsbrev, prøv igen senere"
-            : "Fejl: Nyhedsbrev kunne ikke tilmeldes"
+             "Der opstod en fejl ved tilmelding til nyhedsbrev, prøv igen senere"
           addToast(errorMessage, response.status === 500 ? "info" : "error")
           setNewsletter(false)
           return
@@ -91,14 +96,15 @@ export default function KontaktPage() {
       setIsSubmitting(false)
     }
   }
+
   return (
     <motion.section initial="initial" animate="animate" exit="exit">  
       <PageHero
         title="Kontakt os"
         backgroundImage="/images/boliger-hero.png"
       />      
-      <div className="container mx-auto px-4 py-12">
-        <div className="mb-12">
+      <div className="mx-auto  py-12">
+        <div className="mb-12 p-10 flex flex-col align-middle">
           <h2 className="text-2xl text-heading-head02 font-bold mb-4">
             Vi sidder klar til at besvare dine spørgsmål
           </h2>
@@ -207,7 +213,7 @@ export default function KontaktPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-primary-color01 text-white p-4 rounded font-medium w-32 text-nowrap hover:bg-background-bg03"
+                className="bg-primary-color01 text-white px-6 py-2 rounded font-medium w-32"
               >
                 {isSubmitting ? 'Sender...' : 'Send besked'}
               </button>
@@ -247,7 +253,7 @@ export default function KontaktPage() {
             </div>
           </motion.div>
         </div>
-        <motion.div variants={fadeInUp} className="mt-12 w-full">
+        <motion.div variants={fadeInUp} className="mt-12 w-full h-[20rem]">
           <ContactMap />
         </motion.div>
       </div>
