@@ -9,6 +9,7 @@ import ImageGallery from '@/components/ImageGallery'
 import DetailItem from '@/components/ui/DetailItem' 
 import { motion } from 'framer-motion'
 import TeamCardSkeleton from '@/components/skeletons/TeamCardSkeleton'
+import AgentCard from '@/components/cards/AgentCard'
 
 export default function PropertyListing() {
   const { id } = useParams()
@@ -133,19 +134,7 @@ export default function PropertyListing() {
       <div className='flex flex-col w-1/2'>
         <h3 className="text-xl font-semibold mb-4">Ansvarlig mægler</h3>
         <div className="flex gap-6 border-2 border-shape-shape01 p-8 h-[80%]">
-          <div className="relative w-64 h-64 mb-[2.35rem]">
-            <Image
-              src={property.agent?.image.url || '/placeholder-agent.jpg'}
-              alt={property.agent?.name || 'Ejendomsmægler'}
-              fill
-              className="object-cover"
-            />
-          <ul className='bg-primary-color01 p-2 w-2/4 relative top-48 flex text-white justify-evenly align-middle'>
-              <li> <Image src="/svg/instagram.svg" alt="instagram image" width={24} height={24} /></li>
-              <li><Image src="/svg/linkedIn.svg" alt="linkedin image" width={24} height={24} /></li>
-              <li><Image src="/svg/skype.svg" alt="skype image" width={24} height={24} /></li>
-          </ul>
-          </div>
+        <AgentCard agent={property.agent} /> 
           <div className='flex flex-col justify-around h-2/3'>
             <h4 className="text-xl font-semibold">{property.agent?.name}</h4>
             <p className="text-gray-600 mb-4">{property.agent?.title}</p>

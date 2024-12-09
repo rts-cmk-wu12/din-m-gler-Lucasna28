@@ -1,111 +1,79 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useParams } from 'next/navigation'
-import Image from 'next/image'
-import { Instagram, Linkedin, Phone, Mail, MapPin, Search } from 'lucide-react'
-import { motion } from 'framer-motion'
-import PageHero from '@/components/ui/PageHero'
+import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import Image from 'next/image';
+import { Phone, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
+import PageHero from '@/components/ui/PageHero';
+import { useAgent } from '@/hooks/useAgent';
+import AgentCard from '@/components/cards/AgentCard';
 
 export default function AgentDetailsPage() {
-  const { id } = useParams()
-  const [agent, setAgent] = useState(null)
+  const { id } = useParams();
+  const { agent, isLoading, error } = useAgent(id);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
-  })
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
+  });
 
-  useEffect(() => {
-    const fetchAgent = async () => {
-      try {
-        const res = await fetch(`https://dinmaegler.onrender.com/agents/${id}`)
-        if (!res.ok) throw new Error('Kunne ikke hente mæglerdata')
-        const data = await res.json()
-        setAgent(data)
-      } catch (err) {
-        setError('Kunne ikke hente mæglerdata')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    fetchAgent()
-  }, [id])
+  console.log(agent);
+  
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    // Implementer kontaktformular logik her
-    console.log('Form submitted:', formData)
-  }
-  
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+  };
+
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value
-    }))
-  }
+    }));
+  };
 
   if (isLoading) return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-color01"></div>
     </div>
-  )
+  );
 
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>
+  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
 
   return (
     <>
       <PageHero 
         title="Kontakt en medarbejder"
-        backgroundImage="/images/boliger-hero.png"
       />
-
-
-      <section className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+  <section className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col border-2 border-gray-200">
           {/* Venstre kolonne med mæglerinfo */}
           <div className="lg:col-span-2" >
             <div className="bg-white p-8 rounded-lg">
               <div className="flex flex-col md:flex-row gap-8">
-                <div className="relative w-full md:w-64 h-64">
-                  <Image
-                    src={agent.image.url}
-                    alt={agent.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <AgentCard agent={agent} /> 
                 <div>
                   <h2 className="text-2xl font-bold mb-2">{agent.name}</h2>
-                  <p className="text-gray-600 mb-4">Statsautoriseret ejendomsmægler</p>
-                  
+                  <p className="text-gray-600 mb-2 text-nowrap">{agent.title}</p>
+                  <hr className='h-0.5 bg-shape-shape01 w-1/4 mb-5'/>
                   <div className="flex items-center gap-2 mb-2">
-                    <Phone className="w-5 h-5 text-gray-400" />
+                    <Phone className="w-5 h-5 text-primary-color01 fill-primary-color01" />
                     <span>{agent.phone}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Mail className="w-5 h-5 text-gray-400" />
+                    <Image src="/svg/paperplane.svg" className='fill-primary-color01' width={20} height={20} alt='mail '></Image>
                     <span>{agent.email}</span>
-                  </div>
-
-                  <div className="flex gap-4 mt-6">
-                    <a href={agent.instagram} className="text-gray-400 hover:text-gray-600">
-                      <Instagram className="w-6 h-6" />
-                    </a>
-                    <a href={agent.linkedin} className="text-gray-400 hover:text-gray-600">
-                      <Linkedin className="w-6 h-6" />
-                    </a>
                   </div>
                 </div>
               </div>
 
               <div className="mt-8">
-                <h3 className="text-xl font-bold mb-4">Om {agent.name}</h3>
-                <p className="text-gray-600">
-                  Der er mange tilgængelige udgaver af Lorem Ipsum, men de fleste udgaver har gennemgået forandringer, når nogen har tilføjet humor eller tilfældige ord, som på ingen måde ser ægte ud.
+                <h3 className="text-xl font-bold mb-1">Om {agent.name}</h3>
+                <hr className='h-1 bg-primary-color01 w-14 mb-4'/>
+                <p className="text-gray-600 text-pretty whitespace-pre-line">
+                  {agent.description}
                 </p>
               </div>
             </div>
@@ -172,25 +140,29 @@ export default function AgentDetailsPage() {
             </div>
           </div>
         </div>
-        <div>
+        <div className='h-1/2 flex flex-col justify-between'> 
 
-          <div className='border p-4 border-gray-200 bg-shape-shape02 w-1/2 flex flex-col gap-2'>
-            <p>search Property</p>
+          <div className='border p-6 border-gray-200 bg-shape-shape02 w-1/2 flex flex-col gap-2 h-1/3'>
+            <p>Search Property</p>
             <hr />
-            <input type="text" placeholder="search" 
-              className='w-full p-2 border rounded'
+            <input type="search" placeholder="Search" 
+              className='w-full p-2 border rounded mt-4'
             />
+              <Search />
           </div>
-          <div className='bg-primary-color01 text-white p-4 w-1/2 flex flex-col items-center justify-center h-1/4'>
-            <p className='text-center'>Find The Best Property
-            For Rent Or Buy</p>
-            <div className='h-1 w-1/4 bg-white'></div>
+          <div className='bg-primary-color01 text-white p-4 w-1/2 flex flex-col items-center justify-center h-full mt-8'>
+            <p className='text-center w-1/2 text-pretty whitespace-pre-line font-semibold text-2xl'>
+              Find The Best 
+              Property
+              For Rent Or Buy
+            </p>
+            <hr className='h-0.5 w-1/4 bg-white my-3'/>
             <p className='text-center'>Call Us Now</p>
-            <p className='text-center'>+00 123 456 789</p>
+            <p className='text-center font-semibold text-xl'>+00 123 456 789</p>
           </div>
         </div>
 
       </section>
     </>
-  )
-} 
+  );
+}
