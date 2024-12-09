@@ -101,7 +101,6 @@ export default function KontaktPage() {
     <motion.section initial="initial" animate="animate" exit="exit">  
       <PageHero
         title="Kontakt os"
-        backgroundImage="/images/boliger-hero.png"
       />      
       <div className="mx-auto  py-12">
         <div className="mb-12 p-10 flex flex-col align-middle">

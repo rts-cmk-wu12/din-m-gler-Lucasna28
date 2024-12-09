@@ -13,7 +13,6 @@ export async function fetchPropertyById(id) {
     throw new Error("Kunne ikke hente bolig");
   }
   const data = await response.json();
-  console.log("API Response Data:", data);
   return data;
 }
 

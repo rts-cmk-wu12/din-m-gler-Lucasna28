@@ -35,14 +35,14 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-[#F8F8FB] from-70% to-white to-70% gap-10 min-h-[50vh] grid grid-cols-2 grid-rows-3 p-24 pl-48">
       <section className="col-span-2 mb-16">
-        <Image src="/dinmeagler.svg" alt="Din Mægler" width={500} height={300} />
+      <Image src="/dinmeagler.svg" alt="Din Mægler" width={500} height={300} />
         <p className='text-ellipsis w-3/4 text-gray-500 mt-4 leading-relaxed'>
           There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.
         </p>
       </section>
 
       <section className="col-start-2 flex flex-col align-center -mt-12">
-        <h3 className='text-2xl font-bold'>Quick Links</h3>
+        <h2 className='text-2xl font-bold'>Quick Links</h2>
         <ul className='flex flex-col justify-evenly h-full'>
           {quickLinks.map((link, index) => (
             <li key={index}>
@@ -54,7 +54,8 @@ export default function Footer() {
 
       <section className="grid grid-cols-2 row-start-3 row-end-4 col-start-1 col-end-3 w-full">
         <div className="col-start-2">
-          <Image src="/svg/dms.svg" alt="DMS" width={200} height={200} className='w-full h-full'/>
+
+        <Image src="/svg/dms.svg" alt="DMS" width={200} height={200} className='w-full h-full'/>
         </div>
       </section>
 
@@ -62,23 +63,23 @@ export default function Footer() {
         <ul className='flex flex-col justify-evenly h-full gap-6 container p-6'>
           {contactInfo.map((info, index) => (
             <li key={index} className='flex items-start gap-4'>
-              <Image 
-                src={info.icon} 
-                alt={info.alt} 
-                width={24} 
-                height={24} 
-                className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' 
-              />
+<Image 
+  src={info.icon} 
+  alt={info.alt} 
+  width={24} 
+  height={24} 
+  className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' 
+/>
               <div className='flex flex-col'>
-                <h4 className='font-semibold'>{info.title}</h4>
+                <h3 className='font-semibold'>{info.title}</h3>
                 <p className='text-gray-600'>{info.content}</p>
               </div>
             </li>
           ))}
-          <p className='text-gray-600 mt-4 text-pretty'>
-          Din Mægler Roskilde, er din  boligibutik i lokalområdet.
-          </p>
         </ul>
+          <p className='text-gray-600 mt-4 text-pretty'>
+          Din Mægler Roskilde, er din boligibutik i lokalområdet.
+          </p>
       </section>
     </footer>
   );

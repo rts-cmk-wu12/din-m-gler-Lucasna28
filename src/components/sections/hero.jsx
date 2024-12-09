@@ -54,6 +54,7 @@ export default function Hero() {
         backgroundColor: !backgroundImage ? '#162A41' : 'transparent'
       }}
       role="banner"
+      rel="preload"
       aria-label="Property Search Hero Section"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/75" aria-hidden="true" />

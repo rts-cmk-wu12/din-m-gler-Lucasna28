@@ -38,7 +38,6 @@ export function useContactForm() {
 
     try {
       // Simuler en asynkron handling (f.eks. en API-anmodning)
-      console.log("Form data:", formData);
       showToast({ message: "Besked sendt!", type: "success" });
     } catch (error) {
       showToast({ message: "Fejl ved afsendelse af besked", type: "error" });

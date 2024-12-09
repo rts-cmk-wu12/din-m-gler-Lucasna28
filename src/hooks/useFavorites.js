@@ -59,7 +59,6 @@ export function useFavorites() {
       const token = Cookies.get("token");
 
       if (!userId || !token) {
-        console.log("User must be logged in to manage favorites");
         return false;
       }
 

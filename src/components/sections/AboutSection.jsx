@@ -79,7 +79,7 @@ export default function AboutSection() {
       <hr className="my-8" />
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
             <li className="space-y-2 flex">
-                <img src="/property1.svg" className="bg-shape-shape02 p-4 size-16 mr-4"/>
+                <img src="/property1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for property text"/>
                 <div className="flex flex-col w-48 h-full">
 
                 <h3 className="font-semibold text-lg text-heading-head02">Bestil et salgstjek</h3>
@@ -89,7 +89,7 @@ export default function AboutSection() {
                 </div>
             </li>
             <li className="space-y-2 flex">
-                <img src="/maps-and-flags1.svg" className="bg-shape-shape02 p-4 size-16 mr-4"/>
+                <img src="/maps-and-flags1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for maps and flags text"/>
                 <div className="flex flex-col w-48 h-full"> 
                   <h3 className="font-semibold text-lg text-heading-head02">74 butikker</h3>
                   <p className="text-base text-paragraph-para02 my-4">
@@ -98,7 +98,7 @@ export default function AboutSection() {
                 </div>
             </li>
             <li className="space-y-2 flex">
-                <img src="/customer1.svg" className="bg-shape-shape02 p-4 size-16 mr-4"/> 
+                <img src="/customer1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for customer text"/> 
                 <div className="flex flex-col w-48 h-full">
                   <h3 className="font-semibold text-heading-head02">Tilmeld køberkartotek</h3>
                   <p className="text-base text-paragraph-para02 my-4">
