@@ -53,7 +53,7 @@ export function Toast({ message, isVisible, onClose, type = 'success' }) {
     if (isVisible) {
       const timer = setTimeout(() => {
         onClose()
-      }, 2000)
+      }, 2500)
       return () => clearTimeout(timer)
     }
   }, [isVisible, onClose])
@@ -90,8 +90,9 @@ export function Toast({ message, isVisible, onClose, type = 'success' }) {
       initial="initial"
       animate="animate"
       exit="exit"
+      className="flex justify-end"
     >
-      <div className={`rounded-lg px-6 py-4 shadow-lg flex items-center space-x-3 ${getBackgroundColor()} text-white min-w-[300px]`}>
+      <div className={`rounded-lg px-6 py-4 shadow-lg flex items-center space-x-4 ${getBackgroundColor()} text-white max-w-[300px]`}>
         <motion.div variants={iconVariants}>
           {getIcon()}
         </motion.div>

@@ -9,30 +9,34 @@ export default function AboutSection() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Image */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="relative w-full max-w-[460px] mx-auto">
-              <div className="absolute inset-0 border-[12px] border-white shadow-lg transform translate-x-4 translate-y-4 z-0" />
-              <div className="relative z-10 bg-white p-3 shadow-lg">
-                <Image
-                  src="/images/groupimg.png"
-                  alt="Familie med Din Mægler"
-                  width={420}
-                  height={320}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 right-0 bg-primary-color01 text-white p-6">
-                  <div className="text-4xl font-bold">38+</div>
-                  <div className="text-sm">års mægler-erfaring</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <motion.div
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.6 }}
+  className="relative"
+>
+  <div className="relative w-full max-w-[460px] mx-auto">
+    {/* Ydre kant (rammen) */}
+    <div className="absolute inset-0 border-[14px] border-primary-color01 translate-x-4 translate-y-4 z-10"></div>
 
+    {/* Indre container med billede */}
+    <div className="relative bg-white shadow-lg -translate-x-6 -translate-y-6 z-0">
+      <Image
+        src="/images/groupimg.png"
+        alt="Familie med Din Mægler"
+        width={420}
+        height={320}
+        className="w-full h-auto"
+      />
+
+      {/* Tekstboks */}
+      <div className="absolute w-1/2 bottom-[-28px] right-[-28px] bg-primary-color01 text-white p-10 text-center border-primary-color01">
+        <p className="text-6xl font-bold">38+</p>
+        <p className="text-2xl text-pretty">års mægler-erfaring</p>
+      </div>
+    </div>
+  </div>
+</motion.div>
           {/* Right side - Content */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
