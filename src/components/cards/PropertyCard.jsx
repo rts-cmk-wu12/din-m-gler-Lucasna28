@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 export default function PropertyCard({ property, index }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const router = typeof window !== "undefined" ? useRouter() : null;
-
+  
   const getEnergyLabelColor = (label) => {
     const colors = {
       A: "bg-energylabel-A text-white",
@@ -44,6 +44,7 @@ export default function PropertyCard({ property, index }) {
       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 relative"
     >
       {/* Hjertet */}
+      
       <button
         onClick={toggleFavorite}
         className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
