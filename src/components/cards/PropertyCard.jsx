@@ -1,40 +1,47 @@
-import { useState } from "react";
+'use client'
+
+import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toggleFavorite } from "@/actions/favorites";
+import { getEnergyLabelColor } from "@/utils/getEnergyLabelColor";
 
-export default function PropertyCard({ property, index }) {
+export default function PropertyCard({ property, index, initialFavorites = [] }) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const router = typeof window !== "undefined" ? useRouter() : null;
+  const router = useRouter();
   
-  const getEnergyLabelColor = (label) => {
-    const colors = {
-      A: "bg-energylabel-A text-white",
-      B: "bg-energylabel-B text-white",
-      C: "bg-energylabel-C text-white",
-      D: "bg-energylabel-D text-gray-800",
-      E: "bg-energylabel-E text-gray-800",
-      F: "bg-energylabel-F text-white",
-      G: "bg-energylabel-G text-white",
-    };
-    return colors[label] || "bg-gray-200 text-gray-800";
-  };
+  useEffect(() => {
+    // Set initial favorite state based on initialFavorites prop
+    setIsFavorite(initialFavorites.includes(property.id));
+  }, [initialFavorites, property.id]);
 
-  const toggleFavorite = () => {
-    // Tjek om brugeren er logget ind via cookies
-    const isUserLoggedIn =
-      document.cookie.includes("dm_token") &&
-      document.cookie.includes("dm_userid");
+  const handleToggleFavorite = async () => {
+    // Check if user is logged in via cookies
+    const isUserLoggedIn = document.cookie.includes("dm_token") && 
+                          document.cookie.includes("dm_userid");
 
-      if (!isUserLoggedIn && router) {
-        router.push("/login");
-        return;
+    if (!isUserLoggedIn) {
+      router.push("/login");
+      return;
     }
 
-    setIsFavorite((prev) => !prev);
+    try {
+      const result = await toggleFavorite(property.id);
+      
+      if (result.success) {
+        setIsFavorite(result.isFavorite);
+      } else {
+        console.error('Failed to toggle favorite:', result.error);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
   };
+
+
 
   return (
     <motion.div
@@ -46,7 +53,7 @@ export default function PropertyCard({ property, index }) {
       {/* Hjertet */}
       
       <button
-        onClick={toggleFavorite}
+        onClick={handleToggleFavorite}
         className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
         aria-label="Toggle favorite"
       >

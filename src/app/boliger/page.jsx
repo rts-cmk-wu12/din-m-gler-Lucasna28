@@ -5,9 +5,11 @@ import PropertyCard from "@/components/cards/PropertyCard"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
 import PageHero from '@/components/ui/PageHero'
 import { fetchFilteredProperties } from '@/utils/fetch/propertyService'
+import getUser from '@/utils/getUser'
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState([])
+  const [favorites, setFavorites] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [propertyType, setPropertyType] = useState('Alle')
@@ -42,6 +44,31 @@ export default function PropertiesPage() {
     }
 
     getProperties()
+  }, [maxPrice, propertyType])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true)
+      try {
+        // Fetch properties and user data in parallel
+        const [propertiesData, userData] = await Promise.all([
+          fetchFilteredProperties({ 
+            priceRange: [0, maxPrice], 
+            propertyType 
+          }),
+          getUser()
+        ])
+        
+        setProperties(propertiesData)
+        setFavorites(userData?.homes || [])
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
   }, [maxPrice, propertyType])
 
   return (
@@ -119,6 +146,8 @@ export default function PropertiesPage() {
                     key={property.id} 
                     property={property}
                     index={index}
+                    initialFavorites={favorites}
+                    onFavoriteChange={(newFavorites) => setFavorites(newFavorites)}
                   />
                 ))}
               </div>

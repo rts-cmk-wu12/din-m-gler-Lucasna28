@@ -14,6 +14,7 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
   const router = useRouter()
 
   const handleFavoriteClick = async () => {
+
     try {
       const response = await fetch('/api/favorites', {
         method: 'POST',
@@ -22,9 +23,7 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
         },
         body: JSON.stringify({ propertyId }),
       })
-      
-      const data = await response.json()
-      
+      const data = await response.json()      
       if (response.status === 401) {
         setToastMessage('Du skal være logget ind for at tilføje favoritter')
         setToastType('error')
@@ -43,6 +42,7 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
       setShowToast(true)
       
     } catch (error) {
+      console.error("Fejl ved tilføjelse af favorit:", error)
       setToastMessage('Der opstod en fejl')
       setToastType('error')
       setShowToast(true)

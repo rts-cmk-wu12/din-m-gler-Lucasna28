@@ -1,12 +1,24 @@
 "use client"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useProperties } from "@/hooks/useProperties"
 import Link from "next/link"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
 import PropertyCard from "@/components/cards/PropertyCard"
+import getUser from "@/utils/getUser"
 
 export default function FeaturedProperties() {
   const { properties, isLoading, error } = useProperties()
+  const [favorites, setFavorites] = useState([])
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await getUser()
+      setFavorites(userData?.homes || [])
+    }
+
+    fetchUserData()
+  }, [])
 
   return (
     <section className="py-16 bg-gray-50">
@@ -33,10 +45,12 @@ export default function FeaturedProperties() {
           ) : (
             properties.slice(0, 4).map((property, index) => (
               <PropertyCard 
-                key={property.id} 
-                property={property} 
-                index={index}
-              />
+              key={property.id} 
+              property={property} 
+              index={index}
+              initialFavorites={favorites}
+              onFavoriteChange={(newFavorites) => setFavorites(newFavorites)}
+            />
             ))
           )}
         </div>

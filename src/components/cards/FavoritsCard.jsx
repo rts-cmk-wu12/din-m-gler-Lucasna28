@@ -1,34 +1,83 @@
 import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { fetchPropertyById } from '@/utils/fetch/propertyService'
+import FavoritsCardSkeleton from '../skeletons/FavoritsCardSkeleton'
+import { getEnergyLabelColor } from '@/utils/getEnergyLabelColor'
 
+export default function FavoritsCard({ propertyId, onRemove }) {
+  const [property, setProperty] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
+  useEffect(() => {
+    const fetchProperty = async () => {
+      try {
+        const data = await fetchPropertyById(propertyId)
+        setProperty(data)
+      } catch (err) {
+        setError("Der opstod en fejl ved hentning af boligdata.")
+      } finally {
+        setIsLoading(false)
+      }
+    }
 
-export function PropertyCard({ property, onRemove }) {
+    fetchProperty()
+  }, [propertyId])
+
+  if (isLoading) {
+    return <FavoritsCardSkeleton/>
+  }
+
+  if (error) {
+    return <div className="text-red-500">{error}</div>
+  }
+
   return (
-    <li className="flex items-center justify-between border-b border-shape-shape01 py-4">
-      <div className="flex gap-4">
-        <Image
-          src={property.images[0]}
-          alt={property.adresse1}
-          width={150}
-          height={100}
-          className="object-cover rounded"
-        />
-        <div>
-          <h3 className="font-semibold text-heading-head01">{property.adresse1}</h3>
-          <p className="text-paragraph-para02">{property.postnr} {property.by}</p>
-          <p className="text-sm text-paragraph-para02">{property.type}</p>
+    <section className="flex items-center justify-between border-shape-shape01 border-2 p-8 w-full" >
+      <Link href={`/boliger/${property.id}`} className="flex gap-4 lg:w-[60rem] md:w-[30rem] sm:w-fit">
+
+        {property.images && property.images.length > 0 ? (
+          <Image
+            src={property.images[0].url}
+            alt={property.adress1 || 'Boligbillede'}
+            width={150}
+            height={100}
+            className="object-cover rounded"
+          />
+        ) : (
+          <div className="w-150 h-100 bg-gray-200 rounded" />
+        )}
+        <div className="flex justify-between w-full">
+          <div className='flex flex-col justify-evenly'>
+            <h3 className="font-semibold text-lg">{property.adress1}</h3>
+            <p className="text-gray-600">{property.postalcode} {property.city}</p>
+            <div className="flex items-center">
+              <p className="text-sm text-gray-500">{property.type}</p>
+              <p className="mx-2">·</p>
+              <p className="text-sm text-gray-500 text-nowrap">Ejerudgift: {property.cost.toLocaleString()} kr.</p>
+            </div>
+          </div>
+          <div className="flex w-full">
+            <div className='flex gap-4 w-full justify-center'>
+              <p
+                className={`px-2 py-1 rounded text-sm font-medium h-7 text-center ${getEnergyLabelColor(
+                  property.energylabel
+                )}`}
+              >
+                {property.energylabel}
+              </p>
+              <p>{property.rooms} værrelser</p>
+              <p>{property.gross} m²</p>
+            </div>
+            <div className='flex flex-col justify-between'>
+              <p className="font-semibold text-lg self-end">Kr. {property.price.toLocaleString()} </p>
+              <button className='p-3 text-nowrap bg-primary-color01 text-white rounded'>Fjern fra favoritter</button>
+            </div>
+            </div>
         </div>
-      </div>
-      <div className="flex flex-col items-end gap-2">
-        <p className="font-semibold">Kr. {property.pris.toLocaleString()}</p>
-        <button 
-          onClick={() => onRemove(property.id)}
-          variant="secondary" 
-          className="bg-primary-color01 text-white hover:bg-primary-color03"
-        >
-          Fjern fra favoritter
-        </button>
-      </div>
-    </li>
+
+      </Link>
+    </section>
   )
 }
