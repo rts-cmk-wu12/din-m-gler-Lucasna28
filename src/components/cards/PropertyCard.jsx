@@ -1,25 +1,27 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toggleFavorite } from "@/actions/favorites";
 import { getEnergyLabelColor } from "@/utils/getEnergyLabelColor";
+import { Toast } from "../ui/Toast";
 
-export default function PropertyCard({ property, index, initialFavorites = [] }) {
+export default function PropertyCard({ property, index, initialFavorites = [], onToast }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   
   useEffect(() => {
-    // Set initial favorite state based on initialFavorites prop
     setIsFavorite(initialFavorites.includes(property.id));
   }, [initialFavorites, property.id]);
 
-  const handleToggleFavorite = async () => {
-    // Check if user is logged in via cookies
+  const handleToggleFavorite = async (e) => {
+    e.preventDefault();
+    
     const isUserLoggedIn = document.cookie.includes("dm_token") && 
                           document.cookie.includes("dm_userid");
 
@@ -28,41 +30,56 @@ export default function PropertyCard({ property, index, initialFavorites = [] })
       return;
     }
 
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const previousState = isFavorite;
+    setIsFavorite(!previousState); // Optimistic update
+
     try {
       const result = await toggleFavorite(property.id);
       
       if (result.success) {
-        setIsFavorite(result.isFavorite);
+        onToast(
+          result.isFavorite 
+            ? `${property.type} på ${property.adress1} er fjernet fra dine favoritter` 
+            : `${property.type} på ${property.adress1} er føjet til dine favoritter`,
+          'success'
+        );
       } else {
-        console.error('Failed to toggle favorite:', result.error);
+        setIsFavorite(previousState);
+        onToast("Der opstod en fejl ved opdatering af favoritter", 'error');
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error);
+      setIsFavorite(previousState);
+      onToast("Der opstod en fejl. Prøv igen senere", 'error');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 relative"
-    >
-      {/* Hjertet */}
-      
-      <button
-        onClick={handleToggleFavorite}
-        className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 transition-colors duration-300"
-        aria-label="Toggle favorite"
-      >
-        <Heart
-          className={`w-6 h-6 ${
-            isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800"
-          }`}
-        />
-      </button>
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: index * 0.1 }}
+    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 relative"
+  >
+        <button
+          onClick={handleToggleFavorite}
+          className="absolute top-4 right-4 p-3 rounded-full z-10 bg-gray-200 bg-opacity-70 hover:bg-opacity-90 transition-colors duration-300 group"
+          aria-label={isFavorite ? "Fjern fra favoritter" : "Tilføj til favoritter"}
+        >
+          {isLoading ? (
+            <Loader2 className="w-6 h-6 animate-spin text-gray-800" />
+          ) : (
+            <Heart
+              className={`w-6 h-6 transition-colors duration-300 ${
+                isFavorite ? "fill-red-500 text-red-500" : "fill-none text-gray-800 group-hover:text-red-500"
+              }`}
+            />
+          )}
+        </button>
       <Link href={`/boliger/${property.id}`}>
         <div className="relative h-[300px] overflow-hidden group">
           <Image
@@ -116,5 +133,6 @@ export default function PropertyCard({ property, index, initialFavorites = [] })
         </div>
       </Link>
     </motion.div>
+
   );
 }

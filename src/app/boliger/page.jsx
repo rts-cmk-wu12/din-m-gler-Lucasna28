@@ -1,9 +1,10 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import PropertyCard from "@/components/cards/PropertyCard"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
 import PageHero from '@/components/ui/PageHero'
+import { Toast } from "@/components/ui/Toast"
 import { fetchFilteredProperties } from '@/utils/fetch/propertyService'
 import getUser from '@/utils/getUser'
 
@@ -15,9 +16,15 @@ export default function PropertiesPage() {
   const [propertyType, setPropertyType] = useState('Alle')
   const [maxPrice, setMaxPrice] = useState(12000000)
 
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
+
   const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
+
+  const handleToast = (message, type = 'success') => {
+    setToast({ show: true, message, type })
+  }
 
   const propertyTypes = [
     { value: 'Alle', label: 'Alle typer' },
@@ -147,6 +154,7 @@ export default function PropertiesPage() {
                     property={property}
                     index={index}
                     initialFavorites={favorites}
+                    onToast={handleToast}
                     onFavoriteChange={(newFavorites) => setFavorites(newFavorites)}
                   />
                 ))}
@@ -154,6 +162,18 @@ export default function PropertiesPage() {
             </>
           )}
         </div>
+        <div className="fixed bottom-4 right-4 z-50">
+            <AnimatePresence>
+              {toast.show && (
+                <Toast
+                  message={toast.message}
+                  type={toast.type}
+                  isVisible={toast.show}
+                  onClose={() => setToast({ ...toast, show: false })}
+                />
+              )}
+            </AnimatePresence>
+          </div>
       </div>
     </>
   )

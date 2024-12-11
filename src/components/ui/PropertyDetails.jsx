@@ -4,16 +4,20 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import MapComponent from '@/components/map/MapComponent'
+import { Toast } from './Toast'
 
 export function PropertyDetails({ exteriorImages, floorplanImages, property, initialFavorited, propertyId }) {
   const [activeView, setActiveView] = useState('exterior')
   const [isFavorited, setIsFavorited] = useState(initialFavorited)
-  const [showToast, setShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState('')
-  const [toastType, setToastType] = useState('info')
+  const [isLoading, setIsLoading] = useState(false)
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
   const router = useRouter()
-
+  
   const handleFavoriteClick = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    const previousState = isFavorited;
+    setIsFavorited(!previousState); // Optimistic update
 
     try {
       const response = await fetch('/api/favorites', {
@@ -24,10 +28,13 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
         body: JSON.stringify({ propertyId }),
       })
       const data = await response.json()      
+      
       if (response.status === 401) {
-        setToastMessage('Du skal være logget ind for at tilføje favoritter')
-        setToastType('error')
-        setShowToast(true)
+        setToast({
+          show: true,
+          message: 'Du skal være logget ind for at tilføje favoritter',
+          type: 'error'
+        });
         setTimeout(() => {
           router.push('/login')
         }, 2000)
@@ -36,16 +43,23 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
       
       if (!response.ok) throw new Error(data.message)
       
-      setIsFavorited(data.isFavorited)
-      setToastMessage(data.isFavorited ? 'Tilføjet til favoritter' : 'Fjernet fra favoritter')
-      setToastType('success')
-      setShowToast(true)
+      setToast({
+        show: true,
+        message: data.isFavorited 
+          ? `${property.type} på ${property.adress1} er føjet til dine favoritter ❤️`
+          : `${property.type} på ${property.adress1} er fjernet fra dine favoritter`,
+        type: 'success'
+      });
       
     } catch (error) {
-      console.error("Fejl ved tilføjelse af favorit:", error)
-      setToastMessage('Der opstod en fejl')
-      setToastType('error')
-      setShowToast(true)
+      setIsFavorited(previousState);
+      setToast({
+        show: true,
+        message: 'Der opstod en fejl. Prøv igen senere',
+        type: 'error'
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -117,6 +131,18 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
           </div>
         </div>
       )}
+       <div className="fixed bottom-4 right-4 z-50">
+        <AnimatePresence>
+          {toast.show && (
+            <Toast
+              message={toast.message}
+              type={toast.type}
+              isVisible={toast.show}
+              onClose={() => setToast({ ...toast, show: false })}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }

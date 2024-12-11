@@ -7,6 +7,7 @@ import FavoritsCardSkeleton from '@/components/skeletons/FavoritsCardSkeleton';
 import { motion } from "framer-motion";
 import PageHero from '@/components/ui/PageHero';
 import { Search } from 'lucide-react';
+import { toggleFavorite } from '@/actions/favorites';
 
 export default function FavoritesPage() {
   const [userData, setUserData] = useState(null);
@@ -14,6 +15,7 @@ export default function FavoritesPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,6 +42,8 @@ export default function FavoritesPage() {
           setProperties(fetchedProperties);
         } catch (err) {
           setError("Der opstod en fejl ved hentning af favoritter.");
+        } finally {
+          setDataLoaded(true);
         }
       }
     };
@@ -47,10 +51,15 @@ export default function FavoritesPage() {
     fetchFavorites();
   }, [userData]);
 
-  const handleRemove = (propertyId) => {
-    setProperties(prevProperties => 
-      prevProperties.filter(property => property.id !== propertyId)
-    );
+  const handleRemove = async (propertyId) => {
+    const result = await toggleFavorite(propertyId);
+    if (result.success) {
+      setProperties(prevProperties => 
+        prevProperties.filter(property => property.id !== propertyId)
+      );
+    } else {
+      console.error(result.error);
+    }
   };
 
   const filteredProperties = properties.filter(property =>
@@ -70,7 +79,7 @@ export default function FavoritesPage() {
             className="border rounded p-2 pl-10 w-full"
           />
           <div className="absolute left-2 top-2">
-            <Search/>
+            <Search className="h-5 w-5 text-gray-500" />
           </div>
         </div>
       </div>
@@ -83,7 +92,7 @@ export default function FavoritesPage() {
           </div>
         ) : error ? (
           <div className="text-red-500">{error}</div>
-        ) : filteredProperties.length === 0 ? (
+        ) : dataLoaded && filteredProperties.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -101,7 +110,14 @@ export default function FavoritesPage() {
             className="p-4 space-y-4"
           >
             {filteredProperties.map(property => (
-              <FavoritsCard key={property.id} propertyId={property.id} onRemove={handleRemove} />
+              <motion.div
+                key={property.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FavoritsCard propertyId={property.id} onRemove={handleRemove} />
+              </motion.div>
             ))}
           </motion.div>
         )}
