@@ -42,8 +42,8 @@ export default function PropertyCard({ property, index, initialFavorites = [], o
       if (result.success) {
         onToast(
           result.isFavorite 
-            ? `${property.type} på ${property.adress1} er fjernet fra dine favoritter` 
-            : `${property.type} på ${property.adress1} er føjet til dine favoritter`,
+            ? `${property.type} på ${property.adress1} er føjet til dine favoritter` 
+            : `${property.type} på ${property.adress1} er fjernet fra dine favoritter`,
           'success'
         );
       } else {

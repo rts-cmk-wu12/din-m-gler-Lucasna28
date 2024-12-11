@@ -14,13 +14,8 @@ export default function PropertiesPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [propertyType, setPropertyType] = useState('Alle')
-  const [maxPrice, setMaxPrice] = useState(12000000)
-
+  const [priceRange, setPriceRange] = useState(12000000)
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
-
-  const formatPrice = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
 
   const handleToast = (message, type = 'success') => {
     setToast({ show: true, message, type })
@@ -35,37 +30,13 @@ export default function PropertiesPage() {
   ]
 
   useEffect(() => {
-    const getProperties = async () => {
-      setIsLoading(true)
-      try {
-        const data = await fetchFilteredProperties({ 
-          priceRange: [0, maxPrice], 
-          propertyType 
-        })
-        setProperties(data)
-      } catch (err) {
-        setError(err.message)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    getProperties()
-  }, [maxPrice, propertyType])
-
-  useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
       try {
-        // Fetch properties and user data in parallel
         const [propertiesData, userData] = await Promise.all([
-          fetchFilteredProperties({ 
-            priceRange: [0, maxPrice], 
-            propertyType 
-          }),
+          fetchFilteredProperties({ priceRange: [0, priceRange], propertyType }),
           getUser()
         ])
-        
         setProperties(propertiesData)
         setFavorites(userData?.homes || [])
       } catch (err) {
@@ -76,7 +47,11 @@ export default function PropertiesPage() {
     }
 
     fetchData()
-  }, [maxPrice, propertyType])
+  }, [priceRange, propertyType])
+
+  const handlePriceChange = (e) => {
+    setPriceRange(e.target.value)
+  }
 
   return (
     <>
@@ -107,25 +82,22 @@ export default function PropertiesPage() {
               </select>
             </div>
 
-            <div className="w-full md:w-2/3">
-              <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
-                Maksimal pris
+            <div className="w-full md:w-1/3">
+              <label htmlFor="priceRange" className="block text-sm font-medium text-gray-700 mb-1">
+                Prisrange
               </label>
-              <div className="space-y-4">
-                <input
-                  id="maxPrice"
+              <div className="flex flex-col">
+                <div className="flex justify-between mb-2">
+                  <span>Max: {priceRange}</span>
+                </div>
+                <input 
                   type="range"
                   min="0"
                   max="12000000"
-                  step="100000"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                  value={priceRange}
+                  onChange={handlePriceChange}
                   className="w-full"
-                  aria-label="Maksimal pris"
                 />
-                <div className="flex justify-end text-sm text-gray-600">
-                  <span>Maksimalpris: {formatPrice(maxPrice)} kr.</span>
-                </div>
               </div>
             </div>
           </div>
