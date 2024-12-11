@@ -12,7 +12,7 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
   const [isLoading, setIsLoading] = useState(false)
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
   const router = useRouter()
-  
+
   const handleFavoriteClick = async () => {
     if (isLoading) return;
     setIsLoading(true);
@@ -131,8 +131,6 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
           </div>
         </div>
       )}
-       <div className="fixed bottom-4 right-4 z-50">
-        <AnimatePresence>
           {toast.show && (
             <Toast
               message={toast.message}
@@ -141,8 +139,6 @@ export function PropertyDetails({ exteriorImages, floorplanImages, property, ini
               onClose={() => setToast({ ...toast, show: false })}
             />
           )}
-        </AnimatePresence>
-      </div>
     </div>
   )
 }
