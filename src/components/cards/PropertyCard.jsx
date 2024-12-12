@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toggleFavorite } from "@/actions/favorites";
 import { getEnergyLabelColor } from "@/utils/getEnergyLabelColor";
-import { Toast } from "../ui/Toast";
 
 export default function PropertyCard({ property, index, initialFavorites = [], onToast }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -116,7 +115,7 @@ export default function PropertyCard({ property, index, initialFavorites = [], o
           {/* Bottom info */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <span
+            <span
                 className={`px-2 py-1 rounded text-sm font-medium ${getEnergyLabelColor(
                   property.energylabel
                 )}`}

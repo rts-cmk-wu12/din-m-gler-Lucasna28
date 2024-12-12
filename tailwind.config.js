@@ -44,11 +44,11 @@ module.exports = {
           bg4: "#444444",
           bg5: "#455463",
         },
-        energylabel: {
+        energyLabel: {
           A: "#00A650",
           B: "#4CB848",
-          C: "#BFD630",
-          D: "#FFF108",
+          C: "#F37021",
+          D: "#ED1C24",
           E: "#FDB913",
           F: "#F37021",
           G: "#ED1C24",

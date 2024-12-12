@@ -2,10 +2,18 @@
 
 # dinmaegler
 
-# Din Projekt Titel
+# Din Mægler Website
 
-En kort beskrivelse af dit projekt.
+Kort projektbeskrivelse her...
 
-## Sådan kommer du i gang
+## 📝 Dokumentation
 
-Instruktioner til opsætning og brug af projektet.
+Se den fulde projektdokumentation her: [Dokumentation](DOCUMENTATION.md)
+
+## 🚀 Live Demo
+
+[Se projektet live her](din-netlify-url)
+
+## ⚙️ Installation & Setup
+
+Installation instruktioner her...
