@@ -5,11 +5,11 @@ import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
-import ImageGallery from '@/components/ImageGallery'
 import DetailItem from '@/components/ui/DetailItem' 
 import { motion } from 'framer-motion'
 import TeamCardSkeleton from '@/components/skeletons/TeamCardSkeleton'
 import AgentCard from '@/components/cards/AgentCard'
+import ImageGallery from '@/components/gallery/ImageGallery'
 
 export default function PropertyListing() {
   const { id } = useParams()
@@ -42,11 +42,11 @@ export default function PropertyListing() {
         animate={{ opacity: 1, y: 0}}
         transition={{duration: 0.7 }}
         className="relative w-full h-[500px] mb-6 rounded-lg overflow-hidden">
-        <ImageGallery 
-          property={property} 
-          activeView={activeView}
-          setActiveView={setActiveView}
-        />
+<ImageGallery
+  property={property}
+  activeView={activeView}
+  setActiveView={setActiveView}
+/>
       </motion.div>
       {/* Property Header */}
       <motion.div 

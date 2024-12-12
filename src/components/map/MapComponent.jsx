@@ -1,4 +1,7 @@
+// MapComponent.jsx
 import { useState, useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function MapComponent({ position }) {
   const [loading, setLoading] = useState(true);
@@ -8,22 +11,22 @@ export default function MapComponent({ position }) {
 
   const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}&hl=da&z=14&output=embed`;
 
-  // Simulerer en loading-state i 1 sekund (kan tilpasses)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="relative w-full h-full">
       {loading && (
-        <div className="flex justify-center items-center absolute inset-0 bg-white bg-opacity-50 z-10">
-          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="flex justify-center items-center absolute inset-0 bg-white/80 z-10"
+        >
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+        </motion.div>
       )}
-      <iframe
+      <motion.iframe
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
         src={googleMapsUrl}
         width="100%"
         height="100%"
@@ -31,9 +34,8 @@ export default function MapComponent({ position }) {
         allowFullScreen=""
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        className={`${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}
         onLoad={() => setLoading(false)}
       />
     </div>
   );
-};
+}
