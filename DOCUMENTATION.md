@@ -165,12 +165,6 @@
      - **App Section Animation**: Se kode for app section animation: [App Section Animation](#app-section-animation)
    - **Hvorfor det er særligt:** Disse funktioner forbedrede ikke kun UX’en betydeligt, men gjorde også applikationen mere visuelt tiltalende og interaktiv.
 
-2. **Styling i overensstemmelse med Figma Design**
-
-   - Jeg sørgede for, at stylingen af applikationen fulgte designet fra Figma, hvilket gav et professionelt og konsekvent udseende.
-   - Jeg brugte Tailwind CSS til hurtigt at implementere de nødvendige stylingregler og få det ønskede udseende.
-   - **Hvorfor det er særligt:** Dette sikrede, at designet blev implementeret præcist som foreskrevet, hvilket gav applikationen en flot og ensartet brugerflade.
-
 ## Kode Links:
 
 ### Skeleton Component
@@ -195,9 +189,5 @@
 
 ### Google Maps Integration
 
-- [Google Maps Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/maps/GoogleMap.jsx)
+- [Google Maps Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/tree/main/src/components/map)
   - Denne komponent integrerer Google Maps til at vise placeringer og ruter direkte i applikationen.
-
-## 📊 Projektstyring
-
-[Screenshots eller links til dit projektstyringsværktøj]

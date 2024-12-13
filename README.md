@@ -1,19 +1,22 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/uUQV8Lur)
-
 # dinmaegler
 
-# Din Mægler Website
+## Din Mægler Website
 
-Kort projektbeskrivelse her...
+**Din Mægler** er en platform, hvor brugere kan finde ejendomsmæglere, oprette en konto og få adgang til relevante oplysninger om ejendomsmæglere i deres område. Det er en simpel og brugervenlig app, designet til at gøre ejendomshandelsprocessen lettere.
 
-## 📝 Dokumentation
+### 🚀 Funktioner
 
-Se den fulde projektdokumentation her: [Dokumentation](DOCUMENTATION.md)
+- Opret en konto og log ind.
+- Søg efter ejendomsmæglere baseret på forskellige kriterier.
+- Brug af Firebase til autentificering og datalagring.
+- Responsivt design, som fungerer både på desktop og mobil.
 
-## 🚀 Live Demo
+### 📝 Dokumentation
 
-- **Vercel URL:** [[Link](https://din-meagler.vercel.app/)]
+Du kan finde den fulde projektdokumentation her: [Dokumentation](DOCUMENTATION.md).
 
-## ⚙️ Installation & Setup
+### 🚀 Live Demo
 
-Installation instruktioner her...
+Prøv appen live:
+
+- **Vercel URL**: [Din Mægler Live Demo](https://din-meagler.vercel.app/)
