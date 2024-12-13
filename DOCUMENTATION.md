@@ -8,8 +8,8 @@
 
 ## 🔗 Links
 
-- **GitHub Repository:** [Link](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28){:target="\_blank"}
-- **Vercel URL:** [[Link](https://din-meagler.vercel.app/)]{:target="\_blank"}
+- **GitHub Repository:** [Link](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28)
+- **Vercel URL:** [[Link](https://din-meagler.vercel.app/)]
 
 ## 🔑 Login Credentials
 
@@ -78,41 +78,38 @@
 1. **Framer Motion**
 
    - **Anvendelse:** Bruges til at tilføje animationer og overgange i applikationen, hvilket forbedrer brugeroplevelsen.
-   - **Kilde:** [Motion](https://www.framer.com/motion/{:target="_blank"})
+   - **Kilde:** [Motion](https://www.framer.com/motion/)
 
 2. **Google Maps**
    - **Anvendelse:** Integreres via en iframe for at vise kort og placeringer i applikationen.
    - **Kilde:** [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/start)
 
-# 🛠 Valg & Argumentation
+## 💻 Ændringer og Begrundelser
 
-Her beskriver jeg de vigtige valg, jeg har truffet i projektet, og hvorfor:
-
-## **Arkitektur Beslutninger**
-
-### Ændringer og Begrundelser:
-
-- **Søgefeltet**  
-  Jeg har ændret søgefeltet, så knappen nu ligger inde i selve søgefeltet, og man kan vælge at søge mellem alle, kun mæglere eller kun boliger. Jeg syntes, at dette gav et bedre UX og så mere moderne ud.
-
-- **Afmeld Nyhedsbrev-side**  
-  Jeg har lavet en afmeld nyhedsbrev-side, så brugerne kan afmelde sig nyhedsbrevet. Tidligere gav projektet en 500-fejl, hvis man allerede var tilmeldt og prøvede igen. Da der ikke var et design eller layout til denne side, men API’et understøttede funktionen, valgte jeg at tilføje denne side.
-
-- **Toasts**  
-  Jeg har implementeret en toast-komponent, der popper frem ved forskellige handlinger, som f.eks. ved formularindsendelser. Dette forbedrer brugeroplevelsen ved at give feedback i realtid.
-
-- **Skeleton Loading**  
-  Jeg har tilføjet skeletons for bedre visning under indlæsning. Dette giver brugeren en visuel indikator, mens data bliver hentet.
-
-- **Footer på Error Page**  
-  Jeg har ændret footeren på error-siden, da den oprindelige footer ikke passede sammen med resten af designet. Figma footer designet ødelagde det overordnede tema og konsistens .
-
-- **Login og Register Hero**  
-  På login- og registreringssiderne har jeg fjernet breadcrumbs fra hero-sektionen og beholdt kun titlen. Dette valg blev truffet for at sikre, at designet matcher de andre sider og virker mindre overfyldt.
-
-- **Boligdetaljer - Slideshow**  
-  På boligdetaljesiden har jeg lavet et slideshow med i alt 4 billeder fra huset. API’et gav adgang til flere billeder, men der var ikke noget design til dem. For at udnytte billederne på en brugervenlig måde valgte jeg at lave et simpelt slideshow.
-
+<details>
+<summary>Ændringer i Projektet</summary>
+<p>
+- **Søgefeltet:** Jeg har ændret søgefeltet, så knappen nu ligger inde i selve søgefeltet, og man kan vælge at søge mellem alle, kun mæglere eller kun boliger. Jeg syntes, at dette gav et bedre UX og så mere moderne ud.
+</p>
+<p>
+- **Afmeld Nyhedsbrev-side:** Jeg har lavet en afmeld nyhedsbrev-side, så brugerne kan afmelde sig nyhedsbrevet. Tidligere gav projektet en 500-fejl, hvis man allerede var tilmeldt og prøvede igen. Da der ikke var et design eller layout til denne side, men API’et understøttede funktionen, valgte jeg at tilføje denne side.
+</p>
+<p>
+- **Toasts:** Jeg har implementeret en toast-komponent, der popper frem ved forskellige handlinger, som f.eks. ved formularindsendelser. Dette forbedrer brugeroplevelsen ved at give feedback i realtid.
+</p>
+<p>
+- **Skeleton Loading:** Jeg har tilføjet skeletons for bedre visning under indlæsning. Dette giver brugeren en visuel indikator, mens data bliver hentet.
+</p>
+<p>
+- **Footer på Error Page:** Jeg har ændret footeren på error-siden, da den oprindelige footer ikke passede sammen med resten af designet. Figma footer designet ødelagde det overordnede tema og konsistens.
+</p>
+<p>
+- **Login og Register Hero:** På login- og registreringssiderne har jeg fjernet breadcrumbs fra hero-sektionen og beholdt kun titlen. Dette valg blev truffet for at sikre, at designet matcher de andre sider og virker mindre overfyldt.
+</p>
+<p>
+- **Boligdetaljer - Slideshow:** På boligdetaljesiden har jeg lavet et slideshow med i alt 4 billeder fra huset. API’et gav adgang til flere billeder, men der var ikke noget design til dem. For at udnytte billederne på en brugervenlig måde valgte jeg at lave et simpelt slideshow.
+</p>
+</details>
 ## 📈 Egen Indsats & Resultat
 
 ### Hvad gik godt
