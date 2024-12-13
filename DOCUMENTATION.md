@@ -158,8 +158,8 @@
 
 1. **Loading, Toast, Skeletons og Animationer**
 
-   - Jeg implementerede **skeletons** for at vise brugeren, at data blev hentet, hvilket forbedrede brugeroplevelsen under indlæsning. Se kode for skeleton-komponenten: [Skeleton Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/tree/main/src/components/skeletons).
-   - **Toasts** blev brugt til at give feedback til brugeren, hvilket gjorde applikationen mere interaktiv og brugervenlig. Se kode for toast-komponenten: [Toast Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/Toast.jsx).
+   - Jeg implementerede **skeletons** for at vise brugeren, at data blev hentet, hvilket forbedrede brugeroplevelsen under indlæsning. Se kode for skeleton-komponenten: [Skeleton Component](#skeleton-component).
+   - **Toasts** blev brugt til at give feedback til brugeren, hvilket gjorde applikationen mere interaktiv og brugervenlig. Se kode for toast-komponenten: [Toast Component](#toast-component).
    - Jeg brugte **Framer Motion** til at tilføje animationer, hvilket gjorde applikationen mere dynamisk og engagerende for brugerne. Dette inkluderede:
      - **Page Transition**: Se kode for page transition: [Page Transition](#page-transition)
      - **App Section Animation**: Se kode for app section animation: [App Section Animation](#app-section-animation)
@@ -185,13 +185,18 @@
 
 ### Page Transition
 
-- [Page Transition](#https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/PageTransition.jsx)
+- [Page Transition](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/PageTransition.jsx)
   - Anvender Framer Motion til at skabe glidende overgange mellem sider, hvilket gør brugeroplevelsen mere flydende.
 
 ### App Section Animation
 
-- [App Section Animation](#https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/sections/AppSection.jsx)
+- [App Section Animation](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/sections/AppSection.jsx)
   - Anvender Framer Motion til at animere specifikke sektioner af appen, som f.eks. ved loading af indhold eller ændringer i appens tilstand.
+
+### Google Maps Integration
+
+- [Google Maps Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/maps/GoogleMap.jsx)
+  - Denne komponent integrerer Google Maps til at vise placeringer og ruter direkte i applikationen.
 
 ## 📊 Projektstyring
 
