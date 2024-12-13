@@ -141,7 +141,8 @@ export default function PropertiesPage() {
                   message={toast.message}
                   type={toast.type}
                   isVisible={toast.show}
-                  onClose={() => setToast({ ...toast, show: false })}
+                  onClose={() => setToast({ ...toast, show: false })} 
+                  onToast={handleToast}
                 />
               )}
             </AnimatePresence>

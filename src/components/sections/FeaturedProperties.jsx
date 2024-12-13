@@ -1,15 +1,21 @@
 "use client"
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useProperties } from "@/hooks/useProperties"
 import Link from "next/link"
 import PropertySkeleton from "@/components/skeletons/PropertySkeleton"
 import PropertyCard from "@/components/cards/PropertyCard"
+import { Toast } from "@/components/ui/Toast"
 import getUser from "@/utils/getUser"
 
 export default function FeaturedProperties() {
   const { properties, isLoading, error } = useProperties()
   const [favorites, setFavorites] = useState([])
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
+
+  const handleToast = (message, type = 'success') => {
+    setToast({ show: true, message, type })
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -45,12 +51,13 @@ export default function FeaturedProperties() {
           ) : (
             properties.slice(0, 4).map((property, index) => (
               <PropertyCard 
-              key={property.id} 
-              property={property} 
-              index={index}
-              initialFavorites={favorites}
-              onFavoriteChange={(newFavorites) => setFavorites(newFavorites)}
-            />
+                key={property.id} 
+                property={property} 
+                index={index}
+                initialFavorites={favorites}
+                onToast={handleToast}
+                onFavoriteChange={(newFavorites) => setFavorites(newFavorites)}
+              />
             ))
           )}
         </div>
@@ -61,6 +68,19 @@ export default function FeaturedProperties() {
       >
         Se alle boliger
       </Link>
+      <div className="fixed bottom-4 right-4 z-50">
+        <AnimatePresence>
+          {toast.show && (
+            <Toast
+              message={toast.message}
+              type={toast.type}
+              isVisible={toast.show}
+              onClose={() => setToast({ ...toast, show: false })}
+              onToast={handleToast}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </section>
   )
 }
