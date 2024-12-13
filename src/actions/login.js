@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 import { z } from "zod";
 
-export default async function login(state, formData) {
+export default async function login(formData) {
   const { identifier, password } = Object.fromEntries(formData);
   const cookieStore = await cookies();
 

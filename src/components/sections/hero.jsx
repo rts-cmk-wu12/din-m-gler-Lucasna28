@@ -20,10 +20,10 @@ export default function Hero() {
     setSelectedFilter,
   } = useSearch()
 
-  // Limit search results to 3
+  // Limit search til 3
   const limitedResults = searchResults.slice(0, 3)
 
-  // Enhanced motion variants
+  {/* framer motion animationer */}
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -76,7 +76,6 @@ export default function Hero() {
             Udforsk vores udvalg af eksklusive boliger og find dit næste hjem
           </p>
         </motion.div>
-
         <motion.div 
           className="w-full max-w-3xl bg-white rounded-lg shadow-xl"
           variants={itemVariants}
@@ -114,7 +113,6 @@ export default function Hero() {
                 </ul>
               </nav>
             </div>
-
             <form 
               onSubmit={handleSearch} 
               className="relative"
@@ -140,7 +138,6 @@ export default function Hero() {
                   {isSearching ? <Loader2 className="animate-spin" /> : "Søg"}
                 </button>
               </div>
-
               <AnimatePresence>
                 {showDropdown && limitedResults.length > 0 && (
                   <motion.div

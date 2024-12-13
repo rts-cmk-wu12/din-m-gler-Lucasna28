@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRightIcon, Loader2 } from "lucide-react";
-import { Toast } from "../ui/Toast";
 import { useToast } from "@/hooks/useToast";
 import { z } from "zod";
 
@@ -147,7 +146,6 @@ export default function NewsletterSection() {
               ): isSuccess ? (
                 <span className="">Tilmeldt</span>
               ): (<span className="sr-only">Send</span>)}
-              
               <ArrowRightIcon />
             </motion.button>
           </motion.form>

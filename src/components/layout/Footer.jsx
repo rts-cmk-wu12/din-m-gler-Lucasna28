@@ -32,7 +32,7 @@ export default function Footer() {
     }
   ];
 
-  return (
+  return ( <>
     <footer className="bg-gradient-to-b from-[#F8F8FB] from-70% to-white to-70% gap-10 min-h-[50vh] grid grid-cols-2 grid-rows-3 p-24 pl-48">
       <section className="col-span-2 mb-16">
       <Image src="/dinmeagler.svg" alt="Din Mægler" width={500} height={300} />
@@ -52,10 +52,9 @@ export default function Footer() {
         </ul>
       </section>
 
-      <section className="grid grid-cols-2 row-start-3 row-end-4 col-start-1 col-end-3 w-full">
+      <section className="grid grid-cols-2 row-start-3 row-end-4 col-start-1 col-end-3 w-full mt-24">
         <div className="col-start-2">
-
-        <Image src="/svg/dms.svg" alt="DMS" width={200} height={200} className='w-full h-full'/>
+          <Image src="/svg/dms.svg" alt="DMS" width={100} height={100} className='w-full h-full'/>
         </div>
       </section>
 
@@ -69,19 +68,23 @@ export default function Footer() {
                 width={24} 
                 height={24} 
                 className='bg-primary-color01 rounded-full p-3 w-12 h-12 flex items-center justify-center shrink-0' 
-              />
+                />
               <div className='flex flex-col'>
                 <h3 className='font-semibold'>{info.title}</h3>
                 <p className='text-gray-600'>{info.content}</p>
               </div>
             </li>
           ))}
-        </ul>
-          <p className='text-gray-600 mt-4 text-pretty'>
-          Din Mægler Roskilde, er din boligibutik i lokalområdet.
+          <p className='text-gray-600 mt-4 text-pretty w-1/2'>
+            Din Mægler Roskilde, er din boligibutik i lokalområdet.
           </p>
+        </ul>
       </section>
     </footer>
+    <section className='bg-primary-color01 w-full h-24 text-center flex justify-center items-center'>
+      <p className='text-white'>Layout By Jit Banik 2020</p>
+    </section>
+    </>
   );
 }
 

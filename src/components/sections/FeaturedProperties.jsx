@@ -40,14 +40,11 @@ export default function FeaturedProperties() {
             Se vores udvalg af boliger til salg - eller find lige præcis den bolig du søger
           </p>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
           {isLoading ? (
             [...Array(4)].map((_, index) => (
               <PropertySkeleton key={index} />
             ))
-          ) : error ? (
-            <div className="col-span-2 text-center text-red-500">{error}</div>
           ) : (
             properties.slice(0, 4).map((property, index) => (
               <PropertyCard 

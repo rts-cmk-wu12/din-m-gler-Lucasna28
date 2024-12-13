@@ -7,28 +7,25 @@ export default function NotFound() {
   return (
     <section className="min-h-dvh flex flex-col items-center justify-center p-4 bg-shape-shape02 -z-[2]">
       <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg text-center">
-        {/* "Hov!" text with overlay */}
+        {/* "Hov!" tekst with overlay */}
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5 }}
-  className="relative"
->
-  {/* Hov-tekst med høj z-index */}
-  <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold text-white relative z-20 text-border">
-    Hov!
-  </h1>
-  {/* Blue overlay med lav z-index */}
-  <motion.div
-    initial={{ width: 0 }}
-    animate={{ width: "100%" }}
-    transition={{ duration: 0.5 }}
-    className="absolute bottom-0 left-0 h-[45%] bg-primary-color01 z-10"
-  />
-</motion.div>
-
-
-
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative"
+        >
+        {/* Hov-tekst med høj z-index */}
+          <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold text-white relative z-20 text-border">
+            Hov!
+          </h1>
+          {/* blå overlay med lav z-index */}
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 0.5 }}
+            className="absolute bottom-0 left-0 h-[45%] bg-primary-color01 z-10"
+          />
+        </motion.div>
         {/* Error message */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -38,7 +35,6 @@ export default function NotFound() {
         >
           Du er havnet på en side som ikke findes!
         </motion.h2>
-
         {/* Subtext */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -48,8 +44,7 @@ export default function NotFound() {
         >
           Det er vi kede af! Vi har sendt en besked af sted til vores internetbureau, og bedt dem se på fejlen.
         </motion.p>
-
-        {/* Back button */}
+        {/* tilbage knap */}
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

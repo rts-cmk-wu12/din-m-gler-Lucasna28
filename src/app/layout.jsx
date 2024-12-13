@@ -17,12 +17,12 @@ export default function RootLayout({ children }) {
         <ToastProvider>
           <Header />
           <main className="flex-grow">
-          <AnimatePresence mode="wait">
-    <PageTransition>{children}</PageTransition>
-  </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <PageTransition>{children}</PageTransition>
+            </AnimatePresence>
           </main>
           <Footer />
-          </ToastProvider>
+        </ToastProvider>
       </body>
     </html>
   );

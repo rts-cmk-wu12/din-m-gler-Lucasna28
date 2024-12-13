@@ -8,12 +8,6 @@ import Link from "next/link";
 import login from "@/actions/login";
 import { Toast } from "@/components/ui/Toast";
 
-const INPUT_STYLES = {
-  base: "border-2 p-2 rounded-md w-full transition-all duration-200",
-  error: "border-primary-red",
-  default: "border-gray-200 focus:border-primary-color01",
-};
-
 const TOAST_MESSAGES = {
   validation: "Tjek venligst de markerede felter",
   success: "Login successful!",
@@ -54,14 +48,12 @@ export default function LoginPage() {
     try {
       const formData = new FormData(event.target);
       const data = Object.fromEntries(formData);
-      
       // Validate form data
       const validatedData = loginSchema.parse(data);
       
       try {
         // Submit form
         const result = await login(null, formData);
-        
         if (result.success) {
           showToast(TOAST_MESSAGES.success, "success");
           setTimeout(() => redirect("/"), 1500);
@@ -161,10 +153,6 @@ export default function LoginPage() {
             <button type="button" className="bg-primary-facebook text-white p-3 w-1/3 mx-4">Facebook</button>
             <button type="button" className="bg-primary-color01 text-white p-3 w-1/3">Twitter</button>
           </div>
-
-          <p className="text-center mt-4">
-            Har du ikke en konto? <Link className="text-blue-400" href="/">opret bruger</Link>
-          </p>
         </form>
         {toast.show && (
             <Toast
