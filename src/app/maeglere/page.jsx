@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import TeamCardSkeleton from '@/components/skeletons/TeamCardSkeleton';
 import PageHero from '@/components/ui/PageHero';
 import { useAgents } from '@/hooks/useAgents';
-import { Mail } from 'lucide-react';
+import TeamCard from '@/components/cards/TeamCard';
 
 export default function AgentsPage() {
   const { agents, isLoading, error } = useAgents();
@@ -47,7 +47,6 @@ export default function AgentsPage() {
           </motion.h2>
         </div>
       </section>
-
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -57,36 +56,7 @@ export default function AgentsPage() {
             transition={{ duration: 0.6 }}
           >
             {agents.map((agent, index) => (
-              <motion.div
-                key={agent.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="border-shape-shape01 border-2 rounded-md flex flex-col"
-              >
-                <Link 
-                  href={`/maeglere/${agent.id}`}
-                  className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="relative h-[300px]">
-                    <Image
-                      src={agent.image.url}
-                      alt={agent.name}
-                      sizes='32'
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col items-center">
-                    <h3 className="text-xl font-semibold mb-2">{agent.name}</h3>
-                    <p className="text-gray-500 mb-4">{agent.title}</p>
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <Mail className='fill-primary-color01'/>
-                      <p className='text-primary-color01'>{agent.email}</p>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+              <TeamCard key={agent.id} agent={agent} index={index} />
             ))}
           </motion.div>
         </div>

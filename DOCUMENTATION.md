@@ -164,7 +164,7 @@
 
    Toasts implementeres ved hjælp af en kontekst, der gør det muligt for forskellige komponenter at tilføje og vise toast-beskeder uden at skulle passere props gennem flere niveauer af komponenter. Når en toast skal vises, kaldes `addToast`-metoden, som tilføjer en ny toast til en liste. Hver toast har et unikt ID, en besked og en type (f.eks. "success" eller "error").
 
-   Toasts vises i en fast position i brugergrænsefladen, så de er synlige for brugeren, og de fjernes automatisk efter en kort periode (2,5 sekund), medmindre brugeren lukker dem manuelt.
+   Toasts vises i en fast position på skærmen, så de er synlige for brugeren, og de fjernes automatisk efter en kort periode (2,5 sekund), medmindre brugeren lukker dem manuelt.
 
    ### Fordele ved at bruge Toasts
 
@@ -177,4 +177,3 @@
 ### Toast Component
 
 - [Toast Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/Toast.jsx)
-  - Bruges til at vise feedback til brugeren for forskellige handlinger i applikationen.

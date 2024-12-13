@@ -36,10 +36,10 @@ export default function TeamSection() {
           </div>
         )}
         
-        <div className="text-center mt-8">
+        <div className="text-center mt-8" >
           <Link 
             href="/maeglere" 
-            className="inline-block bg-[#162A41] text-white px-8 py-2 rounded text-sm"
+            className="inline-block bg-[#162A41] text-white p-4 px-6 rounded text-sm"
           >
             Se alle mæglere
           </Link>

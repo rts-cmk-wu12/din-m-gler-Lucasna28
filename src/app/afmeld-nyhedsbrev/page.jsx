@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Toast } from '@/components/ui/Toast'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import PageHero from '@/components/ui/PageHero'
 
 export default function AfmeldNyhedsbrevPage() {
   const [email, setEmail] = useState('')
@@ -58,35 +59,9 @@ export default function AfmeldNyhedsbrevPage() {
 
   return (
     <>
-      <section className="relative bg-cover w-full h-[10rem]" 
-        style={{ 
-          backgroundImage: `url('/images/boliger-hero.png')`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="absolute inset-0 bg-black/65 w-full" />
-        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
-          <Link 
-            href="/"
-            className="flex items-center text-white mb-4 hover:text-gray-200 transition-colors w-fit"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Tilbage til forsiden
-          </Link>
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Afmeld nyhedsbrev
-          </motion.h1>
-        </div>
-      </section>
 
-      <div className="container mx-auto px-4 py-12">
+      <PageHero title={"Afmeld nyhedsbrev"} />
+      <section className="container mx-auto px-4 py-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,7 +135,7 @@ export default function AfmeldNyhedsbrevPage() {
             </>
           )}
         </motion.div>
-      </div>
+      </section>
 
       {showToast && (
         <Toast
