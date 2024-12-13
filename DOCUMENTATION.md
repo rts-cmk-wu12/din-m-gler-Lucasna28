@@ -18,40 +18,61 @@
 
 ## 💻 Tech Stack
 
-- **Frontend**
+- _Frontend_
 <details>
-    <summary>Next.js</summary>
-    <p> 
-        - **Hvordan jeg bruger det:** Jeg bruger Next.js som fundamentet for mit frontend-arbejde. Dets evne til at håndtere server-side rendering (SSR) og generering af statiske sider har været afgørende for at forbedre hastigheden og SEO'en på mit projekt.
-    </p>
-    <p>  
-        - **Hvorfor jeg valgte det:** Jeg sætter pris på, hvordan det gør mine sider hurtigere og bedre optimeret til søgemaskiner. De indbyggede funktioner til routing og API-håndtering gør også udviklingsprocessen meget mere effektiv.
-    </p>
+<summary>Next.js</summary>
+<p>
+-Hvordan jeg bruger det: Jeg bruger Next.js som fundamentet for mit frontend-arbejde. Dets evne til at håndtere server-side rendering (SSR) og generering af statiske sider har været afgørende for at forbedre hastigheden og SEO'en på mit projekt.
+</p>
+<p>  
+-Hvorfor jeg valgte det: Jeg sætter pris på, hvordan det gør mine sider hurtigere og bedre optimeret til søgemaskiner. De indbyggede funktioner til routing og API-håndtering gør også udviklingsprocessen meget mere effektiv.
+</p>
 </details>
-
-- **Tailwind CSS**
-
-  - **Hvordan jeg bruger det:** Tailwind CSS gør det nemt at style mine brugergrænseflader ved at bruge deres utility-klasser direkte i mine komponenter. Det sparer mig tid og reducerer behovet for at skrive meget tilpasset CSS.
-  - **Hvorfor jeg valgte det:** Jeg kan hurtigt bygge responsive og flotte designs uden at skulle bruge tid på grundlæggende styling. Tailwind giver mig friheden til at fokusere på funktionalitet og design samtidig.
-
-- **Framer Motion**
-
-  - **Hvordan jeg bruger det:** Jeg bruger Framer Motion til at tilføje flydende animationer og overgange mellem komponenter. Det gør brugeroplevelsen mere dynamisk og engagerende.
-  - **Hvorfor jeg valgte det:** Det er nemt at implementere og gør en stor forskel i, hvordan applikationen føles for brugeren. Animationerne hjælper med at fastholde brugernes opmærksomhed og skaber et professionelt udtryk.
-
-- **js-cookie**
-
-  - **Hvordan jeg bruger det:** Jeg bruger js-cookie til at håndtere cookies på klient-siden. Det gør det nemt at gemme brugerpræferencer og sessionsdata.
-  - **Hvorfor jeg valgte det:** Jeg havde brug for en simpel løsning til at arbejde med cookies, og js-cookie opfyldte alle mine behov.
-
-- **Lucide React**
-
-  - **Hvordan jeg bruger det:** Lucide React leverer ikoner, der forbedrer brugergrænsefladen og hjælper med at gøre designet mere intuitivt.
-  - **Hvorfor jeg valgte det:** Jeg manglede nogle specifikke ikoner, som ikke var inkluderet i Figma-designet, og Lucide React havde præcis, hvad jeg skulle bruge.
-
-- **Zod**
-  - **Hvordan jeg bruger det:** Jeg anvender Zod til validering af data i mine formularer og andre inputs. Det sikrer, at data altid følger det forventede format.
-  - **Hvorfor jeg valgte det:** Jeg lærte om Zod midt i projektet og opdagede, hvor meget det hjælper med at reducere fejl. Det gør valideringsprocessen enklere og sikrer, at applikationen kører problemfrit.
+<details>
+<summary>Tailwind CSS</summary>
+<p>
+-Hvordan jeg bruger det: Tailwind CSS gør det nemt at style mine brugergrænseflader ved at bruge deres utility-klasser direkte i mine komponenter. Det sparer mig tid og reducerer behovet for at skrive meget tilpasset CSS.
+</p>
+<p>  
+-Hvorfor jeg valgte det: Jeg kan hurtigt bygge responsive og flotte designs uden at skulle bruge tid på grundlæggende styling. Tailwind giver mig friheden til at fokusere på funktionalitet og design samtidig.
+</p>
+</details>
+   <details>
+      <summary>Framer Motion</summary>
+      <p> 
+        -Hvordan jeg bruger det: Jeg bruger Framer Motion til at tilføje flydende animationer og overgange mellem komponenter. Det gør brugeroplevelsen mere dynamisk og engagerende.
+      </p>
+      <p>  
+        -Hvorfor jeg valgte det: Det er nemt at implementere og gør en stor forskel i, hvordan applikationen føles for brugeren. Animationerne hjælper med at fastholde brugernes opmærksomhed og skaber et professionelt udtryk.
+      </p>
+  </details>
+   <details>
+      <summary>js-cookie</summary>
+      <p> 
+        -Hvordan jeg bruger det: Jeg bruger js-cookie til at håndtere cookies på klient-siden. Det gør det nemt at gemme brugerpræferencer og sessionsdata.
+      </p>
+      <p>  
+        -Hvorfor jeg valgte det: Jeg havde brug for en simpel løsning til at arbejde med cookies, og js-cookie opfyldte alle mine behov.
+      </p>
+  </details>
+<details>
+      <summary>Lucide React</summary>
+      <p> 
+        -Hvordan jeg bruger det: Lucide React leverer ikoner, der forbedrer brugergrænsefladen og hjælper med at gøre designet mere intuitivt.
+      </p>
+      <p>  
+        -Hvorfor jeg valgte det: Jeg manglede nogle specifikke ikoner, som ikke var inkluderet i Figma-designet, og Lucide React havde præcis, hvad jeg skulle bruge.
+      </p>
+  </details>
+<details>
+      <summary>Zod</summary>
+      <p> 
+        -Hvordan jeg bruger det: Jeg anvender Zod til validering af data i mine formularer og andre inputs. Det sikrer, at data altid følger det forventede format.
+      </p>
+      <p>  
+        -Hvorfor jeg valgte det: Jeg lærte om Zod midt i projektet og opdagede, hvor meget det hjælper med at reducere fejl. Det gør valideringsprocessen enklere og sikrer, at applikationen kører problemfrit.
+      </p>
+  </details>
 
 ## 📦 Tredjepartskode
 
