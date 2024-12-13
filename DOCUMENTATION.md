@@ -3,7 +3,7 @@
 ## Projektinformation
 
 - **Udvikler:** [Lucas N. Anderson]
-- **Hold:** [Dit holdnummer]
+- **Hold:** [WU11]
 - **Projektperiode:** [Start dato - Slut dato]
 
 ## 🔗 Links
@@ -16,14 +16,18 @@
 - **Brugernavn:** [navn@mail.dk]
 - **Password:** [123456]
 
-# 💻 Tech Stack
+## 💻 Tech Stack
 
-## Frontend
-
-- **Next.js**
-
-  - **Hvordan jeg bruger det:** Jeg bruger Next.js som fundamentet for mit frontend-arbejde. Dets evne til at håndtere server-side rendering (SSR) og generering af statiske sider har været afgørende for at forbedre hastigheden og SEO'en på mit projekt.
-  - **Hvorfor jeg valgte det:** Jeg sætter pris på, hvordan det gør mine sider hurtigere og bedre optimeret til søgemaskiner. De indbyggede funktioner til routing og API-håndtering gør også udviklingsprocessen meget mere effektiv.
+- **Frontend**
+<details>
+    <summary>Next.js</summary>
+    <p> 
+        - **Hvordan jeg bruger det:** Jeg bruger Next.js som fundamentet for mit frontend-arbejde. Dets evne til at håndtere server-side rendering (SSR) og generering af statiske sider har været afgørende for at forbedre hastigheden og SEO'en på mit projekt.
+    </p>
+    <p>  
+        - **Hvorfor jeg valgte det:** Jeg sætter pris på, hvordan det gør mine sider hurtigere og bedre optimeret til søgemaskiner. De indbyggede funktioner til routing og API-håndtering gør også udviklingsprocessen meget mere effektiv.
+    </p>
+</details>
 
 - **Tailwind CSS**
 
