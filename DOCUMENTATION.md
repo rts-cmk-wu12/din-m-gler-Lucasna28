@@ -154,18 +154,45 @@
 - **Mappe-struktur**  
   Jeg syntes, at **mappe-strukturen** blev lidt overskuelig til sidst, da der var så mange forskellige filer. Dette gjorde det svært at navigere i projektet, og det ville have været bedre at have en mere struktureret tilgang fra starten.
 
-## ⭐ Særlige Punkter til Bedømmelse
+# ⭐ Særlige Punkter til Bedømmelse
 
-1. **[Særligt punkt 1]**
+1. **Loading, Toast, Skeletons og Animationer**
 
-   - Beskrivelse af implementering
-   - Hvorfor det er særligt
+   - Jeg implementerede **skeletons** for at vise brugeren, at data blev hentet, hvilket forbedrede brugeroplevelsen under indlæsning. Se kode for skeleton-komponenten: [Skeleton Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/tree/main/src/components/skeletons).
+   - **Toasts** blev brugt til at give feedback til brugeren, hvilket gjorde applikationen mere interaktiv og brugervenlig. Se kode for toast-komponenten: [Toast Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/Toast.jsx).
+   - Jeg brugte **Framer Motion** til at tilføje animationer, hvilket gjorde applikationen mere dynamisk og engagerende for brugerne. Dette inkluderede:
+     - **Page Transition**: Se kode for page transition: [Page Transition](#page-transition)
+     - **App Section Animation**: Se kode for app section animation: [App Section Animation](#app-section-animation)
+   - **Hvorfor det er særligt:** Disse funktioner forbedrede ikke kun UX’en betydeligt, men gjorde også applikationen mere visuelt tiltalende og interaktiv.
 
-2. **[Særligt punkt 2]**
-   - Beskrivelse af implementering
-   - Hvorfor det er særligt
+2. **Styling i overensstemmelse med Figma Design**
+
+   - Jeg sørgede for, at stylingen af applikationen fulgte designet fra Figma, hvilket gav et professionelt og konsekvent udseende.
+   - Jeg brugte Tailwind CSS til hurtigt at implementere de nødvendige stylingregler og få det ønskede udseende.
+   - **Hvorfor det er særligt:** Dette sikrede, at designet blev implementeret præcist som foreskrevet, hvilket gav applikationen en flot og ensartet brugerflade.
+
+## Kode Links:
+
+### Skeleton Component
+
+- [Skeleton Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/tree/main/src/components/skeletons)
+  - Denne komponent bruges til at vise en placeholder under dataindlæsning, hvilket forbedrer brugeroplevelsen.
+
+### Toast Component
+
+- [Toast Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/Toast.jsx)
+  - Bruges til at vise feedback til brugeren for forskellige handlinger i applikationen.
+
+### Page Transition
+
+- [Page Transition](#https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/PageTransition.jsx)
+  - Anvender Framer Motion til at skabe glidende overgange mellem sider, hvilket gør brugeroplevelsen mere flydende.
+
+### App Section Animation
+
+- [App Section Animation](#https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/sections/AppSection.jsx)
+  - Anvender Framer Motion til at animere specifikke sektioner af appen, som f.eks. ved loading af indhold eller ændringer i appens tilstand.
 
 ## 📊 Projektstyring
 
 [Screenshots eller links til dit projektstyringsværktøj]
-[Se Button-komponenten](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/gallery/GalleryContent.jsx)
