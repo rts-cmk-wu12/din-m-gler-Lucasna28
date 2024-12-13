@@ -156,38 +156,25 @@
 
 # ⭐ Særlige Punkter til Bedømmelse
 
-1. **Loading, Toast, Skeletons og Animationer**
+1. **Toast**
 
-   - Jeg implementerede **skeletons** for at vise brugeren, at data blev hentet, hvilket forbedrede brugeroplevelsen under indlæsning. Se kode for skeleton-komponenten: [Skeleton Component](#skeleton-component).
-   - **Toasts** blev brugt til at give feedback til brugeren, hvilket gjorde applikationen mere interaktiv og brugervenlig. Se kode for toast-komponenten: [Toast Component](#toast-component).
-   - Jeg brugte **Framer Motion** til at tilføje animationer, hvilket gjorde applikationen mere dynamisk og engagerende for brugerne. Dette inkluderede:
-     - **Page Transition**: Se kode for page transition: [Page Transition](#page-transition)
-     - **App Section Animation**: Se kode for app section animation: [App Section Animation](#app-section-animation)
-   - **Hvorfor det er særligt:** Disse funktioner forbedrede ikke kun UX’en betydeligt, men gjorde også applikationen mere visuelt tiltalende og interaktiv.
+   - **Toasts** er en vigtig funktion i applikationen, der bruges til at give feedback til brugeren i realtid. Når brugeren udfører handlinger, såsom at indsende en formular, vises en toast-besked for at informere dem om resultatet af deres handling. Dette kan være i form af succesbeskeder, fejlmeddelelser eller information om status.
+
+   ### Hvordan det fungerer
+
+   Toasts implementeres ved hjælp af en kontekst, der gør det muligt for forskellige komponenter at tilføje og vise toast-beskeder uden at skulle passere props gennem flere niveauer af komponenter. Når en toast skal vises, kaldes `addToast`-metoden, som tilføjer en ny toast til en liste. Hver toast har et unikt ID, en besked og en type (f.eks. "success" eller "error").
+
+   Toasts vises i en fast position i brugergrænsefladen, så de er synlige for brugeren, og de fjernes automatisk efter en kort periode (2,5 sekund), medmindre brugeren lukker dem manuelt.
+
+   ### Fordele ved at bruge Toasts
+
+   - **Interaktivitet:** Toasts gør applikationen mere interaktiv ved at give brugeren øjeblikkelig feedback på deres handlinger.
+   - **Brugervenlighed:** De hjælper med at forbedre brugeroplevelsen ved at informere brugeren om, hvad der sker, hvilket reducerer forvirring og usikkerhed.
+   - **Visuel tiltrækning:** Toasts kan styles for at matche applikationens design, hvilket gør dem til en æstetisk del af brugergrænsefladen.
 
 ## Kode Links:
-
-### Skeleton Component
-
-- [Skeleton Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/tree/main/src/components/skeletons)
-  - Denne komponent bruges til at vise en placeholder under dataindlæsning, hvilket forbedrer brugeroplevelsen.
 
 ### Toast Component
 
 - [Toast Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/Toast.jsx)
   - Bruges til at vise feedback til brugeren for forskellige handlinger i applikationen.
-
-### Page Transition
-
-- [Page Transition](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/ui/PageTransition.jsx)
-  - Anvender Framer Motion til at skabe glidende overgange mellem sider, hvilket gør brugeroplevelsen mere flydende.
-
-### App Section Animation
-
-- [App Section Animation](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/sections/AppSection.jsx)
-  - Anvender Framer Motion til at animere specifikke sektioner af appen, som f.eks. ved loading af indhold eller ændringer i appens tilstand.
-
-### Google Maps Integration
-
-- [Google Maps Component](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/tree/main/src/components/map)
-  - Denne komponent integrerer Google Maps til at vise placeringer og ruter direkte i applikationen.
