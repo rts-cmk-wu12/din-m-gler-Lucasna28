@@ -89,27 +89,56 @@
 <details>
 <summary>Ændringer i Projektet</summary>
 <p>
-- **Søgefeltet:** Jeg har ændret søgefeltet, så knappen nu ligger inde i selve søgefeltet, og man kan vælge at søge mellem alle, kun mæglere eller kun boliger. Jeg syntes, at dette gav et bedre UX og så mere moderne ud.
+- **Søgefeltet:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Jeg har ændret søgefeltet, så knappen nu ligger inde i selve søgefeltet, og man kan vælge at søge mellem alle, kun mæglere eller kun boliger. Jeg syntes, at dette gav et bedre UX og så mere moderne ud.</p>
+  </details>
 </p>
 <p>
-- **Afmeld Nyhedsbrev-side:** Jeg har lavet en afmeld nyhedsbrev-side, så brugerne kan afmelde sig nyhedsbrevet. Tidligere gav projektet en 500-fejl, hvis man allerede var tilmeldt og prøvede igen. Da der ikke var et design eller layout til denne side, men API’et understøttede funktionen, valgte jeg at tilføje denne side.
+- **Afmeld Nyhedsbrev-side:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Jeg har lavet en afmeld nyhedsbrev-side, så brugerne kan afmelde sig nyhedsbrevet. Tidligere gav projektet en 500-fejl, hvis man allerede var tilmeldt og prøvede igen. Da der ikke var et design eller layout til denne side, men API’et understøttede funktionen, valgte jeg at tilføje denne side.</p>
+  </details>
 </p>
 <p>
-- **Toasts:** Jeg har implementeret en toast-komponent, der popper frem ved forskellige handlinger, som f.eks. ved formularindsendelser. Dette forbedrer brugeroplevelsen ved at give feedback i realtid.
+- **Toasts:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Jeg har implementeret en toast-komponent, der popper frem ved forskellige handlinger, som f.eks. ved formularindsendelser. Dette forbedrer brugeroplevelsen ved at give feedback i realtid.</p>
+  </details>
 </p>
 <p>
-- **Skeleton Loading:** Jeg har tilføjet skeletons for bedre visning under indlæsning. Dette giver brugeren en visuel indikator, mens data bliver hentet.
+- **Skeleton Loading:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Jeg har tilføjet skeletons for bedre visning under indlæsning. Dette giver brugeren en visuel indikator, mens data bliver hentet.</p>
+  </details>
 </p>
 <p>
-- **Footer på Error Page:** Jeg har ændret footeren på error-siden, da den oprindelige footer ikke passede sammen med resten af designet. Figma footer designet ødelagde det overordnede tema og konsistens.
+- **Footer på Error Page:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Jeg har ændret footeren på error-siden, da den oprindelige footer ikke passede sammen med resten af designet. Figma footer designet ødelagde det overordnede tema og konsistens.</p>
+  </details>
 </p>
 <p>
-- **Login og Register Hero:** På login- og registreringssiderne har jeg fjernet breadcrumbs fra hero-sektionen og beholdt kun titlen. Dette valg blev truffet for at sikre, at designet matcher de andre sider og virker mindre overfyldt.
+- **Login og Register Hero:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>På login- og registreringssiderne har jeg fjernet breadcrumbs fra hero-sektionen og beholdt kun titlen. Dette valg blev truffet for at sikre, at designet matcher de andre sider og virker mindre overfyldt.</p>
+  </details>
 </p>
 <p>
-- **Boligdetaljer - Slideshow:** På boligdetaljesiden har jeg lavet et slideshow med i alt 4 billeder fra huset. API’et gav adgang til flere billeder, men der var ikke noget design til dem. For at udnytte billederne på en brugervenlig måde valgte jeg at lave et simpelt slideshow.
+- **Boligdetaljer - Slideshow:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>På boligdetaljesiden har jeg lavet et slideshow med i alt 4 billeder fra huset. API’et gav adgang til flere billeder, men der var ikke noget design til dem. For at udnytte billederne på en brugervenlig måde valgte jeg at lave et simpelt slideshow.</p>
+  </details>
 </p>
 </details>
+
 ## 📈 Egen Indsats & Resultat
 
 ### Hvad gik godt
