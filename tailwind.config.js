@@ -46,12 +46,9 @@ module.exports = {
         },
         energyLabel: {
           A: "#00A650",
-          B: "#4CB848",
+          B: "#FDB913",
           C: "#F37021",
           D: "#ED1C24",
-          E: "#FDB913",
-          F: "#F37021",
-          G: "#ED1C24",
         },
       },
     },

@@ -7,12 +7,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toggleFavorite } from "@/actions/favorites";
-import { getEnergyLabelColor } from "@/utils/getEnergyLabelColor";
 
 export default function PropertyCard({ property, index, initialFavorites = [], onToast }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+
+  const getEnergyLabelColor = (label) => {
+    const colors = {
+      A: "bg-energyLabel-A text-white",
+      B: "bg-energyLabel-B text-white",
+      C: "bg-energyLabel-C text-white",
+      D: "bg-energyLabel-D text-white",
+      E: "bg-energyLabel-E text-gray-800",
+      F: "bg-energyLabel-F text-white",
+      G: "bg-energyLabel-G text-white",
+    };
+    return colors[label] || "bg-gray-200 text-gray-800";
+  };
   
   useEffect(() => {
     setIsFavorite(initialFavorites.includes(property.id));

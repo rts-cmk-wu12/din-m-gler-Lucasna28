@@ -3,12 +3,21 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { fetchPropertyById } from '@/utils/fetch/propertyService'
 import FavoritsCardSkeleton from '../skeletons/FavoritsCardSkeleton'
-import { getEnergyLabelColor } from '@/utils/getEnergyLabelColor'
 
 export default function FavoritsCard({ propertyId, onRemove }) {
   const [property, setProperty] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const getEnergyLabelColor = (label) => {
+    const colors = {
+      A: "bg-energyLabel-A text-white",
+      B: "bg-energyLabel-B text-white",
+      C: "bg-energyLabel-C text-white",
+      D: "bg-energyLabel-D text-white",
+    };
+    return colors[label] || "bg-gray-200 text-gray-800";
+  };
 
   useEffect(() => {
     const fetchProperty = async () => {

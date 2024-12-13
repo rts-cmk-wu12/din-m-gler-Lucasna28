@@ -12,6 +12,7 @@ import AgentCard from '@/components/cards/AgentCard'
 import ImageGallery from '@/components/gallery/ImageGallery'
 import { useRouter } from 'next/navigation'
 import { toggleFavorite } from '@/actions/favorites'
+import PropertySkeleton from '@/components/skeletons/PropertySkeleton'
 
 export default function PropertyListing() {
   const { id } = useParams()
@@ -72,7 +73,10 @@ export default function PropertyListing() {
     }
   };
 
-  if (isLoading) return <TeamCardSkeleton />
+  if (isLoading) return <>
+    <PropertySkeleton />
+    <TeamCardSkeleton />
+  </> 
   if (error) return <div className="container mx-auto px-4 py-8">Fejl: {error}</div>
   if (!property) return <div className="container mx-auto px-4 py-8">Boligen blev ikke fundet.</div>
 
@@ -89,7 +93,6 @@ export default function PropertyListing() {
           setActiveView={setActiveView}
         />
       </motion.div>
-      
       <motion.div 
         initial={{ opacity: 0, y: 20}}
         animate={{ opacity: 1, y: 0}}
