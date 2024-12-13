@@ -76,7 +76,6 @@ export default function FeaturedProperties() {
               type={toast.type}
               isVisible={toast.show}
               onClose={() => setToast({ ...toast, show: false })}
-              onToast={handleToast}
             />
           )}
         </AnimatePresence>
