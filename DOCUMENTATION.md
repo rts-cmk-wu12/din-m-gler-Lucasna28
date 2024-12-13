@@ -131,48 +131,28 @@
   </details>
 </p>
 
-## 📈 Egen Indsats & Resultat
+# 📈 Egen Indsats & Resultat
 
-<details>
-<summary>Forbedringer af UX</summary>
-<p>
-- **Loading-oplevelse:** 
-  <details>
-    <summary>Detaljer</summary>
-    <p>Jeg blev særligt tilfreds med, hvordan loading-oplevelsen blev forbedret ved at tilføje skeletons. Det gav brugerne en bedre fornemmelse af, at data var ved at blive hentet.</p>
-  </details>
-</p>
-<p>
-- **Toasts:** 
-  <details>
-    <summary>Detaljer</summary>
-    <p>Toasts blev implementeret effektivt og gjorde applikationen mere brugervenlig ved at give tydelig og direkte feedback på handlinger.</p>
-  </details>
-</p>
-<p>
-- **Animationer:** 
-  <details>
-    <summary>Detaljer</summary>
-    <p>Animationer tilføjet med Framer Motion gjorde applikationen mere dynamisk og engagerende, hvilket forbedrede den overordnede brugeroplevelse.</p>
-  </details>
-</p>
-</details>
+## Hvad gik godt
 
-## ⭐ Særlige Punkter til Bedømmelse
+- Jeg blev særligt tilfreds med, hvordan **loading-oplevelsen** blev forbedret ved at tilføje **skeletons**. Det gav brugerne en bedre fornemmelse af, at data var ved at blive hentet.
+- **Toasts** blev implementeret effektivt og gjorde applikationen mere brugervenlig ved at give tydelig og direkte feedback på handlinger.
+- **Animationer** tilføjet med Framer Motion gjorde applikationen mere dynamisk og engagerende.
+- Jeg lærte en masse om **Framer Motion** og blev bedre til at forstå og anvende det til at skabe flydende og naturlige animationer.
+- Jeg er meget tilfreds med, **stylingen** og, at det ligner Figma-designet næsten 1-1.
 
-1. **[Særligt punkt 1]**
-   <details>
-   <summary>Detaljer</summary>
-   <p>Beskrivelse af implementering</p>
-   <p>Hvorfor det er særligt</p>
-   </details>
+## Udfordringer
 
-2. **[Særligt punkt 2]**
-   <details>
-   <summary>Detaljer</summary>
-   <p>Beskrivelse af implementering</p>
-   <p>Hvorfor det er særligt</p>
-   </details>
+- **Google Maps Integration**  
+  Det var udfordrende at få Google Maps integreret korrekt, da API-dokumentationen ikke var helt intuitiv. Jeg løste det ved at dykke ned i dokumentationen, finde eksempler, og teste små dele af integrationen ad gangen men brugte en del tid på at få det korrekt sat ind.
+- **Favoritfunktionalitet**  
+  At få favoritfunktionen til at fungere korrekt med API’et krævede ekstra arbejde. og brugte en del hjælp fra forskellige ai´s til at forstå det og få det til at virke
+- **Brug af AI**  
+  Jeg føler, at jeg brugte lidt for meget hjælp fra AI til nogle af funktionerne, hvilket resulterede i, at nogle dele af koden blev lidt ulæselige. Hvis jeg kunne lave projektet igen, ville jeg undgå at bruge så meget AI til koden for at få bedre kontrol og forståelse af, hvordan funktionerne fungerer.
+- **Tidspres på grund af sygdom**  
+  Jeg var syg i starten af projektet, og det gjorde, at jeg følte mig lidt presset i starten, og ikke fik en introduktion til projektet så jeg var lidt for hurtig i starten til bare at gå til ai for at få det til at virke.
+- **Mappe-struktur**  
+  Jeg syntes, at **mappe-strukturen** blev lidt overskuelig til sidst, da der var så mange forskellige filer. Dette gjorde det svært at navigere i projektet, og det ville have været bedre at have en mere struktureret tilgang fra starten.
 
 ## ⭐ Særlige Punkter til Bedømmelse
 
@@ -188,3 +168,4 @@
 ## 📊 Projektstyring
 
 [Screenshots eller links til dit projektstyringsværktøj]
+[Se Button-komponenten](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28/blob/main/src/components/gallery/GalleryContent.jsx)
