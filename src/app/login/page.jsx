@@ -153,6 +153,10 @@ export default function LoginPage() {
             <button type="button" className="bg-primary-facebook text-white p-3 w-1/3 mx-4">Facebook</button>
             <button type="button" className="bg-primary-color01 text-white p-3 w-1/3">Twitter</button>
           </div>
+
+          <p className="text-center mt-4">
+            Har du ikke en konto? <Link className="text-blue-400" href="/register">opret bruger</Link>
+          </p>
         </form>
         {toast.show && (
             <Toast
