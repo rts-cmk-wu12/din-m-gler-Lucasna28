@@ -4,11 +4,11 @@
 
 - **Udvikler:** [Lucas N. Anderson]
 - **Hold:** [WU11]
-- **Projektperiode:** [Start dato - Slut dato]
+- **Projektperiode:** [18/11/2024 - 13/12/2024]
 
 ## 🔗 Links
 
-- **GitHub Repository:** [Link]()
+- **GitHub Repository:** [Link](https://github.com/rts-cmk-wu12/din-m-gler-Lucasna28)
 - **Vercel URL:** [[Link](https://din-meagler.vercel.app/)]
 
 ## 🔑 Login Credentials
@@ -18,7 +18,6 @@
 
 ## 💻 Tech Stack
 
-- _Frontend_
 <details>
 <summary>Next.js</summary>
 <p>
@@ -76,9 +75,14 @@
 
 ## 📦 Tredjepartskode
 
-- **Pakke/Library:** [Navn]
-  - **Anvendelse:** [Beskrivelse af hvordan og hvorfor]
-  - **Kilde:** [Link til package]
+1. **Framer Motion**
+
+   - **Anvendelse:** Bruges til at tilføje animationer og overgange i applikationen, hvilket forbedrer brugeroplevelsen.
+   - **Kilde:** [Framer Motion](https://www.framer.com/motion/)
+
+2. **Google Maps**
+   - **Anvendelse:** Integreres via en iframe for at vise kort og placeringer i applikationen.
+   - **Kilde:** [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/start)
 
 ## 🛠 Valg & Argumentation
 
