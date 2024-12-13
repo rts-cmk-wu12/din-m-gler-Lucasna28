@@ -8,7 +8,7 @@ Kort projektbeskrivelse her...
 
 ## 📝 Dokumentation
 
-Se den fulde projektdokumentation her: [Dokumentation](DOC.md)
+Se den fulde projektdokumentation her: [Dokumentation](DOC.MD)
 
 ## 🚀 Live Demo
 

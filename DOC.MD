@@ -2,7 +2,7 @@
 
 ## Projektinformation
 
-- **Udvikler:** [Dit navn]
+- **Udvikler:** [Lucas N. Anderson]
 - **Hold:** [Dit holdnummer]
 - **Projektperiode:** [Start dato - Slut dato]
 
