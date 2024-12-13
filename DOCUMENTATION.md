@@ -156,83 +156,21 @@
 
 # ⭐ Særlige Punkter til Bedømmelse
 
-1.  **Toast**
+1. **Toast**
 
-    - **Toasts** er en vigtig funktion i applikationen, der bruges til at give feedback til brugeren i realtid. Når brugeren udfører handlinger, såsom at indsende en formular, vises en toast-besked for at informere dem om resultatet af deres handling. Dette kan være i form af succesbeskeder, fejlmeddelelser eller information om status.
+   - **Toasts** er en vigtig funktion i applikationen, der bruges til at give feedback til brugeren i realtid. Når brugeren udfører handlinger, såsom at indsende en formular, vises en toast-besked for at informere dem om resultatet af deres handling. Dette kan være i form af succesbeskeder, fejlmeddelelser eller information om status.
 
-    ### Hvordan det fungerer
+   ### Hvordan det fungerer
 
-    Toasts implementeres ved hjælp af en kontekst, der gør det muligt for forskellige komponenter at tilføje og vise toast-beskeder uden at skulle passere props gennem flere niveauer af komponenter. Når en toast skal vises, kaldes `addToast`-metoden, som tilføjer en ny toast til en liste. Hver toast har et unikt ID, en besked og en type (f.eks. "success" eller "error").
+   Toasts implementeres ved hjælp af en kontekst, der gør det muligt for forskellige komponenter at tilføje og vise toast-beskeder uden at skulle passere props gennem flere niveauer af komponenter. Når en toast skal vises, kaldes `addToast`-metoden, som tilføjer en ny toast til en liste. Hver toast har et unikt ID, en besked og en type (f.eks. "success" eller "error").
 
-        ´´´json
-            "use client"
+   Toasts vises i en fast position på skærmen, så de er synlige for brugeren, og de fjernes automatisk efter en kort periode (2,5 sekund), medmindre brugeren lukker dem manuelt.
 
-    import React, { createContext, useContext, useState } from "react";
-    import { Toast } from "@/components/ui/Toast";
+   ### Fordele ved at bruge Toasts
 
-// Unik ID-generator
-const generateUniqueId = () => {
-return (
-Math.random().toString(36).substring(2, 15) +
-Math.random().toString(36).substring(2, 15)
-);
-};
-
-// Opret Context
-const ToastContext = createContext();
-
-export const ToastProvider = ({ children }) => {
-const [toasts, setToasts] = useState([]);
-
-const addToast = (message, type = "success") => {
-const id = generateUniqueId();
-setToasts((prev) => [...prev, { id, message, type }]);
-
-    // Fjern toast automatisk efter 5 sekunder
-    setTimeout(() => removeToast(id), 5000);
-
-};
-
-const removeToast = (id) => {
-setToasts((prev) => prev.filter((toast) => toast.id !== id));
-};
-
-return (
-<ToastContext.Provider value={{ addToast }}>
-{children}
-{/_ Toast-container _/}
-
-<div className="fixed bottom-4 right-4 z-50 space-y-2">
-{toasts.map((toast) => (
-<Toast
-key={toast.id}
-message={toast.message}
-type={toast.type}
-isVisible={true}
-onClose={() => removeToast(toast.id)}
-/>
-))}
-</div>
-</ToastContext.Provider>
-);
-};
-
-// Custom hook til at bruge toasts
-export const useToast = () => {
-const context = useContext(ToastContext);
-if (!context) {
-throw new Error("useToast must be used within a ToastProvider");
-}
-return context;
-};
-´´´
-Toasts vises i en fast position på skærmen, så de er synlige for brugeren, og de fjernes automatisk efter en kort periode (2,5 sekund), medmindre brugeren lukker dem manuelt.
-
-### Fordele ved at bruge Toasts
-
-- **Interaktivitet:** Toasts gør applikationen mere interaktiv ved at give brugeren øjeblikkelig feedback på deres handlinger.
-- **Brugervenlighed:** De hjælper med at forbedre brugeroplevelsen ved at informere brugeren om, hvad der sker, hvilket reducerer forvirring og usikkerhed.
-- **Visuel tiltrækning:** Toasts kan styles for at matche applikationens design, hvilket gør dem til en æstetisk del af brugergrænsefladen.
+   - **Interaktivitet:** Toasts gør applikationen mere interaktiv ved at give brugeren øjeblikkelig feedback på deres handlinger.
+   - **Brugervenlighed:** De hjælper med at forbedre brugeroplevelsen ved at informere brugeren om, hvad der sker, hvilket reducerer forvirring og usikkerhed.
+   - **Visuel tiltrækning:** Toasts kan styles for at matche applikationens design, hvilket gør dem til en æstetisk del af brugergrænsefladen.
 
 ## Kode Links:
 
