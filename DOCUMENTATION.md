@@ -78,11 +78,11 @@
 1. **Framer Motion**
 
    - **Anvendelse:** Bruges til at tilføje animationer og overgange i applikationen, hvilket forbedrer brugeroplevelsen.
-   - **Kilde:** [Motion](https://www.framer.com/motion/){:target="\_blank"}
+   - **Kilde:** [Motion](https://www.framer.com/motion/{:target="_blank"})
 
 2. **Google Maps**
    - **Anvendelse:** Integreres via en iframe for at vise kort og placeringer i applikationen.
-   - **Kilde:** [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/start){:target="\_blank"}
+   - **Kilde:** [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/start)
 
 # 🛠 Valg & Argumentation
 
@@ -105,7 +105,7 @@ Her beskriver jeg de vigtige valg, jeg har truffet i projektet, og hvorfor:
   Jeg har tilføjet skeletons for bedre visning under indlæsning. Dette giver brugeren en visuel indikator, mens data bliver hentet.
 
 - **Footer på Error Page**  
-  Jeg har ændret footeren på error-siden, da den oprindelige footer ikke passede sammen med resten af designet. Det gamle design ødelagde det overordnede tema og konsistens.
+  Jeg har ændret footeren på error-siden, da den oprindelige footer ikke passede sammen med resten af designet. Figma footer designet ødelagde det overordnede tema og konsistens .
 
 - **Login og Register Hero**  
   På login- og registreringssiderne har jeg fjernet breadcrumbs fra hero-sektionen og beholdt kun titlen. Dette valg blev truffet for at sikre, at designet matcher de andre sider og virker mindre overfyldt.
