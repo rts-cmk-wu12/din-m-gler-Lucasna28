@@ -86,8 +86,8 @@
 
 ## 💻 Ændringer og Begrundelser
 
-<details>
-<summary>Ændringer i Projektet</summary>
+Ændringer i Projektet
+
 <p>
   <details>
     <summary>Søgefeltet</summary>
@@ -130,19 +130,49 @@
     <p>På boligdetaljesiden har jeg lavet et slideshow med i alt 4 billeder fra huset. API’et gav adgang til flere billeder, men der var ikke noget design til dem. For at udnytte billederne på en brugervenlig måde valgte jeg at lave et simpelt slideshow.</p>
   </details>
 </p>
-</details>
 
 ## 📈 Egen Indsats & Resultat
 
-### Hvad gik godt
+<details>
+<summary>Forbedringer af UX</summary>
+<p>
+- **Loading-oplevelse:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Jeg blev særligt tilfreds med, hvordan loading-oplevelsen blev forbedret ved at tilføje skeletons. Det gav brugerne en bedre fornemmelse af, at data var ved at blive hentet.</p>
+  </details>
+</p>
+<p>
+- **Toasts:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Toasts blev implementeret effektivt og gjorde applikationen mere brugervenlig ved at give tydelig og direkte feedback på handlinger.</p>
+  </details>
+</p>
+<p>
+- **Animationer:** 
+  <details>
+    <summary>Detaljer</summary>
+    <p>Animationer tilføjet med Framer Motion gjorde applikationen mere dynamisk og engagerende, hvilket forbedrede den overordnede brugeroplevelse.</p>
+  </details>
+</p>
+</details>
 
-- Point 1
-- Point 2
+## ⭐ Særlige Punkter til Bedømmelse
 
-### Udfordringer
+1. **[Særligt punkt 1]**
+   <details>
+   <summary>Detaljer</summary>
+   <p>Beskrivelse af implementering</p>
+   <p>Hvorfor det er særligt</p>
+   </details>
 
-- Udfordring 1 og hvordan den blev løst
-- Udfordring 2 og hvordan den blev løst
+2. **[Særligt punkt 2]**
+   <details>
+   <summary>Detaljer</summary>
+   <p>Beskrivelse af implementering</p>
+   <p>Hvorfor det er særligt</p>
+   </details>
 
 ## ⭐ Særlige Punkter til Bedømmelse
 
