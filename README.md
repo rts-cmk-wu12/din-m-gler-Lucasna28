@@ -8,11 +8,11 @@ Kort projektbeskrivelse her...
 
 ## 📝 Dokumentation
 
-Se den fulde projektdokumentation her: [Dokumentation](DOCUMENTATION.md)
+Se den fulde projektdokumentation her: [Dokumentation](DOC.md)
 
 ## 🚀 Live Demo
 
-[Se projektet live her](din-netlify-url)
+- **Vercel URL:** [[Link](https://din-meagler.vercel.app/)]
 
 ## ⚙️ Installation & Setup
 

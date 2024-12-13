@@ -8,8 +8,8 @@
 
 ## 🔗 Links
 
-- **GitHub Repository:** [Link]
-- **Netlify URL:** [[Link](https://din-meagler.vercel.app/)]
+- **GitHub Repository:** [Link]()
+- **Vercel URL:** [[Link](https://din-meagler.vercel.app/)]
 
 ## 🔑 Login Credentials
 
