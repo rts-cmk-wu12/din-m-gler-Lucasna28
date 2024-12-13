@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Mail, Phone, User } from "lucide-react";
 import LogoutButton from "../ui/LogoutButton";
 import getUser from "@/utils/getUser";
+import Image from "next/image";
 
 
 export default async function Header() {
@@ -51,7 +52,7 @@ export default async function Header() {
       <nav className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-[#162A41]">
-            <img
+            <Image
               src="/dinmeagler.svg"
               alt="DIN MÆGLER"
               width={120}

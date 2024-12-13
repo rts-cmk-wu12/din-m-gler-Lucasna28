@@ -62,14 +62,14 @@ export default function AboutSection() {
 
             <div className="grid grid-cols-2 gap-4 py-4">
               <div className="flex items-center gap-2">
-                <img src="/house1.svg" alt="boliger solgt" className="bg-shape-shape02 p-4" /> 
+                <Image src="/house1.svg" alt="boliger solgt" className="bg-shape-shape02 p-4" /> 
                 <div>
                   <div className="font-bold text-2xl">4829</div>
                   <div className="text-paragraph-para02">boliger solgt</div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <img src="/home1.svg" alt="boliger til salg" className="bg-shape-shape02 p-4"/>
+                <Image src="/home1.svg" alt="boliger til salg" className="bg-shape-shape02 p-4"/>
                 <div>
                   <div className="font-bold text-2xl">158</div>
                   <div className="text-paragraph-para02">boliger til salg</div>
@@ -83,7 +83,7 @@ export default function AboutSection() {
       <hr className="my-8" />
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
             <li className="space-y-2 flex">
-                <img src="/property1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for property text"/>
+                <Image src="/property1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for property text"/>
                 <div className="flex flex-col w-48 h-full">
 
                 <h3 className="font-semibold text-lg text-heading-head02">Bestil et salgstjek</h3>
@@ -93,7 +93,7 @@ export default function AboutSection() {
                 </div>
             </li>
             <li className="space-y-2 flex">
-                <img src="/maps-and-flags1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for maps and flags text"/>
+                <Image src="/maps-and-flags1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for maps and flags text"/>
                 <div className="flex flex-col w-48 h-full"> 
                   <h3 className="font-semibold text-lg text-heading-head02">74 butikker</h3>
                   <p className="text-base text-paragraph-para02 my-4">
@@ -102,7 +102,7 @@ export default function AboutSection() {
                 </div>
             </li>
             <li className="space-y-2 flex">
-                <img src="/customer1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for customer text"/> 
+                <Image src="/customer1.svg" className="bg-shape-shape02 p-4 size-16 mr-4" alt="icon image for customer text"/> 
                 <div className="flex flex-col w-48 h-full">
                   <h3 className="font-semibold text-heading-head02">Tilmeld køberkartotek</h3>
                   <p className="text-base text-paragraph-para02 my-4">
